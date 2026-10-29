@@ -13,9 +13,10 @@ interface Props {
   onEdit: () => void;
   onDelete: () => void;
   onToggleFavorite: () => void;
+  onRecordCopy: () => Promise<void>;
 }
 
-export function SnippetDetailViewer({ snippet: s, onClose, onEdit, onDelete, onToggleFavorite }: Props) {
+export function SnippetDetailViewer({ snippet: s, onClose, onEdit, onDelete, onToggleFavorite, onRecordCopy }: Props) {
   const { copied, copy } = useCopy();
   return (
     <Dialog open={!!s} onOpenChange={(o) => !o && onClose()}>
@@ -38,7 +39,7 @@ export function SnippetDetailViewer({ snippet: s, onClose, onEdit, onDelete, onT
             <CodePreview code={s.code} language={s.language} className="max-h-[50vh] overflow-auto" />
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-xs text-muted-foreground">
-                Created {formatDate(s.createdAt)} · Updated {formatDate(s.updatedAt)}
+                Created {formatDate(s.createdAt)} · Updated {formatDate(s.updatedAt)} · Copied {s.copyCount ?? 0} {(s.copyCount ?? 0) === 1 ? "time" : "times"}{s.lastCopiedAt ? ` · Last copied ${formatDate(s.lastCopiedAt)}` : ""}
               </p>
               <div className="flex flex-wrap gap-2">
                 <Button variant="ghost" size="sm" onClick={onToggleFavorite} aria-pressed={s.isFavorite}>
@@ -49,7 +50,7 @@ export function SnippetDetailViewer({ snippet: s, onClose, onEdit, onDelete, onT
                   <Trash2 className="h-4 w-4" />Delete
                 </Button>
                 <Button variant="secondary" size="sm" onClick={onEdit}><Pencil className="h-4 w-4" />Edit</Button>
-                <Button size="sm" onClick={() => copy(s.code)}>
+                <Button size="sm" onClick={async () => { if (await copy(s.code)) { onRecordCopy().catch(() => undefined); } }}>
                   {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}{copied ? "Copied!" : "Copy code"}
                 </Button>
               </div>
