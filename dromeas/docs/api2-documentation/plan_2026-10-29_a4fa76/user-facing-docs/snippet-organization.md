@@ -119,7 +119,7 @@ You can add or remove a snippet from favorites in three places:
 - The **Favorite** button inside the snippet detail window
 - The **Mark as favorite** switch on the new/edit snippet form
 
-A filled star indicates a snippet is already a favorite.
+A gold-filled star indicates a snippet is already a favorite.
 
 ### The favorites section
 
@@ -167,20 +167,19 @@ Figure: Sidebar navigation structure
 
 ```mermaid
 graph TD
-    A[Sidebar] --> B[Main navigation]
-    A --> C[Categories group]
-    A --> D[Languages group]
-    B --> B1[Dashboard]
-    B --> B2[All Snippets]
-    B --> B3[Favorites]
-    B --> B4[Recently Added]
-    B --> B5[Recently Used]
-    C --> C1["Category A (count)"]
-    C --> C2["Category B (count)"]
-    D --> D1[JavaScript]
-    D --> D2[Python]
-    D --> D3[SQL]
-    D --> D4[Markdown]
+    A[Sidebar] --> B[Dashboard]
+    A --> C[All Snippets]
+    A --> D[Favorites]
+    A --> E[Recently Added]
+    A --> F[Recently Used]
+    A --> G[Categories]
+    A --> H[Languages]
+    G --> G1["Category A (count)"]
+    G --> G2["Category B (count)"]
+    H --> H1[JavaScript]
+    H --> H2[Python]
+    H --> H3[SQL]
+    H --> H4[Markdown]
 ```
 
 ### Main navigation
@@ -199,4 +198,45 @@ Below the main navigation are two groups: **Categories** and **Languages**. Cate
 
 ### Mobile navigation
 
-On
+On smaller screens, the sidebar collapses into a hamburger menu. Selecting any navigation item—a section, category, or language—closes the mobile sidebar automatically and returns you to the content.
+
+### Quick actions
+
+The sidebar footer includes a **New Snippet** button and a **Settings** button. The settings area also confirms that your snippets are **Saved on this device**, so nothing is uploaded to a server—your organization data stays in your browser.
+
+**Related:** [Dashboard](doc:73800e45-b85d-4bd0-9a64-7620aa9bdf7e) and [Navigation and Layout Modes](doc:971aeb74-0ca3-46ee-9e46-5b25c15adc24)
+
+---
+
+## Filtering by organization
+
+The search and filter bar, visible above the snippet list, mirrors the sidebar's organizational structure. You can narrow your library using:
+
+- **Search**, free-text matching across title, description, tags, and code
+- **Language**, a dropdown with all four languages
+- **Category**, a dropdown listing every category in your library
+- **Tag**, a dropdown listing every tag, each prefixed with`#`
+- **Sort**, **Recently Added**, **Oldest First**, or **A–Z**
+
+When you have active filters, a **Clear Filters** button appears. Selecting a category or language from the sidebar applies the same narrowing as the dropdowns, so both paths are equivalent.
+
+**Related:** [Search and Filtering](doc:d4db354c-9033-416f-babe-aaab07cc3975)
+
+---
+
+## Boundaries and current limits
+
+Snippet Organization is intentionally straightforward, which keeps it fast to use but means certain features aren't available:
+
+- **Categories and tags are flat.** There are no nested or hierarchical structures. You can't create a category inside another category or a tag that sits under another tag.
+- **No smart auto-tagging.** Tags are only created when you type them. The application never analyzes your code to suggest or apply tags automatically.
+- **Favorites and usage are manually controlled.** Nothing is favorited automatically, and the recently used list is based purely on your copy actions, not inferred relevance.
+- **Sidebar is read-only.** You can navigate and filter from the sidebar, but you can't rename a category, edit a tag, or modify any snippet directly from it. Changes are made through the snippet form.
+
+These boundaries keep the system predictable: what you see in the sidebar and filters is exactly what you and your library contain.
+
+**Related:**
+
+- [Product Overview and Key Concepts](doc:3a2f38ea-1eb7-45d0-91ef-d101d4eb349c)
+- [Quick Start Guide](doc:27bdcaf5-0df9-412f-9cd1-5eaf702b8d97)
+- [Code Preview and Highlighting](doc:1af35ce8-def3-409e-a761-91543f16f3d9)

@@ -17,7 +17,7 @@ With snippet management you can:
 - **Track usage** through copy counts and last-copied dates that appear on cards, in the detail viewer, and in the Recently Used view.
 - **Filter and sort** your library by text, language, category, tag, and date.
 
-The application brings all your saved snippets into one library, visible from the [Dashboard](doc:73800e45-b85d-4bd0-9a64-7620aa9bdf7e) and other views. From there you can open the code editor to write or adjust a snippet, with syntax highlighting applied as you type.
+The application keeps your snippets in one central place: the Dashboard. From there you can open the code editor to write or adjust a snippet, with syntax highlighting applied as you type.
 
 ## Who snippet management is for
 
@@ -47,21 +47,19 @@ stateDiagram-v2
     Deleted --> [*]
 ```
 
-When you save a snippet, the application stores it in your browser and it appears in your library.
+When you save a snippet, the application stores it locally in your browser, and it appears on the Dashboard and in the All Snippets view.
 
 Figure: Saving a new snippet
 
 ```mermaid
 graph LR
     A[Click New Snippet] --> B[Enter title]
-    B --> C["Optional: add description"]
+    B --> C[Write or paste code]
     C --> D[Choose language]
     D --> E[Pick or create category]
-    E --> F["Optional: add tags"]
-    F --> G[Write or paste code]
-    G --> H["Optional: mark favorite"]
-    H --> I[Save Snippet]
-    I --> J[Snippet appears in your library]
+    E --> F["Optional: add tags and mark favorite"]
+    F --> G[Save Snippet]
+    G --> H[Snippet appears on Dashboard]
 ```
 
 ## Snippet options
@@ -84,24 +82,13 @@ For a closer look at what each metadata field means, see [Understanding Snippet 
 
 ## Copying and usage history
 
-Every snippet card includes a **Copy** button, and the detail viewer includes a **Copy code** button. When a copy succeeds, the application records that the copy happened.
+Every snippet card includes a **Copy** button, and the detail viewer includes a **Copy code** button. When you copy a snippet, the application records that the copy happened.
 
 After a snippet has been copied at least once:
 
-- The snippet card shows a persistent line such as **Copied 2 times**. The card button also briefly changes its label to **Copied!** immediately after a successful copy.
+- The snippet card shows **Copied** followed by the total number of copies.
 - The detail viewer shows the total number of copies and the date it was last copied.
 - The **Recently Used** view lists copied snippets with the most recently copied first.
-
-Figure: Copying a snippet and recording usage
-
-```mermaid
-graph LR
-    A[Click Copy or Copy code] --> B[Code is placed on your clipboard]
-    B --> C[Copy is recorded]
-    C --> D[Card shows copy count]
-    C --> E[Detail viewer shows last-copied date]
-    C --> F[Recently Used updates]
-```
 
 ## Organizing and finding snippets
 
@@ -119,13 +106,11 @@ You can also switch between a grid layout and a list layout. Your layout prefere
 
 ## Storage and availability
 
-By default, snippets are saved in browser storage on the device where you create them. This means:
+By default, snippets are saved in **browser storage** on the device where you create them. This means:
 
 - Your snippets remain available when you close and reopen the application on the same browser.
 - They are tied to the same browser and device.
 - They are not automatically synced to another computer or browser.
-
-If your library is still loading, you see placeholder cards. If the application cannot load your snippets, a message appears with an option to try again.
 
 You can export your library as a JSON backup and import it on another device from the settings dialog. For more on moving your data, see [Import and Export](doc:1e956dfa-9562-4730-ba21-e1a0b0316b86).
 
@@ -140,7 +125,7 @@ You can export your library as a JSON backup and import it on another device fro
 
 ## Limitations
 
-- **Browser storage capacity**, browser storage can fill up over time. How much you can store depends on the limits of your browser and device.
+- **Browser storage capacity**, local browser storage has a limited size, typically a few megabytes depending on your browser. Very large snippets or many stored snippets can eventually fill it.
 - **Local-only storage by default**, snippets are stored on the current device and browser. They are not available on other devices unless you export and import them yourself.
 - **No built-in cloud sync**, the current storage does not synchronize snippets across devices or team members automatically.
 - **Single-user workspace**, the workspace is designed for one user on one device at a time. There is no collaborative editing or shared team library.

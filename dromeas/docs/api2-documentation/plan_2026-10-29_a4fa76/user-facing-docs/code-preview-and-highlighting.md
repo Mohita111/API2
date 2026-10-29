@@ -16,8 +16,6 @@ Code Preview and Highlighting is present in three places:
 - **Detail view**, the full, scrollable code shown in a larger dialog
 - **Editor**, live, real-time highlighting as you type or paste code into the snippet form
 
-Figure: Where code highlighting appears
-
 ```mermaid
 graph LR
     A[Save or create a snippet] --> B[Snippet card preview]
@@ -25,6 +23,8 @@ graph LR
     C --> D[Detail view with full code]
     A --> E[Editor with live highlighting]
 ```
+
+Figure: Where code highlighting appears
 
 ## Syntax colors
 
@@ -42,11 +42,9 @@ Each language uses a consistent set of colors so that the same kind of code elem
 
 Support for these colors depends on the language of the snippet. Code written in **JavaScript**, **Python**, **SQL**, or **Markdown** is highlighted. Markdown includes additional visual cues such as headings in bold, bold text, and underlined links, so reading documentation-style snippets is also easier.
 
-Figure: How code is broken into colored parts
-
 ```mermaid
 graph LR
-    A[Your code] --> B[Language detection]
+    A[Raw code] --> B[Language-aware tokenizer]
     B --> C1[Keywords]
     B --> C2[Strings]
     B --> C3[Comments]
@@ -60,6 +58,8 @@ graph LR
     C5 --> D
     C6 --> D
 ```
+
+Figure: How code is broken into colored parts
 
 ## Line numbers
 
@@ -76,8 +76,6 @@ To keep snippet cards from becoming too large, each card shows only the first se
 
 If a snippet is longer than the limit, a subtle fade appears at the bottom of the preview along with a **+N more lines** indicator, where N is the number of hidden lines. Opening the snippet shows the complete code.
 
-Figure: Truncation flow for snippet previews
-
 ```mermaid
 stateDiagram-v2
     [*] --> FullCode
@@ -86,6 +84,8 @@ stateDiagram-v2
     Preview --> FullCode: Code fits
     Truncated --> FullCode: Open snippet detail
 ```
+
+Figure: Truncation flow for snippet previews
 
 ## Full code in the detail view
 
@@ -113,7 +113,7 @@ The color each snippet receives depends on the language selected when it was cre
 - **Highlighting is pattern-based, not a full language parser.** In unusual or complex code, occasional elements may not be colored exactly as a dedicated language tool would color them. Basic code structures are covered reliably.
 - **No copy from the preview area itself.** The highlighted preview is read-only. To copy code, use the **Copy** or **Copy code** button on the card or in the detail view.
 - **No click-to-edit from the preview.** You can't select or edit directly inside the preview block. Use the **Edit** button on the card or in the detail view to open the editor.
-- **Line numbers are always visible in the current app.** There is no user-facing setting to hide them. The display component itself supports turning them off, but CodeKnit does not expose that control to end users.
+- **Line numbers cannot be hidden by end users.** They are always displayed in the current app, although the underlying display component supports turning them off for other contexts.
 
 ## Related
 

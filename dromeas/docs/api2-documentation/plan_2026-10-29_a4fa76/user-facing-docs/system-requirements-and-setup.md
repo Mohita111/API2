@@ -33,12 +33,10 @@ After the initial setup, the following commands are available from the project f
 |---|---|
 |`npm run dev` | Starts the local development server |
 |`npm run build` | Creates a production-ready build of the app |
-|`npm run build:dev` | Creates a development-mode build |
 |`npm run preview` | Lets you preview the production build locally |
 |`npm run lint` | Checks the project for potential code quality issues |
 |`npm run format` | Formats the project files according to style rules |
 |`npm run test` | Runs the automated test suite |
-|`npm run test:watch` | Runs the automated test suite and watches for changes |
 
 To create a production build, stop the development server if it is still running, then run:
 
@@ -63,5 +61,6 @@ If a command fails during setup, try these checks:
 1. Confirm that Node.js and npm are installed by running`node -v` and`npm -v`.
 2. Confirm that you are in the project folder you cloned. The folder name should match the repository name you used with`cd`.
 3. If the development server does not start, close the terminal, open a new one, and run`npm run dev` again.
+
 
 Now that the app is running, see the [Quick Start Guide](doc:27bdcaf5-0df9-412f-9cd1-5eaf702b8d97) for a fast tour of the main screens. You can also explore the [Product Overview and Key Concepts](doc:3a2f38ea-1eb7-45d0-91ef-d101d4eb349c) to understand the core ideas, or review [Navigation and Layout Modes](doc:971aeb74-0ca3-46ee-9e46-5b25c15adc24) to learn how to move around the application.

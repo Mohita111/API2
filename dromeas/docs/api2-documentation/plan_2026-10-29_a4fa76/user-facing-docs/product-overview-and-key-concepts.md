@@ -19,16 +19,13 @@ Your snippets are stored on the device you're using. Nothing leaves your browser
 Figure: The parts of a snippet
 ```mermaid
 graph TD
-    A[Snippet] --> B[Identity]
-    A --> C[Organization]
-    A --> D[Priority]
-    B --> E[Title]
-    B --> F[Description]
-    B --> G[Code]
-    C --> H[Language]
-    C --> I[Category]
-    C --> J[Tags]
-    D --> K[Favorite flag]
+    A[Snippet] --> B[Title]
+    A --> C[Description]
+    A --> D[Code]
+    A --> E[Language]
+    A --> F[Category]
+    A --> G[Tags]
+    A --> H[Favorite flag]
 ```
 
 ## Categories and tags: Two levels of organization
@@ -84,7 +81,7 @@ CodeKnit offers two ways to arrange your snippet cards. You switch between them 
 
 **List view** spreads each snippet across the full width of the page. The metadata sits on the left, and a wider code preview sits on the right. List view is ideal for reading longer code without opening a snippet.
 
-If you haven't chosen a layout yet, grid view is the default. Once you pick a layout, your choice is remembered between visits. The next time you open CodeKnit, it uses the view you last selected.
+Your layout choice is remembered between visits, the next time you open CodeKnit, it uses the view you last selected.
 
 Figure: Choosing a layout
 ```mermaid
@@ -141,7 +138,7 @@ To learn more about how code is displayed and highlighted, see [Code Preview and
 
 ## How the library fits together
 
-The sidebar navigation, search filters, and layout toggle work together as one system. The sidebar switches between high-level views. The filter bar refines what you see within any view. The layout toggle changes how the results are displayed. Favorites and categories are cross-cutting; they add structure that works everywhere.
+The sidebar navigation, search filters, and layout toggle work together as one system. The sidebar switches between high-level views. The filter bar refines what you see within any view. The layout toggle changes how the results are displayed. Favorites and categories are cross-cutting, they add structure that works everywhere.
 
 Figure: The overall structure of your CodeKnit library
 ```mermaid
@@ -165,6 +162,6 @@ graph TD
 - [Dashboard](doc:73800e45-b85d-4bd0-9a64-7620aa9bdf7e), explore the summary cards and default view
 - [Snippet Management](doc:d875ccc9-b2fb-4c86-82a0-190a6952a4c7), create, edit, and organize snippets
 - [Snippet Organization](doc:c88b9d7b-71f1-4365-b228-3a4ca18a9db4), navigate and filter by sidebar sections
-- [Search and Filtering](doc:d4db354c-9033-416f-babe-aaab07cc3975), locate snippets by text, language, category, and tag
+- [Search and Filtering](doc:2cbb8fac-e41c-44bf-93bd-7fc333e72aa0), locate snippets by text, language, category, and tag
 - [Understanding Snippet Metadata](doc:0454440c-0145-46fc-910a-1e0a7ef4c962), a deeper look at metadata fields
 - [Navigation and Layout Modes](doc:971aeb74-0ca3-46ee-9e46-5b25c15adc24), how to get around and choose between grid and list views

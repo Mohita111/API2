@@ -122,7 +122,7 @@ If loading fails, the dashboard shows an alert label with the message "Couldn't 
 
 When no snippets exist in your library, the dashboard displays a friendly empty state instead of a blank page. You see a document icon, the heading **"No snippets yet"**, and a message: "Save your first snippet to start building your library." A prominent **+ New Snippet** button takes you directly into the creation form.
 
-If your current view produces no results because of active filters or a section-specific rule, the empty state changes. You see a search icon, the heading **"No snippets match"**, and a message suggesting you try a different term or loosen your filters. The button changes to **Clear filters** so you can recover your full library quickly.
+If you have snippets but filters hide them all, the empty state changes. You see a search icon, the heading **"No snippets match"**, and a message suggesting you try a different term or loosen your filters. The button changes to **Clear filters** so you can recover your full library quickly.
 
 There is also a specialized empty state for the **Recently Used** section. If you have not copied any snippets yet, you see the heading **"No recently used snippets"** and the message "Copy a snippet to see it here, ordered by most recently copied." A **Browse all snippets** button takes you to the full library.
 
@@ -154,6 +154,5 @@ The dashboard is intentionally focused. It provides a summary and a launchpad, n
 - Navigation is limited to the **five built-in sections**: Dashboard, All Snippets, Favorites, Recently Added, and Recently Used. You cannot add custom dashboard sections.
 - There is **no historical or trend data**. Statistics reflect only your current library.
 - The **Recently Added** section shows at most 10 snippets.
-- The dashboard **does not allow inline editing or data entry**. All changes happen through the snippet form or settings, not on the dashboard itself.
 
 New to CodeKnit? Get a tour of the dashboard and sidebar in the [Quick Start Guide](doc:27bdcaf5-0df9-412f-9cd1-5eaf702b8d97).

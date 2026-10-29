@@ -81,9 +81,7 @@ graph LR
 
 - Import and export are manual actions only. There is no automatic cloud backup.
 - Export always includes your entire library. There is no partial or selective export.
-- Export format is JSON only. There is no CSV or other format option.
 - Import requires a file that was previously exported from CodeKnit.
-- Import merges only. You cannot choose to overwrite or replace existing snippets.
 - Duplicate snippets from an import are skipped. There is no option to merge conflicting content or choose whether to overwrite.
 
 ## Related

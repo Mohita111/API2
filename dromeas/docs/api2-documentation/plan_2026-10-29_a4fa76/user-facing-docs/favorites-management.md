@@ -5,11 +5,11 @@ Favorites help you flag the snippets you rely on most so you can return to them 
 Figure: How a snippet moves from ordinary to favorite
 ```mermaid
 graph LR
-  A[Any snippet] --> B[Click star or Favorite button]
+  A[Any snippet] --> B[Click the star or Favorite control]
   B --> C[Marked as favorite]
   C --> D[Filled star appears]
   D --> E[Listed in Favorites section]
-  E --> F[Dashboard and sidebar update]
+  E --> F[Count updates on dashboard and sidebar]
 ```
 
 ## What favorites can do for you
@@ -20,7 +20,7 @@ Favorites reduce the effort of finding high-priority snippets. Instead of search
 
 You can change favorite status from three places:
 
-- On a snippet card, click the star icon in the top-right corner of the card. The tooltip says **Add to favorites** when the snippet is not yet a favorite, and **Remove from favorites** when it is.
+- On a snippet card, click the star icon. The tooltip says **Add to favorites** when the snippet is not yet a favorite, and **Remove from favorites** when it is.
 - In the snippet detail view, select **Favorite** to add the snippet or **Favorited** to remove it.
 - While creating or editing a snippet, turn on **Mark as favorite** to save the snippet as a favorite.
 

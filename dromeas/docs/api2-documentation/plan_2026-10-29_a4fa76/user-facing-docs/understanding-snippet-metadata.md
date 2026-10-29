@@ -63,7 +63,7 @@ Each language also has a small colored dot in the sidebar and on snippet cards, 
 
 ### Category system for grouping related snippets
 
-The **Category** field helps you collect related snippets under a shared name. The app includes built-in categories, and you can also choose **+ Custom category…** to enter your own name. New snippets start with the default category **Utilities**, so you can save immediately or change it to something meaningful.
+The **Category** field helps you collect related snippets under a shared name. The app includes built-in categories, and you can also choose **+ Custom category…** to enter your own name. New snippets start with a default category, so you can save immediately or change it to something meaningful.
 
 Categories appear in the navigation sidebar, where each one shows the number of snippets it contains. Selecting a category filters the current view to that group. Categories are also available as a filter on snippet lists.
 
@@ -88,7 +88,7 @@ The app tracks two dates automatically for every snippet:
 - **Created**, the date the snippet was first saved
 - **Updated**, the date the snippet was last edited
 
-On snippet cards, the date shown is the updated date. When a snippet has been changed since creation, the label **Updated** appears before the date. In the detail view, both dates appear together, along with the number of times the code has been copied and the date it was last copied, when available.
+On snippet cards, the date shown is the updated date. When a snippet has been changed since creation, the label **Updated** appears before the date. In the detail view, both dates appear together, along with the number of times the code has been copied.
 
 Timestamps also feed the sort options in the filter bar. **Recently Added** and **Oldest First** order snippets by how recently they were added, helping you see new additions or older saved items first.
 

@@ -7,7 +7,7 @@ When you open the form to create a new snippet or edit an existing one, the Code
 - Colors your code according to the language you selected
 - Shows line numbers down the left side
 - Keeps your indentation consistent when you press Tab
-- Grows taller to show more lines, then scrolls when your code gets long
+- Grows with your code so you can see more lines without counting
 - Flags missing code when you try to save
 
 The editor focuses on writing and reviewing one snippet at a time in a single language.
@@ -15,8 +15,6 @@ The editor focuses on writing and reviewing one snippet at a time in a single la
 ## The editor experience
 
 The flow below shows how the editor fits into creating or updating a snippet.
-
-Figure: Code writing and saving flow in the snippet form
 
 ```mermaid
 graph LR
@@ -26,12 +24,14 @@ graph LR
     C --> E[Press Tab to indent]
     C --> F[Editor grows with content]
     F --> G[Click Save Snippet]
-    G --> H["Is code empty?"]
+    G --> H{"Is code empty?"}
     H -->|Yes| I[See error message and red border]
     H -->|No| J[Snippet saved]
 ```
 
-You don’t need to switch tools or remember syntax conventions. The editor reflects your language choice immediately and gives you consistent formatting as you work.
+Figure: Code writing and saving flow in the snippet form
+
+You don’t need to switch tools or remember syntax conventions, the editor reflects your language choice immediately and gives you consistent formatting as you work.
 
 ## Syntax highlighting
 
@@ -44,8 +44,6 @@ The editor supports four languages:
 
 When you pick a language in the **Language** dropdown, the editor applies colors to the code according to that language. Keywords, strings, comments, and numbers appear in distinct colors so you can quickly scan your code while typing.
 
-Figure: Language selection determines the highlighting colors
-
 ```mermaid
 graph LR
     A[Language dropdown] -->|JavaScript| B[JavaScript syntax colors]
@@ -53,6 +51,8 @@ graph LR
     A -->|SQL| D[SQL syntax colors]
     A -->|Markdown| E[Markdown formatting colors]
 ```
+
+Figure: Language selection determines the highlighting colors
 
 The same highlighting appears when your snippet is displayed in cards and the detailed view, so what you see in the editor matches what you’ll see later in your library.
 
@@ -65,12 +65,12 @@ In the editor, pressing the **Tab** key inserts two spaces at the current cursor
 
 This is especially useful for writing nested blocks in JavaScript, Python, SQL, or code examples in Markdown.
 
-## Line numbers and automatic sizing
+## Line numbers and auto-expansion
 
 As your code grows, the editor:
 
 - Shows a numbered gutter on the left so you always know which line you’re on
-- Grows taller to fit more lines, up to a comfortable maximum
+- Expands higher to fit more lines, up to a comfortable maximum
 - Scrolls inside the box when your code gets long, so the form remains usable
 
 Line numbers update automatically based on the number of lines. The editor starts with room for at least eight lines even when empty.
@@ -85,8 +85,6 @@ Before a snippet can be saved, the form checks that the code section isn’t emp
 
 This catches incomplete snippets early, so empty code entries don’t end up in your library.
 
-Figure: Code field validation states
-
 ```mermaid
 stateDiagram-v2
     [*] --> Empty
@@ -96,13 +94,15 @@ stateDiagram-v2
     Invalid --> HasCode: Type code
 ```
 
+Figure: Code field validation states
+
 ## Boundaries
 
 The editor is intentionally lightweight and focused on capturing reusable snippets:
 
 - No code autocomplete or suggestions appear as you type
 - No refactoring tools, multi-cursor editing, or other advanced IDE features are included
-- You can paste code directly into the editor; it does not reformat or alter pasted text
+- The editor does not intercept or modify text you paste
 - Each snippet uses one language at a time
 
 These boundaries keep the editor simple, fast, and predictable for saving code you want to reuse.
