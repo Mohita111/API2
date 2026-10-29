@@ -17,6 +17,7 @@ interface Props {
   onEdit: () => void;
   onDelete: () => void;
   onToggleFavorite: () => void;
+  onRecordCopy: () => Promise<void>;
 }
 
 function IconAction({ label, onClick, children, active }: { label: string; onClick: () => void; children: React.ReactNode; active?: boolean }) {
@@ -33,7 +34,7 @@ function IconAction({ label, onClick, children, active }: { label: string; onCli
   );
 }
 
-export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onToggleFavorite }: Props) {
+export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onToggleFavorite, onRecordCopy }: Props) {
   const { copied, copy } = useCopy();
   const list = layout === "list";
   return (
@@ -100,11 +101,14 @@ export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onTo
   function CardFooter() {
     return (
       <div className="mt-auto flex items-center justify-between gap-2 pt-1">
-        <time dateTime={s.updatedAt} className="text-xs text-muted-foreground">
-          {s.updatedAt !== s.createdAt ? "Updated " : ""}{formatDate(s.updatedAt)}
-        </time>
+        <div className="flex flex-col gap-0.5">
+          <time dateTime={s.updatedAt} className="text-xs text-muted-foreground">
+            {s.updatedAt !== s.createdAt ? "Updated " : ""}{formatDate(s.updatedAt)}
+          </time>
+          {(s.copyCount ?? 0) > 0 && <span className="text-[11px] text-muted-foreground">Copied {s.copyCount} {(s.copyCount ?? 0) === 1 ? "time" : "times"}</span>}
+        </div>
         <div className="flex gap-1.5">
-          <Button size="sm" variant="secondary" className="h-8" onClick={(e) => { e.stopPropagation(); copy(s.code); }}>
+          <Button size="sm" variant="secondary" className="h-8" onClick={async (e) => { e.stopPropagation(); if (await copy(s.code)) { onRecordCopy().catch(() => undefined); } }}>
             {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
             {copied ? "Copied!" : "Copy"}
           </Button>
