@@ -1,4 +1,4 @@
-import { Clock, Code2, Folder, LayoutDashboard, Plus, Settings, Star, Library } from "lucide-react";
+import { Clock, Code2, Folder, LayoutDashboard, Plus, Settings, Star, Library, History } from "lucide-react";
 import {
   Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
   SidebarHeader, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, useSidebar,
@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { LANGUAGES, type Language } from "@/lib/snippets/types";
 import { LANG_DOT } from "./LanguageBadge";
 
-export type Section = "dashboard" | "all" | "favorites" | "recent";
+export type Section = "dashboard" | "all" | "favorites" | "recent" | "used";
 
 interface Props {
   section: Section;
@@ -18,7 +18,7 @@ interface Props {
   category: string;
   onCategory: (c: string) => void;
   categories: { name: string; count: number }[];
-  counts: { all: number; favorites: number };
+  counts: { all: number; favorites: number; used: number };
   onNew: () => void;
   onSettings: () => void;
 }
@@ -31,6 +31,7 @@ export function AppSidebar(p: Props) {
     { id: "all" as const, label: "All Snippets", icon: Library, count: p.counts.all },
     { id: "favorites" as const, label: "Favorites", icon: Star, count: p.counts.favorites },
     { id: "recent" as const, label: "Recently Added", icon: Clock },
+    { id: "used" as const, label: "Recently Used", icon: History, count: p.counts.used },
   ];
   return (
     <Sidebar>
