@@ -5,6 +5,56 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { useSnippets } from "@/lib/snippets/store";
 import { parseSnippetImport } from "@/lib/snippets/import-export";
 
+type UseSnippetsReturn = ReturnType<typeof useSnippets>;
+type Snippets = UseSnippetsReturn["snippets"];
+type ImportSnippets = UseSnippetsReturn["importSnippets"];
+type ImportResult = Awaited<ReturnType<ImportSnippets>>;
+
+interface DownloadSnippetsDeps {
+  createObjectURL?: (obj: Blob) => string;
+  revokeObjectURL?: (url: string) => void;
+  createElement?: (tag: string) => HTMLElement;
+  Blob?: typeof Blob;
+}
+
+export function downloadSnippets(snippets: Snippets, deps: DownloadSnippetsDeps = {}): void {
+  const createObjectURL = deps.createObjectURL ?? ((obj: Blob) => URL.createObjectURL(obj));
+  const revokeObjectURL = deps.revokeObjectURL ?? ((url: string) => URL.revokeObjectURL(url));
+  const createElement = deps.createElement ?? ((tag: string) => document.createElement(tag));
+  const BlobImpl = deps.Blob ?? Blob;
+
+  const url = createObjectURL(new BlobImpl([JSON.stringify(snippets, null, 2)], { type: "application/json" }));
+  const anchor = createElement("a") as HTMLAnchorElement;
+  anchor.href = url;
+  anchor.download = "codeknit-snippets.json";
+  anchor.click();
+  revokeObjectURL(url);
+}
+
+interface ImportSnippetsFromFileDeps {
+  readFileText?: (file: File) => Promise<string>;
+}
+
+export async function importSnippetsFromFile(
+  file: File,
+  importSnippets: ImportSnippets,
+  deps: ImportSnippetsFromFileDeps = {}
+): Promise<{ result: ImportResult; duplicateCount: number }> {
+  const readFileText = deps.readFileText ?? ((f: File) => f.text());
+  const json = await readFileText(file);
+  const preview = parseSnippetImport(json);
+  const result = await importSnippets(preview.snippets);
+  return { result, duplicateCount: preview.duplicateCount };
+}
+
+export function openFilePicker(input: HTMLInputElement | null): void {
+  input?.click();
+}
+
+export function clearFileInput(input: HTMLInputElement | null): void {
+  if (input) input.value = "";
+}
+
 export function SettingsDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
   const { snippets, reset, importSnippets } = useSnippets();
   const [confirm, setConfirm] = useState(false);
@@ -12,12 +62,7 @@ export function SettingsDialog({ open, onOpenChange }: { open: boolean; onOpenCh
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const exportJson = () => {
-    const url = URL.createObjectURL(new Blob([JSON.stringify(snippets, null, 2)], { type: "application/json" }));
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "codeknit-snippets.json";
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadSnippets(snippets);
     toast.success("Exported snippets", { description: `${snippets.length} snippets downloaded.` });
   };
 
@@ -25,11 +70,8 @@ export function SettingsDialog({ open, onOpenChange }: { open: boolean; onOpenCh
     if (!file) return;
     setIsImporting(true);
     try {
-      const json = await file.text();
-      // Validate the entire file before touching saved data.
-      const preview = parseSnippetImport(json);
-      const result = await importSnippets(preview.snippets);
-      const skipped = result.skipped + preview.duplicateCount;
+      const { result, duplicateCount } = await importSnippetsFromFile(file, importSnippets);
+      const skipped = result.skipped + duplicateCount;
       if (result.imported === 0) {
         toast.info("No new snippets imported", { description: `${skipped} duplicate snippet(s) skipped.` });
       } else {
@@ -43,8 +85,7 @@ export function SettingsDialog({ open, onOpenChange }: { open: boolean; onOpenCh
       });
     } finally {
       setIsImporting(false);
-      // Let the same file be selected again after correcting it.
-      if (fileInputRef.current) fileInputRef.current.value = "";
+      clearFileInput(fileInputRef.current);
     }
   };
 
@@ -70,7 +111,7 @@ export function SettingsDialog({ open, onOpenChange }: { open: boolean; onOpenCh
               aria-label="Choose CodeKnit JSON export"
               onChange={(event) => void importJson(event.target.files?.[0])}
             />
-            <Button variant="secondary" disabled={isImporting} onClick={() => fileInputRef.current?.click()}>
+            <Button variant="secondary" disabled={isImporting} onClick={() => openFilePicker(fileInputRef.current)}>
               {isImporting ? "Importing…" : "Import JSON"}
             </Button>
           </div>
