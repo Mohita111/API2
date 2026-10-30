@@ -1,4 +1,5 @@
 import { Check, Copy, Eye, MoreHorizontal, Pencil, Star, Trash2, Folder } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
@@ -108,7 +109,7 @@ export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onTo
           {(s.copyCount ?? 0) > 0 && <span className="text-[11px] text-muted-foreground">Copied {s.copyCount} {(s.copyCount ?? 0) === 1 ? "time" : "times"}</span>}
         </div>
         <div className="flex gap-1.5">
-          <Button size="sm" variant="secondary" className="h-8" onClick={async (e) => { e.stopPropagation(); if (await copy(s.code)) { onRecordCopy().catch(() => undefined); } }}>
+          <Button size="sm" variant="secondary" className="h-8" onClick={async (e) => { e.stopPropagation(); if (await copy(s.code)) { onRecordCopy().catch((e) => toast.error(e.message)); } }}>
             {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
             {copied ? "Copied!" : "Copy"}
           </Button>
