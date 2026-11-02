@@ -1,71 +1,79 @@
 # Client-Side redirects
 
-Client-Side Redirects keep links working when you move, rename, or reorganize pages on your site. When a visitor opens an old URL, they are instantly taken to the correct new location, without seeing a "page not found" error. This preserves search ranking and keeps saved bookmarks valid for returning readers.
+Client-side redirects keep your site's links working when pages move, change names, or disappear. They are for site administrators, maintainers, and content authors who manage a documentation website and want to preserve search engine rankings and user bookmarks when URLs change.
 
-## Who it's for
+## What you can do
 
-Client-Side Redirects are for site administrators and maintainers who:
+Client-side redirects help you in four main ways:
 
-- Rename pages or restructure content sections
-- Migrate from an older URL scheme
-- Need to retire or replace a broken or legacy URL
-- Care about preserving SEO equity and user bookmarks
+- Forward visitors from an old URL to the new location of a page
+- Handle page renames without visitors seeing a "page not found" error
+- Redirect broken or legacy URLs to their current equivalents
+- Configure rules for localized, multi-language paths so visitors land on the correct language version
 
-Visitors experience the benefit automatically: they open a link, and it works, no error page, no manual search.
+When you build the site, the system creates a small page for each old URL. When a visitor opens one of those pages, the browser immediately sends them to the correct new address.
 
-## How redirects work
-
-A redirect maps one web address to another. When a browser requests a page at the old address, the site detects the match and immediately loads the destination page instead.
-
-Figure: Redirect flow for a moved page
+Figure: What happens when a visitor opens an old URL
 
 ```mermaid
 graph LR
-    A["Visitor opens old URL"] --> B{"Redirect rule matches?"}
-    B -->|"Yes"| C["Browser loads new page"]
-    B -->|"No"| D["Page not found shown"]
-    C --> E["Visitor continues reading"]
+    A[Visitor opens old URL] --> B[Browser loads redirect page]
+    B --> C[Browser goes to new URL]
+    C --> D[Visitor sees the content]
 ```
 
-## Key options
+## Who it is for
 
-The link catalog for this documentation set identifies four practical redirect scenarios, each covered in its own guide:
-
-| Scenario | Typical audience |
-|----------|-----------------|
-| Handle a page rename without creating a broken link | Content author |
-| Redirect broken or legacy URLs | Site administrator |
-| Generate redirect pages during the build | Developer |
-| Configure redirect rules for localized paths | Site administrator |
-
-You can link to these guides inline as needed:
-
-- To handle page renames without 404s, see [How to handle page renames without 404s](doc:3bba0cd8-b2ff-4a98-b4b7-c1569009a038).
-- To redirect broken or legacy URLs, see [How to redirect broken or legacy URLs](doc:f184b303-4e11-463c-a652-a1805c4e4d60).
-- To generate redirect pages at build time, see [How to generate redirect pages at build time](doc:667e20e0-0f37-49dd-b9ea-c8cf180727d6).
-- To configure redirect rules for localized paths, see [How to configure redirect rules for localized paths](doc:83261685-f759-485c-ab93-e876b7a69a5f).
+| Role | What they use it for |
+| --- | --- |
+| Site administrator | Keeping old links and bookmarks working across the whole site |
+| Content author | Renaming pages without breaking existing links |
+| Developer | Generating redirect pages as part of the build |
 
 ## Benefits
 
-- **No broken bookmarks**: readers who saved an old link still reach the intended content.
-- **SEO continuity**: search engines follow the redirect and transfer ranking signals to the new address.
-- **Safer content changes**: you can rename pages and restructure sections with confidence that existing links continue to work.
-- **Reduced maintenance**: define redirects once rather than hunting down and updating every reference to a moved page.
+- Visitors with saved bookmarks still reach the content they expect
+- Search engines transfer ranking value from the old URL to the new one
+- No need to manage redirect rules on the web server itself
+- Redirects are checked and created automatically when the site is built
 
-## Scope and limits
+## Key options
 
-This overview describes the client-side redirect capability and its outcomes. The provided source files for this repository do not include redirect configuration code or route definitions, so the specific mechanism for defining redirect rules is not verified in the provided source. The following boundaries apply:
+- Define rules that map an old path to a new path
+- Apply rules to localized paths so each language version redirects correctly
+- Generate redirect pages as part of the normal site build
+- Handle page renames that happen when content files are reorganized
 
-- Redirects apply to moved or renamed URLs and to broken or legacy links.
-- Redirect generation can occur as part of the build process.
-- Localized paths may require separate redirect rules.
-- The provided source confirms the project runs as a client-side React application with TanStack Start and TanStack Router (`package.json`), which is consistent with client-side redirect handling, but no redirect tables, plugin options, or route definitions appear in the prefetched files.
+## Limits
 
-> [!NOTE]
-> Configuration details vary by platform. Always refer to the specific guide linked above for the exact steps that apply to your scenario, and test a redirected URL after making changes.
+- Redirects run in the visitor's browser, not on the server. The browser briefly opens a redirect page before moving to the new address.
+- Redirect pages are created only when the site is built and published. You must rebuild and republish to activate new rules or changes.
+- Rules apply to paths you explicitly define. A redirect is not created automatically for every moved page unless a rule is added for it.
 
-## Next steps
+## Setting up redirects
 
-- Learn to manage renaming safely: [How to handle page renames without 404s](doc:3bba0cd8-b2ff-4a98-b4b7-c1569009a038)
-- Configure redirects for legacy links: [How to redirect broken or legacy URLs](doc:f184b303-4e11-463c-a652-a1805c4e4d60)
-- Explore the broader site-generation workflow: [Site Building & Bundling](doc:0fcd8337-ee59-484f-bda3-4db080caa340)
+Figure: The redirect setup flow
+
+```mermaid
+graph LR
+    A[Create a rule] --> B[Build the site]
+    B --> C[Redirect pages are generated]
+    C --> D[Old URL now forwards]
+    D --> E[Visitor reaches new URL]
+```
+
+The process is straightforward:
+
+1. A site administrator or content author decides which old URL should point where.
+2. The rule is written in the redirect settings.
+3. The site is built, which generates a redirect page for each rule.
+4. Visitors who open an old URL are automatically taken to the new one.
+
+## Related guides
+
+- [How to redirect broken or legacy URLs](doc:f184b303-4e11-463c-a652-a1805c4e4d60)
+- [How to handle page renames without 404s](doc:3bba0cd8-b2ff-4a98-b4b7-c1569009a038)
+- [How to configure redirect rules for localized paths](doc:83261685-f759-485c-ab93-e876b7a69a5f)
+- [How to generate redirect pages at build time](doc:667e20e0-0f37-49dd-b9ea-c8cf180727d6)
+- [Documentation](doc:7e97fe70-a638-4596-bb48-adfef8fb0b61)
+- [Site Building & Bundling](doc:0fcd8337-ee59-484f-bda3-4db080caa340)

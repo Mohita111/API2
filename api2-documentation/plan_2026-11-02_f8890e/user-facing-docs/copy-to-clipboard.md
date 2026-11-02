@@ -1,51 +1,70 @@
 # Copy to clipboard
 
-Copy to Clipboard lets you copy a snippet's code to your system clipboard with one click. Instead of dragging to select code and pressing a keyboard shortcut, you can grab the full contents of a snippet and paste it directly into an editor, terminal, chat, or document.
+Copy to Clipboard lets you copy any saved snippet's full code to your device clipboard with one click. You can copy from a snippet card or from the snippet detail view, then paste the code into an editor, terminal, chat, or document.
 
-This feature is for anyone who regularly moves saved code or Markdown between CodeKnit and another tool. It saves time, avoids mistakes from partial selection, and works entirely without switching your hands to the keyboard.
+## Who it's for
 
-## Where to find the copy controls
+Copy to Clipboard is for anyone who saves and reuses code often. It removes the need to drag through lines of text or memorize keyboard shortcuts just to move a snippet.
 
-You can copy a snippet from two places:
+## What you can do
 
-- On a snippet card in the library, the **Copy** button appears in the bottom-right corner of the card.
-- In the snippet detail view, the **Copy code** button appears in the action row near the bottom of the dialog.
+- Copy a snippet directly from its card without opening the full view.
+- Copy from the snippet detail view by using the **Copy code** action.
+- Confirm a successful copy with a green **Copied!** toast and a temporary check mark on the button.
+- See how many times each snippet has been copied and when it was last copied.
+- Reopen frequently copied snippets from the **Recently Used** section in the navigation.
 
-Both controls behave the same way and copy the entire snippet code, not just the visible portion.
+## How copying works
 
-## What happens when you copy
+When you choose a copy action, CodeKnit places the snippet's code on your system clipboard. If the browser allows clipboard access, the app shows visual confirmation and records the copy. If the browser blocks access, the app shows an error message instead.
 
-The diagram shows the success and failure paths for a copy action.
-
-Figure: Copy success and failure flow
+Figure: Copying a snippet
 
 ```mermaid
 graph LR
-    A[Select Copy button] --> B[Code is written to clipboard]
-    B -->|Access allowed| C["Green Copied! confirmation"]
-    B -->|Access blocked| D[Red error message appears]
-    C --> E[Copy count increases]
-    D --> F[Check browser permissions]
+  A["Choose a saved snippet"] --> B["Select Copy or Copy code"]
+  B --> C{"Clipboard access allowed?"}
+  C -->|"Yes"| D["Code is placed on your clipboard"]
+  C -->|"No"| E["Red error toast appears"]
+  D --> F["Green Copied! toast appears"]
+  D --> G["Button shows a check mark"]
+  D --> H["Copy count updates"]
 ```
 
-When copying succeeds, CodeKnit updates the button label from **Copy** to **Copied!** and swaps the copy icon for a check mark. A green toast notification also appears to confirm the copy worked.
+## Copying from a snippet card
 
-When copying fails, a red error toast explains that clipboard access was blocked or unavailable. The snippet itself is not changed.
+Each snippet card includes a **Copy** button in its lower action area. Select **Copy** to place the complete snippet on your clipboard without opening the snippet. The card stays in place while the action runs.
 
-## Usage tracking
+## Copying from the snippet detail view
 
-Every successful copy is recorded for the snippet. You can see this in a few places:
+Open any snippet to see its full code. In the lower action area, select **Copy code** to copy the complete snippet. The detail view also shows the snippet's total copy count, created and updated dates, and last copied date when available.
 
-- Snippet cards show a **Copied N times** note under the timestamp, next to the action buttons.
-- The detail view shows **Copied N times** together with a **Last copied** date.
-- The **Recently Used** section in the sidebar lists snippets that have been copied, ordered with the most recently copied first.
+## Visual feedback and copy tracking
 
-> [!NOTE]
-> Copy tracking only updates after a successful copy. If the clipboard is blocked or the copy fails, the count does not increase.
+A successful copy gives you two immediate cues: the green **Copied!** toast appears near the edge of the screen, and the copy button temporarily shows a check icon with the **Copied!** label.
+
+After a successful copy, CodeKnit updates the snippet's usage details:
+
+- The snippet card shows **Copied** followed by the number of times it has been copied, once that count is greater than zero.
+- The snippet detail view shows the total copy count and the last copied date.
+- The snippet appears in **Recently Used** under the navigation, ordered by the most recent copy.
+
+> [!TIP]
+> Use the **Recently Used** section to quickly reopen the snippets you copy most often.
+
+## Troubleshooting clipboard access
+
+A red error toast appears when the browser blocks access to your clipboard. This can happen for a few reasons.
+
+- **Secure connection required:** Your browser generally allows clipboard writes only on secure pages, such as HTTPS or localhost. If CodeKnit is running on an unsecured address, copying may be blocked.
+- **Permission prompts:** Some browsers ask for permission before allowing clipboard access. If permission is denied, you may need to allow clipboard access in your browser settings for the current site.
+- **Very large snippets:** Large snippets are still copied, but pasting them into another application may take a moment longer than usual.
+
+If the copy button does not change to **Copied!** and no error toast appears, verify that you are using a current browser and that the page is being served over HTTPS or localhost.
 
 ## Related
 
 - [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
-- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
 - [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)
-- [Dashboard](doc:0cccb845-62f3-4e2b-b0ca-c7d768eaf700)
+- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
+- [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94)

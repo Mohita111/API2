@@ -1,62 +1,74 @@
 # Your first snippet: quick start
 
-Save your first reusable code snippet in CodeKnit in just a minute or two. This guide walks you through creating one snippet from start to finish, so you'll understand the basic save-and-reuse workflow.
+Save your first reusable piece of code in CodeKnit. This guide walks you through the whole create-and-save flow, from opening the dialog to finding your new snippet in your library.
 
 ## Prerequisites
 
-- CodeKnit is open and running in your browser
-- You have a snippet idea ready, anything from a small utility function to a markdown note
+- CodeKnit is installed and running on your device.
+- You can see the CodeKnit sidebar, Dashboard, or snippet list.
 
-## Create your first snippet
+## Create and save your first snippet
 
-1. Open the new snippet form by clicking **New Snippet**. You'll find this button in the top bar and near the bottom of the sidebar.
-2. Enter a title in the **Title** field, such as`Quick Sort Algorithm`. This field is required.
-3. Add a short description in the **Description** field. This step is optional, but a few words like "Sorts a list in place" help you remember the snippet's purpose later.
-4. Choose a language from the **Language** dropdown: **JavaScript**, **Python**, **SQL**, or **Markdown**. JavaScript is selected by default.
-5. Keep or change the **Category**. The form starts with **Utilities** selected, you can pick a different existing category, or choose **+ Custom category…** to create your own.
-6. Add optional tags in the **Tags** field. Type a tag and press **Enter** or a comma to add it. For example,`sorting` or`algorithms`.
-7. Paste or type your code into the editor. The editor shows line numbers and highlights syntax as you type. Pressing **Tab** indents a line by two spaces.
-8. Optionally, turn on **Mark as favorite** if you want this snippet starred for quick access later.
-9. Click **Save Snippet**.
+Follow these steps to create your first snippet.
 
-Figure: Creating and saving your first snippet
+1. Click **+ New Snippet** in the top bar or in the sidebar. The **New snippet** dialog opens.
+2. In the **Title** field, type a name for your snippet, for example **Quick Sort Algorithm**. This field is required.
+3. In the **Language** dropdown, choose **JavaScript**, **Python**, **SQL**, or **Markdown**. JavaScript is selected by default.
+4. Paste or type your code into the **Code** area. This field is required. As you type, CodeKnit colors your code and shows line numbers to make it easier to read.
+5. Optional: in the **Tags** field, type a tag and press **Enter** or comma to add it. Repeat to add more tags. Tags are stored in lowercase automatically.
+6. Click **Save Snippet**.
+
+The following diagram shows the same flow at a glance.
+
+Figure: Create and save your first snippet
 
 ```mermaid
 graph LR
-    A[Click New Snippet] --> B[Enter title and description]
-    B --> C[Choose language and category]
-    D --> E[Paste or type code]
-    E --> F[Click Save Snippet]
-    F --> G[Snippet appears in your library]
+    A["Click + New Snippet"] --> B["Enter a title"]
+    B --> C["Choose a language"]
+    C --> D["Paste or type code"]
+    D --> E["Add optional tags"]
+    E --> F["Click Save Snippet"]
+    F --> G["Snippet appears in library"]
 ```
 
-## What happens after you save
+### Optional details before saving
 
-When saving finishes, you'll see a **Snippet saved** message, and the form closes. Your new snippet is now in your library, where you can:
+While the dialog is open, you can also add a short **Description**, choose a **Category** (the default is **Utilities**, or select **+ Custom category…** to create your own), and turn on **Mark as favorite** if you want to find this snippet quickly later.
 
-- Find it under **All Snippets** or **Recently Added**
-- Search for it by title, tag, or code
-- Filter by language, category, or tag
-- Copy the code with one click
-- Open it to view, edit, favorite, or delete it
+## After you save
 
-Your snippets are stored in your browser on this device, so they're ready every time you open CodeKnit.
+When you click **Save Snippet**, a confirmation message appears and the dialog closes. Your new snippet is added to your library immediately.
+
+You can now find it in:
+
+- **Dashboard** under **Your Snippets**
+- **All Snippets**
+- **Recently Added**
+
+Once a snippet is saved, you can search for it, filter by language or tag, copy it to your clipboard, mark it as a favorite, or organize it further.
 
 > [!NOTE]
-> If you click **Save Snippet** without a title or code, the form shows a message asking for the missing required field. Fill it in and click **Save Snippet** again.
+> Your snippets are stored in your browser on this device, so they stay available when you close and reopen CodeKnit.
 
-## Common questions
+## Common issues
 
-> [!NOTE]
-> Tags are saved in lowercase to keep them consistent. If you type`SQL`, it appears as`sql` on the snippet.
+### Tags appear in lowercase
 
-> [!TIP]
-> Depending on your browser, the first time you use **Copy** on a snippet you may be asked to allow clipboard access. Allow it to copy code normally.
+Tags are automatically converted to lowercase when you add them. For example, typing **React** saves as **react**. This is expected and keeps your tags consistent when you filter later.
 
+### You can't save the snippet
 
-Now that you know the basic workflow:
+Both **Title** and **Code** are required. If either one is empty, CodeKnit shows an error under that field. Fill in the missing information, then click **Save Snippet** again.
 
-- Keep building your collection with the [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8) guide
-- Organize snippets by category and tag in [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
-- Find snippets by title, language, and more with [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)
-- Learn what you can do with the [Code Editor](doc:a1109ff6-5fe7-437a-99ec-4d0b442bb0fd)
+### Copying a snippet asks for browser permission
+
+The first time you copy a snippet, your browser may ask for permission to access the clipboard. Choosing **Allow** lets you use the copy feature later without interruption.
+
+## Next steps
+
+- [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)
+- [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
+- [Copy to Clipboard](doc:fe088c40-690b-45b1-ab17-d2fd7e259b72)
+- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
+- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)

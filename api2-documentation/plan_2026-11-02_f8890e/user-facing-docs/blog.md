@@ -1,99 +1,98 @@
 # Blog
 
-The Blog feature gives your site a built-in home for articles, updates, and long-form content. It works for two audiences: readers who want to discover and read posts, and content authors who write and publish those posts.
+The blog is a publishing space where content authors share articles and readers explore posts by date, topic, or writer. It's designed for two audiences: **content authors** who write and publish posts, and **blog readers** who browse, read, and subscribe.
 
-Who it's for:
+## What you can do
 
-- **Blog readers** browse recent posts, read articles, find posts by author, filter by topic, and follow new content through a feed.
-- **Content authors** publish new posts and organize them so readers can find them by author and tag.
+The blog supports five core capabilities:
 
-## What you can do with blog
+- **Publish posts.** Content authors write posts as Markdown files and add front matter with details such as title, date,`authors`, and`tags`. The site builds these files into published blog posts.
+- **Read posts.** Readers start at the **blog listing page**, which shows published posts. Each entry links to a full **post page** where the complete article is displayed.
+- **Filter by tags.** Each post can carry one or more tags. Selecting a tag opens a **tag page** that lists every post with that tag, so readers can explore a topic without searching.
+- **Browse by author.** Each post can name one or more authors. Selecting an author opens an **author page** that lists every post by that person.
+- **Subscribe via feeds.** The blog publishes RSS and Atom feeds. Readers can subscribe by pointing a feed reader at the **feed URL**.
 
-### Read posts
+## How the blog fits together
 
-Readers start on the blog listing page, where they can see the available posts and open any post to read it in full.
+The blog listing page is the starting point for readers. From there, you can open any post, narrow to a tag, or view an author's posts. The feed offers a subscription path that doesn't require visiting the site.
 
-- Read full posts from the listing
-- Move between posts and other parts of the site
-- Return to the listing to choose another article
+Figure: Blog navigation flow
 
-If you're new to reading blog posts, see [How to read blog posts](doc:8dec29d4-914f-42c1-ad4a-58b3923066cd).
-
-The diagram shows the main reader journey.
-
-Figure: Blog reader journey
 ```mermaid
 graph LR
-    A[Blog listing] --> B[Open a post]
-    A --> C[Browse author pages]
-    A --> D[Browse tag pages]
-    A --> E[Use pagination]
-    A --> F[Subscribe to feed]
+    A["Blog listing page"] --> B["Post page"]
+    A --> C["Tag page"]
+    A --> D["Author page"]
+    B --> E["RSS or Atom feed"]
+    C --> B
+    D --> B
 ```
 
-### Browse posts by author
+## Publishing workflow
 
-Each post can be associated with an author. Readers can visit an author page to see all posts written by that person. This is useful when a site has several contributors and readers want to follow one writer.
+Publishing is file-based. You write a post, add front matter with the post's`title`, date,`authors`, and`tags`, and then build or publish the site. The post then appears on the listing page, on each matching tag page, on each author page, and in the feeds.
 
-See [How to browse posts by author](doc:ca2bf8b1-3fe9-41c7-9f39-c0d952b34922).
+Figure: Publishing a new blog post
 
-### Filter posts by tags
-
-Tags group posts by topic. Readers can select a tag to see every post that shares that topic, which makes it easier to find related articles without searching the entire listing.
-
-See [How to filter posts by tags](doc:da9e186e-2e74-4c49-9554-769d57a8aa79).
-
-### Move through long listings with pagination
-
-When a blog has many posts, the listing can be split into pages. Readers can move forward and backward through the listing to see older posts.
-
-See [How to paginate through blog listing](doc:cad40b05-f8e4-461f-8d6d-f8d68130ab6d).
-
-### Follow new posts with RSS or atom
-
-Readers can subscribe to the blog's feed and receive updates when new posts are published. This removes the need to check the site manually for new content.
-
-See [How to subscribe to RSS/Atom feed](doc:33a9a7d1-25c6-4d6c-a982-408eb7ab60c1).
-
-### Publish and organize posts
-
-Content authors can create new posts with the information readers rely on, including author and tags. Once published, the post becomes available on the blog listing, on the author's page, on related tag pages, and in the feed.
-
-See [How to publish a new blog post](doc:b53f4980-aa74-45a1-b075-f0b746ed9923).
-
-The diagram shows how a new post flows from content creation into the reader experience.
-
-Figure: Publishing flow for content authors
 ```mermaid
 graph LR
-    B --> C[Publish the post]
-    C --> D[Post appears in listing]
-    D --> E["Available by author, tag, and feed"]
+    A["Write post content"] --> B["Add front matter"]
+    B --> C["Set title, date, authors, tags"]
+    C --> D["Build or publish site"]
+    D --> E["Post appears on listing page"]
+    E --> F["Feeds include the new post"]
 ```
+
+## Authors and tags
+
+Authors and tags are how the blog organizes posts beyond the listing page:
+
+- **Authors** are named in a post's front matter. Each author has an **author page** that collects all their posts.
+- **Tags** are topic labels, also set in front matter. Each tag has a **tag page** that collects all posts carrying that tag.
+- A single post can have multiple authors and multiple tags.
+
+Figure: How a post relates to authors and tags
+
+```mermaid
+graph LR
+    Post["Blog post"] --> A["Author 1"]
+    Post --> B["Author 2"]
+    Post --> T1["Tag 1"]
+    Post --> T2["Tag 2"]
+    A --> AP["Author page"]
+    B --> AP
+    T1 --> TP["Tag page"]
+    T2 --> TP
+```
+
+Because of these relationships, one post can be reached from several places: the main listing, each of its tag pages, and each of its author pages.
+
+## Pagination
+
+When the blog has more posts than fit comfortably on one page, the **blog listing page** splits them into pages. Page controls let you move between listing pages, keeping older posts reachable without excessive scrolling.
 
 ## Benefits
 
-- Gives readers a clear entry point to your site's articles and updates
-- Helps readers find related content through authors and tags
-- Keeps long listings manageable with pagination
-- Lets readers follow new posts automatically with RSS or Atom
-- Gives content authors a consistent way to publish and organize posts
+- **Readers** get an easy way to browse posts by date, topic, or writer, and to subscribe for updates without returning to the site.
+- **Content authors** get a simple publishing flow: write a post, add front matter, and the blog automatically places it on the listing, author, and tag pages.
+- **Visitors** can follow specific authors or topics without creating an account.
 
 ## Key options and limits
 
-- Posts can be organized by author and by tag
-- Listings can be paginated for readability
-- Readers can subscribe to RSS or Atom feeds
-- The exact labels and positions of blog controls can vary depending on how the site is styled or configured
+The blog's primary options are:
 
-> [!NOTE]
-> If a link or option described here is not visible, your site may not have the Blog feature enabled or may use different labels.
+- **Author pages**, generated for each author named in post front matter
+- **Tag pages**, generated for each tag used in post front matter
+- **Pagination** on the blog listing page
+- **RSS and Atom feeds** available at the blog's feed URL
+
+The source files provided for this task document the CodeKnit snippet manager rather than the blog plugin implementation. Details such as the exact number of posts shown per listing page, the full set of supported front matter fields, and the precise feed URL are therefore not covered here.
 
 ## Related
 
+- [How to publish a new blog post](doc:b53f4980-aa74-45a1-b075-f0b746ed9923)
 - [How to read blog posts](doc:8dec29d4-914f-42c1-ad4a-58b3923066cd)
 - [How to browse posts by author](doc:ca2bf8b1-3fe9-41c7-9f39-c0d952b34922)
 - [How to filter posts by tags](doc:da9e186e-2e74-4c49-9554-769d57a8aa79)
-- [How to paginate through blog listing](doc:cad40b05-f8e4-461f-8d6d-f8d68130ab6d)
-- [How to publish a new blog post](doc:b53f4980-aa74-45a1-b075-f0b746ed9923)
-- [How to subscribe to RSS/Atom feed](doc:33a9a7d1-25c6-4d6c-a982-408eb7ab60c1)
+- [How to paginate through the blog listing](doc:cad40b05-f8e4-461f-8d6d-f8d68130ab6d)
+- [How to subscribe to the RSS or Atom feed](doc:33a9a7d1-25c6-4d6c-a982-408eb7ab60c1)
