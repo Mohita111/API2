@@ -46,7 +46,7 @@ The dialog asks for:
 | Code | Yes | The code or text you want to save |
 | Favorite | No | Toggle to star the snippet immediately |
 
-The form checks that both a title and code are present before saving. If either is missing, an error message appears under the field. The snippet form stays open if you click outside it, so use **Cancel** or the close button when you want to leave without saving.
+The form checks that a title, code, and category are present before saving. If any is missing, an error message appears under the field. The snippet form stays open if you click outside it, so use **Cancel** or the close button when you want to leave without saving.
 
 For a step-by-step walkthrough of your first snippet, see [How to Create and Save Your First Snippet](doc:06f6d9bd-a5b1-4088-a8a3-2cec8e394ff7).
 
@@ -145,4 +145,7 @@ Your snippets are stored in your browser on this device. Nothing is sent to a se
 
 - [Snippets and Metadata](doc:29bc2a99-4091-4a7e-80c7-55aa5fb10d5a), Learn what a snippet is and how its metadata works
 - [Favorites and Recent Snippets Tracking](doc:df417b15-e94f-4cf5-a298-996cfe891b92), Star snippets and see recent usage
-- [Code Syntax Highlighting and Preview](doc:2cb5bb53-7
+- [Code Syntax Highlighting and Preview](doc:2cb5bb53-7f7e-418d-a558-bd10548fce84), See how code is color-coded by language
+- [Import and Export Snippets](doc:c3460112-04bd-4c8f-9712-121f35796862), Back up and restore your library
+- [Search, Filter, and Organization](doc:d0dae015-3d01-4e73-9a5d-6d71e9c5894a), Find snippets with filters and sidebar browsing
+- [Local Storage and Data Persistence](doc:719ab5d9-7496-49ec-b3c5-b352165f654b), Understand how your data is stored locally

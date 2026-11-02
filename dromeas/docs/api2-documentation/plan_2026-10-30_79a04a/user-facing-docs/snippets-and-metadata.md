@@ -15,7 +15,7 @@ Each snippet bundles together:
 - Descriptive labels such as language, category, and tags
 - Automatic tracking details such as creation date and copy count
 
-Together, these make a snippet more than raw code, they make it searchable, filterable, and easy to return to.
+Together, these make a snippet more than raw code—they make it searchable, filterable, and easy to return to.
 
 ## Core metadata fields
 
@@ -27,11 +27,11 @@ The title is a short, human-readable name for the snippet, such as “Debounce u
 
 ### Description
 
-The description is an optional sentence or two that explains what the snippet does or when to use it. You enter it when creating or editing a snippet. The description appears under the title on snippet cards and in the full detail viewer.
+The description is an optional sentence or two that explains what the snippet does or when to use it. You enter it when creating or editing a snippet. When provided, the description appears under the title on snippet cards and in the full detail viewer.
 
 ### Code
 
-The code is the main content of the snippet. It can be a piece of JavaScript, Python, SQL, or Markdown, or any plain text you want to keep. Code is required, and CodeKnit highlights the syntax automatically based on the language you choose.
+The code is the main content of the snippet. It can be a piece of JavaScript, Python, SQL, or Markdown, or any other text you want to keep. Code is required, and CodeKnit highlights the syntax automatically based on the language you choose.
 
 ### Language
 
@@ -42,7 +42,7 @@ The language identifies the programming language or format of the snippet. CodeK
 - SQL
 - Markdown
 
-Each language has its own color-coded highlighting and a small colored dot in the user interface, which makes it easy to spot the type of snippet at a glance. Language is required and used both for syntax highlighting and for filtering.
+Each language has its own color-coded highlighting and a small colored dot in the user interface, which makes it easy to spot the type of snippet at a glance. Language is required and is used both for syntax highlighting and for filtering.
 
 ### Category
 
@@ -67,7 +67,7 @@ CodeKnit records two dates for every snippet:
 - **Created date**: when the snippet was first saved
 - **Updated date**: the last time the snippet was edited
 
-If a snippet has never been edited, only the created date is shown. The detail view shows both dates clearly.
+If a snippet has never been edited, the card shows the date without an **Updated** label. The detail view always shows both the created and updated dates.
 
 ### Usage statistics
 
@@ -76,26 +76,26 @@ CodeKnit tracks how often you copy a snippet. The key details are:
 - **Copy count**: how many times the snippet's code has been copied
 - **Last copied date**: the most recent time you copied the snippet
 
-These statistics help you see which snippets are your most-used, and they feed the **Recently Used** section in the sidebar.
+The copy count increases each time you use the **Copy** action on a snippet. These statistics help you see which snippets are your most-used, and they feed the **Recently Used** section in the sidebar.
 
 Figure: The parts of a CodeKnit snippet
 
 ```mermaid
 graph LR
-    A[Snippet] --> B[Content]
-    A --> C[Metadata you enter]
-    A --> D[Metadata tracked automatically]
-    B --> E[Title]
-    B --> F[Code]
-    C --> G[Description]
-    C --> H[Language]
-    C --> I[Category]
-    C --> J[Tags]
-    C --> K[Favorite status]
-    D --> L[Created date]
-    D --> M[Updated date]
-    D --> N[Copy count]
-    D --> O[Last copied date]
+    A[Snippet] --> B[Identifying info]
+    A --> C[Code]
+    A --> D[Labels you choose]
+    A --> E[Tracked automatically]
+    B --> F[Title]
+    B --> G[Description]
+    D --> H[Language]
+    D --> I[Category]
+    D --> J[Tags]
+    D --> K[Favorite status]
+    E --> L[Created date]
+    E --> M[Updated date]
+    E --> N[Copy count]
+    E --> O[Last copied date]
 ```
 
 ## How metadata helps with organization
@@ -130,7 +130,7 @@ graph LR
     G --> H
 ```
 
-- **Search** works across snippet titles, descriptions, tags, and code content, so a descriptive title or tag makes a snippet easier to recall.
+- **Search** works across your snippet text, including titles, tags, and the code itself, so a descriptive title or tag makes a snippet easier to recall.
 - **Language, category, and tag filters** narrow down the visible list based on the metadata you assigned.
 - **Sorting** lets you view snippets by **Recently Added**, **Oldest First**, or **A–Z** title order.
 - **Dashboard statistics** show your total snippets, your favorites count, and how many different languages you use, giving you a quick overview of your library.
@@ -141,9 +141,9 @@ Together, these tools mean that the more consistent you are with titles, categor
 
 Metadata appears in several places:
 
-- **Snippet cards** show the title, language, category, description, tags, updated date, and copy count at a glance.
+- **Snippet cards** show the title, language, category, description when available, tags, updated date, and copy count when it is greater than zero.
 - **Detail viewer** shows the full set of metadata including created and updated dates, full description, tags, copy count, and last copied date.
-- **Sidebar** lists categories and languages with counts, along with favorite and recently used totals.
+- **Sidebar** lists categories with counts and languages for filtering, along with totals for favorites and recently used snippets.
 - **Dashboard statistics** summarize total snippets, favorites, and language variety.
 
 To see the full details for any snippet, select the snippet card or use its **View** action.

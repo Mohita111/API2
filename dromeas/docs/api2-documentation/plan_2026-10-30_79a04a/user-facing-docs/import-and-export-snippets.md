@@ -19,9 +19,9 @@ Export creates a single JSON file named`codeknit-snippets.json` that contains yo
 
 ## Accessing import and export
 
-Open **Settings** from the gear icon in the lower-left corner of the sidebar. The Settings dialog shows your library's current location and presents three actions: **Export**, **Import JSON**, and **Reset**.
+Open **Settings** from the gear icon in the lower-left corner of the sidebar. The Settings dialog explains that your snippets are stored in this browser and presents three actions: **Export**, **Import JSON**, and **Reset**.
 
-The dialog explains that your snippets are stored in the current browser, and that exporting creates a backup while importing pulls in a previously exported CodeKnit library.
+The dialog also reminds you that exporting creates a backup, while importing pulls in a previously exported CodeKnit library.
 
 ## Exporting your library
 
@@ -85,7 +85,7 @@ If you plan to reset, export your library first so you can import it again later
 
 - Export and import work with CodeKnit JSON files only
 - Import adds snippets from the file; it does not remove anything from your current library
-- CodeKnit does not sync snippets across devices automatically, import and export are the way to move data from one browser to another
+- CodeKnit does not sync snippets across devices automatically, so import and export are the way to move data from one browser to another
 - The import file must be selected from the local device; there is no cloud import or export option
 
 ## Related

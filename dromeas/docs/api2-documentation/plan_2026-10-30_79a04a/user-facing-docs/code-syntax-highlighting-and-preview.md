@@ -51,7 +51,7 @@ Each language also has the same colored dot in the sidebar, in filter menus, and
 
 Every snippet preview includes line numbers by default. The numbers appear along the left side of the code and update automatically to match the snippet length.
 
-- Card previews show numbered lines in a compact, single-column layout.
+- Card previews show numbered lines beside the code in both grid and list layouts.
 - The full preview also shows numbered lines and lets you scroll when code is taller than the preview area.
 - While editing, line numbers remain visible, starting at 8 lines and growing as you add more.
 
@@ -68,7 +68,7 @@ If a snippet has more lines than the preview allows, CodeKnit shows a **+X more 
 
 ## Full preview in the detail view
 
-When you open a snippet, CodeKnit shows the complete code with the same highlighting and line numbers. The preview is contained in a scrollable area, so long snippets never force the whole dialog to grow beyond the screen. This full preview is still read-only, you use **Edit** to make changes.
+When you open a snippet, CodeKnit shows the complete code with the same highlighting and line numbers. The preview sits inside a scrollable area, so long snippets never push the dialog beyond the screen. This full preview is still read-only; use **Edit** to make changes.
 
 ## Live highlighting while you write
 
@@ -89,7 +89,7 @@ Long snippets are handled intentionally:
 - The detail view shows the entire snippet inside a scrollable region.
 - The editor preview can scroll within the form if the code grows beyond the field's fixed height.
 
-No data is ever hidden or altered, preview truncation on cards affects only the display, not the stored snippet.
+No data is ever hidden or altered. Preview truncation on cards affects only the display, not the stored snippet.
 
 ## Related
 
