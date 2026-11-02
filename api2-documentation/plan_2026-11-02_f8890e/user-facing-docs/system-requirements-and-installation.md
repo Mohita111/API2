@@ -1,52 +1,71 @@
 # System requirements and installation
 
-Follow this guide to install and run CodeKnit on your own computer. CodeKnit runs entirely in your browser and keeps your snippets in your browser's local storage, so you don't need a server or a backend.
+This guide helps you install and run CodeKnit on your own computer. CodeKnit runs entirely in your web browser and stores your data locally, so you do not need a server, a database, or a backend service.
 
 ## What you need
 
-To install and run CodeKnit locally, you need:
+Before you begin, make sure you have:
 
-- **Node.js**, version 16 or later. The recommended way to install Node.js is with nvm (Node Version Manager), which makes it easy to switch between Node versions.
-- **npm**, included with Node.js. You'll use npm to install dependencies and start CodeKnit.
-- **Git**, used to copy (clone) the repository to your computer.
-- **A modern web browser** with clipboard support, such as the latest Chrome, Edge, Firefox, or Safari.
+- **Node.js version 16 or later.** A current long-term support release is recommended. If you work with multiple Node.js versions, install Node using **nvm**.
+- **npm.** npm is included when you install Node.js.
+- **A modern web browser** that supports the clipboard API, such as the latest version of Chrome, Edge, Firefox, or Safari.
+- **A terminal application**, such as Terminal on macOS, Command Prompt on Windows, or your preferred terminal on Linux.
 
 > [!NOTE]
-> CodeKnit stores your snippets in your browser's local storage. Nothing is sent to a server, and no database or backend setup is required.
+> CodeKnit saves your snippets locally in your browser using local storage. No account and no network connection are required after the app is running.
 
-## Install Node.js and npm
+## How local installation works
 
-1. Open a terminal.
-2. Install nvm if you don't already have it. The nvm project page provides installation instructions.
-3. Run`nvm install --lts` to install the latest long-term support version of Node.js.
-4. Run`node -v` to confirm Node.js is installed. You'll see a version number such as`v22.12.0`.
-5. Run`npm -v` to confirm npm is installed.
+The installation flow has five main stages, from checking your tools to opening the app.
+
+Figure: Local installation flow
+
+```mermaid
+graph LR
+    A["Check Node.js and npm"] --> B[Clone the project]
+    B --> C[Install dependencies]
+    C --> D[Start the dev server]
+    D --> E[Open the app in your browser]
+```
 
 ## Verify your installation
 
-After the development server starts:
+After the app opens, you should see the CodeKnit Dashboard. You can also confirm your tooling with these commands:
 
-1. Open CodeKnit in your browser.
-2. Create and save a snippet.
-3. Reload the page and confirm the snippet is still there. This confirms local storage is working.
+| What to check | Command |
+| --- | --- |
+| Node.js version |`node --version` |
+| npm version |`npm --version` |
 
-## Troubleshooting
+If both commands return a version number and the browser opens CodeKnit, your installation succeeded.
 
-Use the following diagram to diagnose the most common setup issues:
+## Troubleshooting common issues
 
-Figure: Troubleshooting the local setup
+If the app does not open, use the decision tree below to identify the problem.
+
+Figure: Installation troubleshooting flow
+
 ```mermaid
 graph TD
-    A[Server won't start] -->|Node error| B[Check version with node -v]
-    A -->|Port in use| C[Stop the other app and retry]
-    A -->|npm not found| D["Reinstall Node.js with nvm"]
-    B --> E[Switch to latest LTS with nvm]
+    A[Installation problem] --> B{"Command not found?"}
+    B -->|Yes| C["Install Node.js"]
+    B -->|No| D{"Wrong Node version?"}
+    D -->|Yes| E[Switch with nvm]
+    D -->|No| F{"Dev server won't start?"}
+    F -->|Port busy| G[Free port 5173]
+    F -->|Dependencies missing| H[Run npm i again]
 ```
 
-### "npm: Command not found"
+Here are the most common issues and how to fix them:
 
-Node.js isn't installed or isn't on your path. Reinstall Node.js with nvm, then open a new terminal and try again.
+- **`node: command not found`**, Node.js is not installed or not available in your terminal. Install Node.js version 16 or later, then open a new terminal and retry.
+- **Wrong Node.js version**, If your version is older than 16, use nvm to switch to a supported version, then run`npm i` again.
+- **Port already in use**, If the development server cannot start because port 5173 is busy, stop the other process using that port and run`npm run dev` again.
+- **Dependencies are missing or installation failed**, Run`npm i` again in a fresh terminal window, then start the development server once more.
+- **Clipboard features do not work**, Use an up-to-date browser that supports the clipboard API.
 
-### Node.js version errors
+## Next steps
 
-If the server refuses to start with a version-related error, check your version with`node -v`. The modern build tooling used by CodeKnit may require a newer Node.js version than v16. Upgrade with`nvm install --lts`, then run`nvm use --lts`.
+- Start using the app right away with [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94).
+- Learn what CodeKnit does at a high level in Product Overview.
+- Understand the main terms you will see in [Concepts and Terminology](doc:08c7b9ec-c366-4fc5-b62c-01999c0ae167).

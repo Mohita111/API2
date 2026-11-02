@@ -1,74 +1,84 @@
 # Syntax highlighting
 
-CodeKnit colorizes your snippets so the different parts of your code, queries, and Markdown stand out from each other. Highlighting appears automatically in the editor while you type, and the same colors are shown everywhere you read a saved snippet.
+Syntax highlighting automatically colors the code and Markdown in CodeKnit so you can read a snippet at a glance and notice mistakes while you type. It runs as soon as you open the editor or view a snippet, there is nothing to enable or configure.
 
-## Who it is for
+This feature is for anyone who creates, edits, or reads snippets. It helps you tell the parts of a snippet apart, spot an unfinished string or comment, and scan a code block faster.
 
-Syntax highlighting helps anyone who writes or reviews snippets in CodeKnit:
+## What syntax highlighting shows
 
-- **Developers** can scan JavaScript, Python, or SQL and see comments, keywords, strings, and other constructs at a glance.
-- **Documentation writers** can see where Markdown headings, bold text, and links are recognized.
-- **Anyone reusing a snippet** can quickly understand its structure before copying or editing it.
+CodeKnit recognizes language-specific parts of your text and gives each part a distinct visual style. The exact shades depend on your app theme, but the relationships stay consistent: a keyword always looks different from a string, for example.
 
-## What you can do
+| Language construct | How CodeKnit styles it |
+| --- | --- |
+| Comments | Italic, subdued color |
+| Strings | Their own distinct color |
+| Keywords | Their own distinct color |
+| Functions | Their own distinct color |
+| Numbers | Their own distinct color |
+| Variables | Their own distinct color |
+| Punctuation and symbols | Muted color |
+| Markdown headings | Bold and colored |
+| Markdown bold text | Bold |
+| Markdown links | Underlined and colored |
+| Plain text | Default text color |
 
-When you create or edit a snippet, choose a language from the selector, and then type in the code area. As you write, CodeKnit updates the colorization instantly in both the editing area and the snippet preview. You do not need to save or refresh.
+Code languages use the code-focused styles. When you choose Markdown, CodeKnit switches to heading, bold, and link styling instead.
 
-The same highlighting is used everywhere a snippet appears:
-
-- On snippet cards in your library
-- In the preview when you select a snippet
-- In the detail dialog when you review saved code before copying
-
-Figure: Where highlighting appears in your CodeKnit workflow
+Figure: Highlighting appears as you type and in previews
 
 ```mermaid
 graph LR
-A[Create or open a snippet] --> B[Choose a language]
-B --> C[Type code or Markdown]
-C --> D[Editor colorizes as you type]
-D --> E[Preview and cards show the same colors]
+    A[You type in the Code field] --> B[CodeKnit recognizes language-specific parts]
+    B --> C[Parts receive distinct colors and styles]
+    C --> D[Editor updates instantly]
+    C --> E[Previews and detail view update too]
 ```
 
-## What each language highlights
+## How the language choice affects highlighting
 
-Each supported language has its own set of recognized constructs and visual treatments.
+The **Language** selector in the snippet form controls which rules CodeKnit applies. CodeKnit supports four languages: JavaScript, Python, SQL, and Markdown. JavaScript, Python, and SQL use the code construct styles. Markdown uses heading, bold, and link styles.
 
-### JavaScript, python, and SQL
+Figure: Language choice drives the highlighting rules
 
-- **Comments** appear italicized and more muted than ordinary code.
-- **Strings** receive their own distinct color.
-- **Keywords** receive their own distinct color.
-- **Functions** receive their own distinct color.
-- **Numbers** receive their own distinct color.
-- **Variables** receive their own distinct color.
-- **Punctuation** appears muted so it does not compete with the meaningful text.
+```mermaid
+graph LR
+    A[Choose a language] --> B{"Which language?"}
+    B -->|JavaScript| C[Code styles]
+    B -->|Python| C
+    B -->|SQL| C
+    B -->|Markdown| D["Heading, bold, and link styles"]
+    C --> E["Comments, strings, keywords, and more"]
+    D --> F["Headings, bold text, and links"]
+```
 
-### Markdown
+Each language also has a small colored dot in lists and badges so you can identify the language of a snippet quickly.
 
-- **Headings** appear bold and use a distinct heading color.
-- **Bold text** appears semibold.
-- **Links** appear underlined and use a distinct link color.
-- Plain Markdown punctuation appears muted.
+## Where you see highlighted text
 
-Each language also has a colored dot you can see next to its name in the sidebar and on snippet badges. Those dots use the same accent colors that appear in the language's highlighting.
+- In the **Code** field when you create or edit a snippet
+- On snippet cards in the library
+- In the full snippet detail view
 
-## What highlighting helps you notice
+In the editor, CodeKnit updates the colors immediately as you type. This live feedback helps you catch an unclosed quote, an unfinished comment, or a mismatched bracket before you save.
 
-Because different constructs have different colors, you can often spot mistakes early, such as an unfinished string, a misplaced comment, or a heading that is not being recognized as a heading. If your Markdown looks like plain text instead of showing bold or colored headings, verify that **Markdown** is selected as the language.
+In previews, highlighted code appears with optional line numbers and is capped to a reasonable number of lines when a snippet is long. A **+N more lines** indicator appears when the preview is truncated.
 
-> [!NOTE]
-> For the most accurate highlighting, make sure the selected language matches the content of your snippet.
+## Benefits
 
-## Limits
+- Immediate visual feedback while you write
+- Consistent styling across the editor, cards, and detail view
+- Works for both code and documentation in one tool
+- No setup or separate downloads required
+- Helps you notice syntax errors early
 
-CodeKnit highlights four languages only: **JavaScript**, **Python**, **SQL**, and **Markdown**.
+## Limits and things to know
 
-The highlighting is designed to be fast and lightweight rather than a complete language parser. Its recognition is approximate, so unusual or complex syntax may occasionally be colored in an unexpected way. This feature is not a full-featured replacement for a dedicated code editor.
+- CodeKnit supports only four languages: JavaScript, Python, SQL, and Markdown.
+- This is a lightweight highlighter, not a full code analysis tool. The highlighting is approximate and focuses on common patterns.
+- Depending on the theme, color contrast may differ, but each construct keeps its distinct style relative to the others.
 
 ## Related
 
 - [Code Editor](doc:a1109ff6-5fe7-437a-99ec-4d0b442bb0fd)
 - [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
-- [How Snippets and Filters Work Together](doc:5aa23d07-2c0d-44f6-8a85-df82ca070b77)
-- [Key Concepts and Terminology](doc:08c7b9ec-c366-4fc5-b62c-01999c0ae167)
+- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)

@@ -1,59 +1,69 @@
 # Client-Side redirects
 
-Client-side redirects keep your site's links working when pages move, get renamed, or are removed. When a visitor opens an old address, a lightweight redirect page opens in their browser and immediately sends them to the current location. This protects search rankings and keeps saved bookmarks valid.
+Client-Side Redirects is a feature for **site administrators and maintainers** who need to keep links working when pages move, get renamed, or change URL structure. It helps you create redirects that send visitors from an old or misspelled address to the current page, which preserves search engine rankings and keeps visitor bookmarks valid.
 
-## Who it's for
+## Availability in this release
 
-Client-side redirects are for site administrators and maintainers who manage the structure and addresses of a documentation site. Content authors who rename pages also benefit, because the feature keeps their readers from landing on "not found" pages.
+> [!NOTE]
+> Based on the source files reviewed for this documentation, Client-Side Redirects is not yet implemented in the current version of CodeKnit. None of the provided files contain redirect rules, redirect page generation, or URL rewriting logic. The following sections describe the feature as planned.
 
-## What you can do
+## What this feature is for
 
-You can create rules that map an old address to a new address. During a site build, the system generates a redirect page for each rule. Visitors who follow a stale link or saved bookmark are carried to the current page without taking any extra action.
+When a content author renames a page, a site administrator re-organizes documentation, or a legacy URL needs to point to a new location, visitors and search engines can otherwise land on missing pages. Client-Side Redirects lets you define rules that automatically send those visitors to the correct destination.
 
-The feature covers several common situations:
+Who benefits:
 
-- **Moved or renamed pages**, when you rename a page, you set the old name to redirect to the new one so readers find the right place.
-- **Broken or legacy addresses**, when you reorganize or retire pages, redirects guide visitors from old addresses to the best current equivalent.
-- **Localized addresses**, when you publish content in multiple languages, you can set up redirects that respect each language version of a path.
+- **Site administrators**, maintain clean URL structures without breaking existing links
+- **Content maintainers**, rename or reorganize pages without creating dead ends
+- **Visitors**, always arrive at working pages even when their bookmark or search result is out of date
+
+## Planned capabilities
+
+The feature aims to support these common redirect scenarios:
+
+- **Page renames**, send visitors from an old page address to the new one without seeing a "page not found" error
+- **Broken or legacy URLs**, redirect retired or outdated addresses to the most relevant current page
+- **Localized paths**, configure redirect rules that respect different language versions of the site
+- **Build-time generation**, produce ready-to-use redirect pages during the site build process so no server setup is required
+
+## Who this page is for
+
+| Audience | What they can do with redirects |
+| --- | --- |
+| Site administrators | Define and manage redirect rules across the site |
+| Content maintainers | Publish page moves with confidence that old links keep working |
+| Developers | Generate redirect pages as part of a production build |
 
 ## Benefits
 
-- **Preserves search rankings**, search engines follow the redirect and associate the old address with the replacement page, retaining ranking value.
-- **Protects user bookmarks**, visitors who saved an old address reach the correct page with no manual effort.
-- **Reduces error pages**, renamed or removed pages no longer strand visitors at a "not found" state.
-- **No server configuration required**, redirects run in the visitor's browser at the moment the page loads.
+- Preserves SEO value by showing search engines a proper destination instead of a missing page
+- Keeps visitor bookmarks and shared links working
+- Reduces support questions caused by broken links
+- Allows site re-organization without interrupting the visitor experience
 
-Figure: How a visitor follows a moved page
+## Key options and boundaries
 
-```mermaid
-graph LR
-  A[Visitor opens old address] --> B[Browser loads redirect page]
-  B --> C[Browser is sent to new address]
-  C --> D[Visitor sees the current page]
-```
+The planned feature focuses on client-side redirects, which run in the visitor's browser once the site is loaded. This means:
 
-## Key options
+- Redirects work on static hosting and don't require server configuration
+- Redirect pages are generated at build time, not created by hand
+- Rules can be defined for localized paths so language versions remain in sync
 
-You configure redirects through the site's build settings. Two approaches are available:
+When available, the following guides cover the common redirect workflows:
 
-- **Explicit redirect rules**, you list an old address alongside a new address, and the build turns each pair into a redirect page.
-- **Rename handling**, when a page is renamed, the site's redirect capability can create an automatic link from the old address to the new one.
-
-The behavior can also be customized for localized sites. For example, a redirect for the English address can point to the English replacement, while the French address points to its French equivalent.
-
-## How redirects behave
-
-Each redirect is a small, static page created during the build. When it opens, it sends the browser onward to the destination address. The result is a smooth transition from the old link to the current page.
-
-## Limits
-
-- **Requires a site build**, redirect pages are generated at build time, so adding or changing a redirect means rebuilding the site before visitors can use it.
-- **Specific destinations only**, every redirect points to an address you provide. It does not guess where a moved page went.
-- **Browser-side handling**, the redirect happens in the visitor's browser, not on the web server. The behavior is part of the built page rather than a server response.
-
-## Related
-
-- [How to configure redirect rules for localized paths](doc:83261685-f759-485c-ab93-e876b7a69a5f)
-- [How to generate redirect pages at build time](doc:667e20e0-0f37-49dd-b9ea-c8cf180727d6)
 - [How to handle page renames without 404s](doc:3bba0cd8-b2ff-4a98-b4b7-c1569009a038)
 - [How to redirect broken or legacy URLs](doc:f184b303-4e11-463c-a652-a1805c4e4d60)
+- [How to configure redirect rules for localized paths](doc:83261685-f759-485c-ab93-e876b7a69a5f)
+- [How to generate redirect pages at build time](doc:667e20e0-0f37-49dd-b9ea-c8cf180727d6)
+
+## What is available now
+
+The current CodeKnit application is a client-side snippet manager. The features that are implemented and documented include:
+
+- [Dashboard](doc:0cccb845-62f3-4e2b-b0ca-c7d768eaf700), home screen with library statistics
+- [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8), core storage and retrieval of code snippets
+- [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756), find snippets by query, language, category, and favorites
+- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb), mark snippets for quick access
+- [Import and Export](doc:f1b42dc6-1597-47d7-b921-658815f5af20), back up and restore your snippet library
+
+If you have questions about whether Client-Side Redirects is available in a newer release, check the release notes for your current version.

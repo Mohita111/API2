@@ -1,100 +1,94 @@
 # Code editor
 
-Write, edit, and format code or Markdown for your snippets directly in your browser. The Code Editor gives you live, color-coded syntax and simple keyboard helpers so you can create readable, reusable snippets without leaving CodeKnit.
+The Code Editor is where you write and update the code or Markdown content for your snippets in CodeKnit. It's for anyone who creates, edits, or revises a snippet. The editor is built into the snippet form, so you can type or paste content, see it highlighted in the selected language, and save it without leaving your browser.
 
-## What the Code editor is
+Learn more about what CodeKnit is in [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173).
 
-The Code Editor is the built-in editing area for snippets. It appears when you create a new snippet or edit an existing one. As you type or paste content, the editor automatically colors keywords, strings, numbers, comments, and, in Markdown, headings, bold text, and links. The highlighting updates to match the language you've chosen for the snippet.
+## What the editor offers
 
-The editor is lightweight and runs quickly without loading a heavy editing add-on. It's designed for focused editing, not for full-scale development work.
+The Code Editor gives you a focused writing space for snippet content. When you open the **New Snippet** or **Edit** form, the editor appears under the **Code** label.
 
-## Who it's for
+The editor is lightweight and responsive. It adjusts to the available width in the snippet form and shows your content in a monospaced, code-friendly layout.
 
-The Code Editor is for anyone who creates or updates snippets in CodeKnit, including developers, data analysts, technical writers, and anyone who saves reusable code or Markdown.
+## Where you'll use it
 
-With the editor, you can:
+You use the Code Editor when you create or edit a snippet. When you create a snippet, choose **New Snippet** from the sidebar or header. When you edit a snippet, open the snippet and choose **Edit**.
 
-- Format code with consistent indentation
-- See visual confirmation of the language you're using
-- Catch missing content before saving
-- Keep your original line breaks and spacing exactly as you wrote them
+In other places in CodeKnit, your code appears in a read-only preview that shows syntax colors and line numbers but does not allow editing. This read-only view appears on snippet cards and in the snippet detail view.
 
 ## Supported languages
 
-You can choose one of these languages for each snippet:
+The editor highlights content for four languages:
 
 - JavaScript
 - Python
 - SQL
 - Markdown
 
-When you change the language in the snippet form, the editor automatically re-highlights the content. For example, SQL keywords are colored like other code keywords, while Markdown shows styled headings, bold text, and links.
+Use the **Language** dropdown in the snippet form to choose a language. The highlighting updates automatically to match the language you select. For example, keywords, strings, comments, numbers, headings, and links can appear in different colors depending on the language.
 
-For more on how highlighting works, see [Syntax Highlighting](doc:0cc5fd84-0d94-4faf-ab51-00f580e726a4).
+For more detail on how colors are applied, see [Syntax Highlighting](doc:0cc5fd84-0d94-4faf-ab51-00f580e726a4).
 
-## Writing and editing content
+## Editing your content
 
-The editor uses a monospace font and displays line numbers on the left, starting at 1. Long lines keep their exact spacing and scroll horizontally instead of wrapping, so your code doesn't get reformatted.
+To edit content:
 
+1. Open a new or existing snippet in the snippet form.
+2. Select a language from the **Language** dropdown.
+3. Select the **Code** field and type or paste your content.
 
-### Indent with the tab key
+The editor shows an empty-state hint when no content is present: **// Paste or write your code here**.
 
-1. Click in the code field where you want to indent.
-2. Press **Tab**.
-3. The editor inserts two spaces at the cursor.
+Line numbers appear on the left side of the editor. The editor always shows at least 8 line-numbered rows, even when your content is shorter. Longer content scrolls vertically within the editor. Long lines stay on a single row, and you can scroll horizontally to see the rest of a line.
 
-If you have text selected when you press **Tab**, the editor replaces the selection with two spaces.
-
-## How editing and saving fit together
-
-When you create or edit a snippet, you choose a language, type or paste your content, and then save. If the required code field is empty when you try to save, the editor shows a red border and an error message.
-
-Figure: Code Editor editing and saving flow
-
-```mermaid
-graph LR
-    A["Open New Snippet or Edit"] --> B["Choose a language"]
-    B --> C["Type or paste content"]
-    C --> D["See live syntax highlighting"]
-    D --> E{"Code field has content?"}
-    E -- "Yes" --> F["Save snippet"]
-    E -- "No" --> G["Red border and error message"]
-```
+As you type, syntax colors update in the editing area. You can change the language at any time, and the highlighting changes to match.
 
 ## Keyboard shortcuts
 
-| Shortcut | Where | Result |
-| --- | --- | --- |
-| **Tab** | Code field | Inserts two spaces at the cursor, or replaces selected text with two spaces |
-| **Enter** | Tag field | Adds the current tag |
-| **,** (comma) | Tag field | Adds the current tag |
-| **Backspace** | Tag field | Removes the previous tag |
+The editor supports these keyboard actions:
+
+- Press`Tab` to insert two spaces at the cursor. This helps you indent code or Markdown.
+- Press`Backspace` normally to remove characters, including indentation spaces.
+
+In the **Tags** field, which appears in the same snippet form, you can:
+
+- Press`Enter` or`Comma` to add a tag.
+- Press`Backspace` to remove the last tag.
+
+For more on tags and categories, see [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4).
+
+Figure: Code editing and save flow
+
+```mermaid
+graph LR
+    A[Open a snippet form] --> B[Choose a language]
+    B --> C[Type or paste content]
+    C --> D[Tab adds two spaces]
+    C --> E[Colors update as you type]
+    D --> F{Save Snippet}
+    E --> F
+    F -->|Code is empty| G[Red border and message]
+    F -->|Has content| H[Snippet saved]
+```
+
+## Saving and validation
+
+When you save a snippet, CodeKnit checks that the **Code** field is not empty. If you leave the code area blank and choose **Save Snippet**, the editor displays a red border and a message below the field. If the field has content, the snippet saves normally.
 
 > [!NOTE]
-> The tag field is separate from the code field. It appears in the same snippet form and helps you organize the snippet with tags while you edit the code.
+> The editor checks that the code field is not empty. It does not check whether your code is syntactically correct, and it does not run or execute your code.
 
-## Validation and error feedback
+## What the editor does not do
 
-When you try to save a snippet without content in the code field, the editor marks the field with a red border and the form shows the message **Code is required**. The red border disappears once you add content.
+The Code Editor is intentionally simple. It is not a full development environment. It does not support:
 
-## Where the editor appears
+- Collaborative editing by multiple people at once
+- Debugging tools or code execution
+- Breakpoints, variable inspection, or a terminal
+- Advanced IDE-style features such as code completion, refactoring, or version history
 
-The editable Code Editor appears in the **New Snippet** and **Edit snippet** dialogs.
+## Next steps
 
-When you view a saved snippet in the detail view or on a snippet card, you see a read-only, color-highlighted preview of the code. To change the code from the detail view, select **Edit** to open the editable Code Editor.
-
-## What the Code editor doesn't do
-
-The Code Editor is focused on writing and formatting snippet content. It doesn't include:
-
-- Collaborative or real-time editing with others
-- Debugging tools or the ability to run code
-- Code completion or inline suggestions
-- Multi-file browsing, split panes, or other IDE-style features
-
-## Related
-
-- [Syntax Highlighting](doc:0cc5fd84-0d94-4faf-ab51-00f580e726a4)
-- [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
-- [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
-- [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94)
+- To create and save your first snippet, see [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94)
+- To learn how content is colored, see [Syntax Highlighting](doc:0cc5fd84-0d94-4faf-ab51-00f580e726a4)
+- To organize snippets with categories and tags, see [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)

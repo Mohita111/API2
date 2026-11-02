@@ -1,62 +1,63 @@
 # Copy to clipboard
 
-Copy any snippet to your clipboard with one click, then paste it straight into your editor, terminal, or another document. You don't need to select text, remember keyboard shortcuts, or retype anything.
+Copy any snippet’s code to your system clipboard with a single click. You can copy from a snippet card or from the snippet detail view, then paste directly into an editor, terminal, or chat without selecting the text by hand.
 
-## Who it helps
+## What you can do
 
-Copy to Clipboard is for anyone who saves code or Markdown snippets in CodeKnit and wants to reuse them quickly. Whether you're moving code into a project or reusing a saved text block, one click places the full snippet on your clipboard.
+- Copy a snippet’s full code with one click
+- Paste it into any app that accepts text
+- See clear visual confirmation when a copy succeeds
+- Understand and resolve clipboard access problems when they occur
 
-## Where you can copy
+## Where to find the copy buttons
 
-You can copy a snippet from two places:
+**On a snippet card:** The **Copy** button appears in the lower-right corner of every snippet card in your library.
 
-- **Snippet cards** – each card in the library has a **Copy** button.
-- **Snippet detail view** – when you open a snippet, a **Copy code** button appears in the action area.
+**In the snippet detail view:** When you open a snippet, a **Copy code** button appears in the action row along with **Edit**, **Delete**, and **Favorite**.
 
-Both options work the same way. The entire snippet is copied, not just the visible portion.
+## What happens when you copy
 
-## What happens after you copy
+When you click **Copy** or **Copy code**, CodeKnit attempts to place the snippet’s code on your clipboard using your browser’s secure clipboard features.
 
-Figure: Copy success and failure flow
+Figure: Copy to clipboard flow
 
 ```mermaid
-graph TD
-    A[Click Copy] --> B{"Clipboard write succeeds?"}
-    B -- Yes --> C["Green 'Copied!' toast"]
-    B -- Yes --> D["Button changes to 'Copied!'"]
-    B -- Yes --> E[Copy count increases]
-    B -- No --> F["Red error toast explains issue"]
+graph LR
+A[User clicks Copy] --> B{"Clipboard access allowed?"}
+B -->|Yes| C[Code copied to clipboard]
+C --> D["Green Copied! toast"]
+C --> E[Copy button changes to checkmark]
+C --> F[Copy count updates]
+B -->|No| G[Red error toast explains issue]
 ```
 
-### When copying succeeds
+On success, a green **Copied!** toast appears near the bottom of the screen. The copy button changes to a checkmark and reads **Copied!** briefly, then returns to its normal state.
 
-- A green **Copied!** notification appears near the top of the screen.
-- The button you clicked changes to **Copied!** with a check mark, giving you immediate visual confirmation.
-- The snippet's copy count increases, and the snippet appears in the **Recently Used** list.
+If the browser blocks clipboard access, a red error toast appears and explains the issue. Nothing is copied in that case.
 
-### When copying fails
+## Copy history and usage stats
 
-If your browser blocks clipboard access, CodeKnit shows a red error notification explaining the problem. Your snippet remains untouched.
+Each snippet keeps track of how often and when you’ve copied it:
 
-## Tracking your copied snippets
+- The snippet card shows **Copied X time(s)** below the updated date, once at least one copy has been recorded.
+- The snippet detail view shows the copy count, created date, updated date, and last copied date.
+- The sidebar’s **Recently Used** section lists snippets that have a last copied date, ordered with the most recently copied first.
 
-CodeKnit remembers when you copy each snippet:
+## Troubleshooting clipboard access
 
-- On a snippet card, you'll see **Copied** followed by the number of times you've copied it, for example`Copied 3 times`.
-- In the detail view, you'll see the copy count along with the date you last copied the snippet.
-- The sidebar's **Recently Used** section lists copied snippets in order of most recently copied, so you can quickly return to snippets you use often.
+If copying doesn’t work as expected, check these common causes:
 
-This tracking is automatic. There's nothing to turn on or configure.
+- CodeKnit must be running over a secure connection (HTTPS) or on`localhost`. Some browsers block clipboard writes on insecure pages.
+- A few browsers ask for permission the first time you copy. Follow the browser prompt to allow access.
+- Very large snippets may take a moment to appear when you paste. Wait briefly after copying.
+- Read any red error toast that appears; it explains the specific reason clipboard access was blocked.
 
-## Benefits
-
-- **Fast transfer** – copy and paste without manually selecting text.
-- **No manual selection** – the entire snippet is copied, including formatting and line breaks.
-- **Keyboard-free workflow** – copy quickly with a mouse or trackpad.
-- **Easy recall** – the **Recently Used** section helps you find snippets you've been working with.
+> [!NOTE]
+> Your copy history and usage stats are stored only in your browser, alongside your snippet library.
 
 ## Related
 
 - [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
-- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
-- [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)
+- [Code Editor](doc:a1109ff6-5fe7-437a-99ec-4d0b442bb0fd)
+- [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94)
+- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)
