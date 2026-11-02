@@ -1,220 +1,167 @@
 # Snippet library
 
-## What is the snippet library?
+The snippet library is your personal, always-available collection of saved code and text snippets. You can store anything from a JavaScript function to a Python script, a SQL query, or a Markdown note. Everything stays directly in your browser, so your library remains private, loads instantly, and works without an internet connection.
 
-The Snippet Library is where all of your saved code and text snippets live. It's the heart of CodeKnit: a searchable, filterable, and browsable collection that helps you save useful pieces of code, find them again quickly, and reuse them without hunting through old projects or notes.
+The library is for anyone who writes code or documentation and wants quick, organized access to reusable pieces. Instead of hunting through old files, you keep your best snippets in one place with search, filters, and a visual layout designed for fast scanning.
 
-A snippet is a saved unit of work. Every snippet has:
+## What you can do
 
-- A **title** that helps you recognize it at a glance
-- The **code or text** itself, written in a supported language such as JavaScript, Python, SQL, or Markdown
-- A **language** that controls how the code is colorized
-- An optional **description** explaining what the snippet does
-- A **category** to group related snippets
-- One or more **tags** for finer-grained organization
-- A **favorite** flag for important or frequently used snippets
+With your snippet library, you can:
 
-You can create, view, edit, delete, copy, and organize snippets entirely from the library. It's a local-first workspace: everything you save stays on your own device.
+- Create snippets with a title, code, language, description, tags, and category
+- View any snippet's full details in a focused window
+- Edit details or code whenever you need
+- Delete snippets you no longer want
+- Mark snippets as favorites for quick access
+- Copy snippet code to your clipboard in one click
+- Browse by category or language
+- Search across titles, tags, and code
+- Sort by Recently Added, Oldest First, or A to Z
+- Switch between grid and list layouts
 
-Figure: What each snippet contains
+## How your library is organized
 
-```mermaid
-graph LR
-  S[Snippet] --> I["Identity: title, description"]
-  S --> C["Content: code and language"]
-  S --> O["Organization: category and tags"]
-  S --> F["Status: favorite, dates, copy count"]
-```
+Snippets are stored locally in your browser, not on a server. Each snippet has these pieces of information:
 
-## Who it's for
+| Field | What it's for |
+|-------|---------------|
+| Title | A short, memorable name such as "Debounce utility" |
+| Code | The actual code or Markdown text you want to reuse |
+| Language | JavaScript, Python, SQL, or Markdown |
+| Description | Optional note explaining what the snippet does |
+| Category | A grouping label such as "Utilities" |
+| Tags | Searchable labels such as #react or #api |
+| Favorite status | A star marking snippets you use often |
 
-The Snippet Library is for anyone who regularly writes code or Markdown and wants a private, no-friction place to keep reusable pieces. It's especially useful for:
+Categories and tags are your own system for grouping. You choose them when you create or edit a snippet, and you can create a custom category at any time. The sidebar lists your categories with counts, so you can see at a glance how many snippets fall under each one. For a deeper look at how organization works, see [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4).
 
-- **Developers** who reuse small utilities, configuration patterns, SQL queries, or boilerplate
-- **Technical writers and note-takers** who manage Markdown examples and text templates
-- **Learners** building a personal collection of patterns and examples they want to remember
-- **Anyone who prefers local tools** and doesn't want snippets synced to an external server
+## Navigating your library
 
-## How the library works
+The sidebar is the starting point for everything in your library. It offers five sections, plus shortcuts for categories and languages.
 
-When you save a snippet, it's stored directly in your browser on the current device. There is no server round-trip and no account required. That means your library opens instantly, search feels immediate, and your snippets remain private on your own machine.
-
-Figure: How a snippet is stored and accessed
-
-```mermaid
-graph LR
-  A[You create a snippet] --> B[Stored in your browser]
-  B --> C[Searchable and filterable instantly]
-  B --> D[Stays on this device]
-  D --> E[No cloud sync]
-  D --> F[Export a backup anytime]
-```
-
-The sidebar footer reinforces this with the label **Saved on this device**. If you want a portable backup, you can export your entire library to a file from **Settings** and import it later. See [Import and Export](doc:f1b42dc6-1597-47d7-b921-658815f5af20) for details.
-
-## Browsing the library
-
-The library opens with a left sidebar for navigation and a main area for your snippets.
-
-### Library sections
-
-The sidebar includes several views, each with a distinct purpose:
-
-- **Dashboard**, a summary of your library with total count, favorites, and languages, plus your recent snippets
-- **All Snippets**, the complete collection with a total count badge
-- **Favorites**, only snippets you've starred, with a count badge
-- **Recently Added**, the last 10 snippets you saved, ordered newest first
-- **Recently Used**, snippets you've copied, ordered by most recently copied
-
-Each section is one click away from the sidebar. On mobile, open the navigation with the sidebar toggle at the top left.
-
-Figure: Library navigation sections
+Figure: Snippet library navigation sections
 
 ```mermaid
 graph LR
-  Home[Library home] --> Sidebar
-  Sidebar --> Dashboard
-  Sidebar --> All[All Snippets]
-  Sidebar --> Favorites
-  Sidebar --> Recent[Recently Added]
-  Sidebar --> Used[Recently Used]
+    Sidebar --> Dashboard
+    Sidebar --> All["All Snippets"]
+    Sidebar --> Favorites
+    Sidebar --> Recent["Recently Added"]
+    Sidebar --> Used["Recently Used"]
+    All --> Cards["Snippet cards"]
+    Favorites --> Cards
+    Recent --> Cards
+    Used --> Cards
+    Dashboard --> Stats["Summary stats"]
+    Dashboard --> Cards
 ```
 
-### Categories and languages
+### Sidebar sections
 
-Below the main views, the sidebar groups your snippets by **category** and by **language**. Each category shows a count of how many snippets it contains. Clicking a category or language filters the main view to show only that group. Click it again to clear the filter.
+- **Dashboard** – Shows summary stats and your snippets at a glance
+- **All Snippets** – The full collection, unfiltered by section
+- **Favorites** – Only snippets you've starred
+- **Recently Added** – The 10 most recently created snippets
+- **Recently Used** – Snippets you've copied, ordered by most recent copy
 
-This is further covered in [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4) and [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756).
+The sidebar also shows **Categories** and **Languages** lists. Clicking a category or language narrows the card view to just those snippets; clicking it again returns to all. Count badges on **All Snippets**, **Favorites**, and **Recently Used** show how many items each section contains.
 
-## What you see on a snippet card
+On smaller screens, the sidebar collapses. Tap the menu button in the top-left corner to open it, and it closes automatically after you choose a section.
 
-Each snippet appears as a card in the main area. Cards are designed for quick scanning without needing to open anything:
+## What you see on each card
 
-- **Syntax-highlighted code preview** showing up to 8 lines
-- **Language badge** with a color-coded dot
-- **Category label** with a folder icon
-- **Title** that you can click to open the full view
-- **Description** if one was added
-- **Tags** appearing as rounded`#tag` chips
-- **Favorite star** that appears filled when the snippet is starred
-- **Updated or created date**, plus copy count when a snippet has been copied at least once
-- **Copy** and **View** buttons
-- A **More actions** menu for **Edit** and **Delete**
+Each snippet appears as a card with the details you need to scan quickly.
 
-You can toggle between two layouts with the view controls on the filter bar:
-
-- **Grid view** shows cards in responsive columns
-- **List view** shows snippets as wide rows, with the code preview to the right
-
-Figure: What you can do from a snippet card
+Figure: Anatomy of a snippet card
 
 ```mermaid
 graph LR
-  Card[Snippet card] --> Open[Open full view]
-  Card --> Copy[Copy code]
-  Card --> Star[Toggle favorite]
-  Card --> Menu[More actions]
-  Menu --> Edit[Edit snippet]
-  Menu --> Delete[Delete snippet]
+    Card["Snippet card"] --> Title
+    Card --> Badge["Language badge"]
+    Card --> Category["Category"]
+    Card --> Star["Favorite star"]
+    Card --> More["More actions"]
+    Card --> Tags
+    Card --> Preview["Code preview"]
+    Card --> Footer["Date, copy count, buttons"]
 ```
 
-Your layout choice is remembered, so the library reopens in whichever view you used last.
+The card shows:
 
-## Finding a specific snippet
+- **Title** – Click to open the full snippet
+- **Language badge** – Colored dot plus the language name
+- **Category** – Folder icon with the category name
+- **Favorite star** – Click to add or remove from favorites
+- **More actions menu** – Edit or Delete options
+- **Description** – If added, shown as a short preview
+- **Tags** – Rounded chips with # labels
+- **Code preview** – The first several lines of your code with syntax coloring
+- **Footer** – Last updated date, copy count if any, Copy button, and View button
 
-Every library view includes a search bar and filter controls. You can:
+The code preview is syntax-highlighted so you can skim the structure before opening the full snippet. In grid layout, cards sit side by side in two or three columns. In list layout, each card stretches full width with the code preview alongside the details.
 
-- Type a search term to match snippet titles, tags, or code content
-- Filter by **language**, **category**, or **tag**
-- Sort by **Recently Added**, **Oldest First**, or **A–Z**
-- Clear all active filters with **Clear Filters**
+## Finding the right snippet
 
-When no snippets match, the library shows an empty state with a helpful prompt: either create your first snippet or loosen your filters.
+Your library gives you several ways to locate snippets:
 
-Figure: Search and filter flow
+1. **Search box** – Type in the search field in the header to search across titles, tags, and code
+2. **Language filter** – Pick JavaScript, Python, SQL, or Markdown from the filter bar dropdown
+3. **Category filter** – Pick a category from the filter bar dropdown
+4. **Tag filter** – Pick a tag from the filter bar dropdown
+5. **Sort** – Order by Recently Added, Oldest First, or A to Z
+6. **Sidebar shortcuts** – Jump to Favorites, Recently Added, or Recently Used
+
+When you apply any filter, a **Clear Filters** button appears so you can reset everything at once. If no snippets match, you'll see a friendly empty state with options to clear filters or create a new snippet. For details on how search and filters combine, see [How Snippets and Filters Work Together](doc:5aa23d07-2c0d-44f6-8a85-df82ca070b77).
+
+## Life of a snippet
+
+Snippets follow a simple cycle from creation to deletion:
+
+Figure: Snippet lifecycle
 
 ```mermaid
-graph LR
-  A[Start with all snippets] --> B[Search by term]
-  A --> C[Filter by language]
-  A --> D[Filter by category]
-  A --> E[Filter by tag]
-  B --> F[Results shown as cards]
-  C --> F
-  D --> F
-  E --> F
-  F --> G[Clear filters when finished]
+stateDiagram-v2
+    [*] --> Create: + New Snippet
+    Create --> Library: Save Snippet
+    Library --> View: Click card
+    View --> Edit: Edit button
+    Edit --> Library: Save changes
+    Library --> Deleted: Delete
+    View --> Deleted: Delete
+    Deleted --> [*]
 ```
 
-For a deeper explanation of how search, categories, tags, and favorites work together, see [How Snippets and Filters Work Together](doc:5aa23d07-2c0d-44f6-8a85-df82ca070b77).
+When you delete a snippet, CodeKnit asks for confirmation first. Deleting is permanent and cannot be undone.
 
-## Viewing snippet details
+## Where your data lives
 
-Click a card, its title, or the **View** button to open the full detail view. This dialog shows everything at once:
+Your snippet library is entirely local to your browser. Snippets are saved to your device's browser storage, not sent to any server. This gives you:
 
-- Full code with syntax highlighting and line numbers, in a scrollable area
-- Language badge and category
-- Title and description
-- Tags
-- Dates: created, updated, and last copied (when available)
-- Total copy count
-- Actions: **Favorite**, **Delete**, **Edit**, and **Copy code**
+- **Privacy** – Your code and notes never leave your device
+- **Speed** – Search and filtering happen instantly, even with many snippets
+- **Offline access** – Your library works without an internet connection
 
-This is the place to read a snippet in full before deciding to copy or edit it.
+A few things to know about local storage:
 
-## Creating and editing snippets
+- Snippets are tied to the browser you use. If you switch browsers or devices, your library won't automatically follow you.
+- Browser storage has size limits (typically 5–10 MB per website). Very large snippets or thousands of lengthy entries might approach these limits.
+- Clearing browser data for this site removes your library. Use the export feature to keep a backup.
 
-Use **New Snippet** in the header or sidebar to open the snippet form. The form includes:
+## Backing up and restoring
 
-- **Title** (required)
-- **Description**
-- **Language** selector
-- **Category** selector, with an option to create a custom category
-- **Tags** input
-- A syntax-aware **code editor**
-- A **Mark as favorite** switch
+In Settings, you can:
 
-When you edit an existing snippet, the form opens with all current values filled in. Saving creates a new snippet or updates the existing one, and a confirmation toast appears at the bottom of the screen.
+- **Export** – Download your entire library as a single JSON file
+- **Import** – Merge a previously exported library; existing snippets stay, duplicates are skipped
+- **Reset** – Replace everything with sample data
 
-To delete a snippet, use **Delete** on the card's more-actions menu or in the detail view. A confirmation dialog asks you to confirm, since deletion is permanent.
+Exporting is a good habit if your library is valuable to you. The exported file can be imported later on the same browser or moved to another browser. For full details, see [Import and Export](doc:f1b42dc6-1597-47d7-b921-658815f5af20).
 
-> [!NOTE]
-> You can also reset the whole library to sample data from **Settings** under **Reset to sample data**. This replaces all of your current snippets.
+## Related
 
-## Library settings
-
-The **Settings** dialog, opened from the gear icon in the sidebar, gives you three library-level tools:
-
-- **Export library**, downloads all snippets as a JSON file for backup or sharing
-- **Import library**, merges snippets from a previously exported JSON file; duplicates are skipped
-- **Reset to sample data**, replaces all snippets with the built-in sample set
-
-Import and export are covered in detail in [Import and Export](doc:f1b42dc6-1597-47d7-b921-658815f5af20).
-
-## Benefits and boundaries
-
-### Benefits
-
-- **Privacy-first**: snippets stay on your device and never travel to a server
-- **No accounts or network required**: the library works and searches instantly, even offline
-- **Fast lookup across thousands of entries**: search and filters operate directly on the locally stored library
-- **Responsive design**: the interface adjusts from desktop columns to a mobile-friendly layout
-
-### Boundaries
-
-- **Device-local storage**: snippets are not synced or shared across devices or browsers. Export and import manually to move them.
-- **Browser storage limits**: your browser provides a limited amount of storage for each website, typically around 5–10 MB. Large numbers of very big snippets may eventually approach this limit.
-- **Backup is your responsibility**: since there's no cloud copy, export a backup periodically if your library matters to you.
-
-## Related pages
-
-- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)
-- [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94)
 - [Dashboard](doc:0cccb845-62f3-4e2b-b0ca-c7d768eaf700)
 - [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)
-- [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
 - [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
-- [Code Editor](doc:a1109ff6-5fe7-437a-99ec-4d0b442bb0fd)
-- [Syntax Highlighting](doc:0cc5fd84-0d94-4faf-ab51-00f580e726a4)
-- [Import and Export](doc:f1b42dc6-1597-47d7-b921-658815f5af20)
-- [How Snippets and Filters Work Together](doc:5aa23d07-2c0d-44f6-8a85-df82ca070b77)
+- [Copy to Clipboard](doc:fe088c40-690b-45b1-ab17-d2fd7e259b72)
+- [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
+- [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94)

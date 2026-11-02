@@ -1,82 +1,60 @@
 # Your first snippet: quick start
 
-Save your first reusable piece of code in CodeKnit. This guide walks you through creating a snippet, a reusable unit of code or Markdown text with a title, language, and optional tags. By the end, you'll have one saved snippet and understand the basic create-and-save workflow.
+Create and save your first code snippet in just a few steps. You'll learn the basic create-and-save workflow so you can start building your personal snippet library right away.
 
-## Before you begin
+Before you begin, make sure CodeKnit is installed and running in your browser. If you need help getting set up, see [System Requirements and Installation](doc:1016cd5f-d53c-46d7-a74a-15b623ef5387).
 
-Make sure CodeKnit is running in your browser. You don't need an account, your snippets are stored on your device.
-
-## Create and save your first snippet
-
-Figure: Snippet creation flow
+Figure: Creating your first snippet
 
 ```mermaid
-graph TD
-    A[Click New Snippet] --> B[Type a title]
-    B --> C[Choose a language]
-    C --> D[Paste or type code]
-    E --> F[Click Save Snippet]
-    F --> G[Snippet appears in library]
+graph LR
+  B --> C[Choose language]
+  D --> E[Click Save Snippet]
+  E --> F[Snippet appears in library]
 ```
 
-### 1. Open the new snippet form
+## Create your first snippet
 
-Click **New Snippet** in the sidebar, or click **+ New Snippet** near the top-right corner of the page. The form opens with two defaults already set: **JavaScript** for the language and **Utilities** for the category.
+1. In the top bar or sidebar, click **+ New Snippet**. A dialog opens with empty fields.
+2. In the **Title** field, type a name for your snippet, for example`Quick Sort Algorithm`. Title is required.
+3. In the **Language** dropdown, choose **JavaScript**, **Python**, **SQL**, or **Markdown**. JavaScript is selected by default, but you can change it to match your code.
+4. In the **Code** field, paste or type your code. Code is required.
+5. Optional: in the **Tags** field, type a tag and press **Enter** or type a comma to add it. Tags help you find snippets later.
+6. Click **Save Snippet**.
 
-### 2. Enter a title
-
-In the **Title** field, type a descriptive name, for example, **Quick Sort Algorithm**. The title is required; you can't save without it. The field shows a suggested example such as *Debounce utility* to guide you.
-
-### 3. Choose a language
-
-Open the **Language** dropdown and select one of four options: **JavaScript**, **Python**, **SQL**, or **Markdown**. The editor uses this choice to color your code for readability as you type.
-
-### 4. Paste or type your code
-
-Click into the code area and paste or type your code. The editor shows numbered lines and highlights syntax based on the language you selected. Press **Tab** to indent your code by two spaces.
-
-### 5. Add optional tags
-
-In the **Tags** field, type a tag and press **Enter** or **comma** to add it. Repeat to add more tags. Tags help you locate snippets later through search and filters. For example, you could add **sorting** and **algorithm** to a Quick Sort snippet.
-
-> [!NOTE]
-> Tags save in lowercase. If you type`QuickSort`, it appears as`quicksort`. This keeps tags consistent when filtering.
-
-### 6. Click save
-
-Click **Save Snippet** at the bottom of the form. The form closes and your snippet appears in your library.
+That's it, your snippet is saved.
 
 ## What happens next
 
-After you save, your snippet appears in your library with its title, language badge, and tags. From there, you can:
+Your new snippet appears in your library right away. From there, you can:
 
-- **Search** for it using the search box
-- **Filter** by language, category, or tag
-- **Copy** the code with one click
-- **Edit or delete** it anytime
-- **Star** it as a favorite for quick access
+- Find it using **search** by title, tag, or code
+- Narrow it down with **language**, **category**, and **favorite** filters
+- Copy the code to your clipboard with one click
+- Organize it into categories or mark it as a favorite
 
-Your snippet is stored locally in your browser, so you can open CodeKnit later and it'll still be there.
+If you started from the **Dashboard**, your snippet count updates immediately, and you can see the language you just used reflected in your library stats.
 
-## Optional fields to fill in
+## Other fields you can fill in
 
-Before saving, you can also:
+While only **Title** and **Code** are required, the new snippet dialog also includes optional fields that are worth knowing:
 
-- Add a **Description** explaining what the snippet does
-- Change the **Category**, or choose **+ Custom category…** to create your own
-- Toggle **Mark as favorite** to star it immediately
+- **Description**, a short note about what the snippet does
+- **Category**, a group you assign, such as **Utilities**. Choose an existing category or open a custom category field by selecting **+ Custom category…**
+- **Favorite**, turn on the **Mark as favorite** switch to star the snippet for quick access
 
 ## Common issues
 
-**Tags are lowercased automatically.** When you type a tag such as`QuickSort`, CodeKnit saves it as`quicksort`. Use all-lowercase tags from the start if the exact capitalization matters to you.
+Here are two behaviors to be aware of as you create and use snippets:
 
-**Your browser may ask for clipboard permission.** The first time you try to copy a snippet, your browser might show a permission prompt. Allow access to copy code to your clipboard.
+- **Tags are lowercased automatically.** If you type`QuickSort` as a tag, it saves as`quicksort`. Use consistent wording so you can filter by tags later without surprises.
+- **Clipboard access may require browser permission.** The first time you copy a snippet, your browser might ask for permission to access the clipboard. If copying doesn't work, check your browser's clipboard permissions.
 
 
-Now that you've saved your first snippet, explore what else you can do:
+Once you've created your first snippet, try these guides to get more value from your library:
 
-- Learn how to [search and filter your snippets](doc:3704cb56-cf68-421d-9db0-d3816a8af756)
-- Read about the [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
-- Understand how [snippets and filters work together](doc:5aa23d07-2c0d-44f6-8a85-df82ca070b77)
-- Discover how to [organize snippets with categories and tags](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
-- Learn about [favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
+- [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
+- [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)
+- [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
+- [Copy to Clipboard](doc:fe088c40-690b-45b1-ab17-d2fd7e259b72)
+- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)

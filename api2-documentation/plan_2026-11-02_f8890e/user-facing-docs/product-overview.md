@@ -1,56 +1,73 @@
 # CodeKnit product overview
 
-CodeKnit is a lightweight snippet manager for saving, organizing, and reusing code and Markdown text. Instead of digging through old files or retyping the same block of code, you keep your most-used snippets in one place and find them in seconds.
+CodeKnit is a simple, fast home for your reusable code snippets and text templates. Save a piece of code or a block of text once, keep it organized, and copy it the moment you need it again, no more digging through old projects or half-remembered files.
 
-## What you can do
+## What CodeKnit is
 
-- Save code and Markdown snippets with a title, language, category, and tags.
-- [Find snippets](doc:3704cb56-cf68-421d-9db0-d3816a8af756) by searching across JavaScript, Python, SQL, Markdown, and other languages.
-- [Organize snippets by category](doc:8367ddb8-1051-4848-a093-3b4352805aa4) and [mark favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb) for quick access.
-- [Copy any snippet](doc:fe088c40-690b-45b1-ab17-d2fd7e259b72) to your clipboard with one click.
-- [Edit snippets](doc:a1109ff6-5fe7-437a-99ec-4d0b442bb0fd) in a readable, syntax-aware editor.
-- [Export your entire library](doc:f1b42dc6-1597-47d7-b921-658815f5af20) to a single file for backup or sharing, and import it again when needed.
+Think of CodeKnit as a personal library for the small pieces of text you write over and over. You can store short code blocks in many languages, Markdown notes, message templates, and boilerplate text in one searchable collection. Each snippet has a title, a language, a category, and tags so you can find it quickly later.
+
+CodeKnit runs in your browser and keeps your snippets close at hand. You don't need to set up a separate server or a database to start saving snippets.
 
 ## Who CodeKnit is for
 
-CodeKnit is for anyone who works with reusable text, but it's especially useful for developers. If you regularly reuse SQL queries, JavaScript functions, Python scripts, or Markdown templates, CodeKnit keeps them organized and within reach.
+CodeKnit is for developers and anyone who works with reusable text on a regular basis. It's especially helpful if you:
 
-## How CodeKnit fits together
+- Write code in several languages and want one place for the pieces you reuse
+- Keep standard blocks of text, such as replies, comments, or code scaffolding, and want to access them instantly
+- Prefer to find a snippet by name, language, category, tag, or favorite status instead of skimming through files
 
-The main workflow is simple: create a snippet, organize it, find it later, and use it. The sidebar filters your library by language, category, and favorites, while the search box finds any snippet by its title or contents.
+## Why use CodeKnit
 
-Figure: CodeKnit main workflow
+The core value is simple: spend less time retyping and more time using what you already wrote.
+
+- **One searchable library.** Keep snippets across JavaScript, Python, SQL, Markdown, and other formats in a single place.
+- **Organize your way.** Group snippets by category and tag them so related items appear together.
+- **Find anything fast.** Search by text, filter by language or category, and star the snippets you use most.
+- **Copy instantly.** Move a snippet to your clipboard with one click.
+- **Take your library with you.** Export your snippets to a single file for backup or sharing, and import them when you need to restore them.
+
+Figure: What you can do with a snippet in CodeKnit
 
 ```mermaid
 graph LR
-    B --> C[Search or filter your library]
-    C --> D["Copy, edit, or review the snippet"]
-    D --> E[Export your library as a backup]
+    A[Create a snippet] --> B[Name it and choose category]
+    B --> C[Save to the library]
+    C --> D[Find it with search or filters]
+    D --> E[Copy it or star it]
+    E --> F[Export your library anytime]
 ```
 
-## Key benefits
+## A tour of the main workspaces
 
-**Fast, local-first storage.** Your snippets are stored on your own device and are ready instantly, with no waiting on a remote service.
+When you open CodeKnit, the **Dashboard** gives you an at-a-glance summary of your snippet library. From there, the sidebar takes you to the areas where you do your day-to-day work.
 
-**Syntax-aware editing.** Write and edit snippets with highlighting that makes code and Markdown easier to read at a glance.
+The **Snippet Library** is where your saved snippets live. The **Code Editor** is where you write or edit the text of a snippet, with helpful color highlighting for code and Markdown. **Search and Filter** lets you narrow the list by typing a search term and choosing a language, category, or favorites view.
 
-**Organized your way.** Use categories for broad grouping and tags for flexible labeling, then star the snippets you use most as favorites.
+Figure: The main areas of CodeKnit
 
-**Search across everything.** Find snippets by title, text, language, or tag, whether it's a SQL query or a Markdown template.
+```mermaid
+graph LR
+    Dashboard --> Library[Snippet Library]
+    Dashboard --> Editor[Code Editor]
+    Library --> Search[Search and filters]
+    Search --> Copy[Copy to clipboard]
+    Search --> Favorites
+    Library --> ImportExport[Import and export]
+```
 
-**A portable library.** Export your entire snippet library to one file for backup or sharing, and restore it whenever you need.
+## What you'll learn in this documentation
 
-## What this documentation covers
+This documentation guides you through the full snippet workflow:
 
-1. Install CodeKnit and get it running on your computer.
-2. Create and save your first snippet.
-3. Organize snippets with categories, tags, and favorites.
-4. Find snippets with search and filters.
-5. Edit and copy snippets.
-6. Back up and restore your library with import and export.
+- Getting CodeKnit running on your machine
+- Creating and saving your first snippet
+- Organizing snippets with categories and tags
+- Searching, filtering, and marking favorites
+- Editing and copying snippets
+- Backing up and restoring your library with import and export
 
-## Next steps
+> [!TIP]
+> Export your snippet library regularly so you always have a safe backup.
 
-- [System Requirements and Installation](doc:1016cd5f-d53c-46d7-a74a-15b623ef5387)
-- [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94)
-- [Concepts and Terminology](doc:08c7b9ec-c366-4fc5-b62c-01999c0ae167)
+
+Start with the [Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94) to create your first snippet, or read the [Key Concepts and Terminology](doc:08c7b9ec-c366-4fc5-b62c-01999c0ae167) page to get familiar with the words used throughout CodeKnit. To explore a specific area, see the [Dashboard](doc:0cccb845-62f3-4e2b-b0ca-c7d768eaf700), [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8), [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756), or [Import and Export](doc:f1b42dc6-1597-47d7-b921-658815f5af20) pages.

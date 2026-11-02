@@ -1,72 +1,55 @@
 # CSS optimization
 
-CSS Optimization keeps the visual styling of your app fast and efficient. When you prepare the app for release, the build process automatically removes styling that isn't needed and compresses the CSS that remains. This means visitors download smaller files and pages appear more quickly.
+CSS Optimization makes your site load faster by shrinking the style information visitors download with every page. It runs automatically during production builds and works silently in the background: unused styles are removed, remaining styles are compressed, and redundant property definitions are cleaned up. This feature is for developers and site maintainers who care about page speed without spending time manually pruning style sheets.
+
+## What CSS optimization does
+
+When you publish your site, the build process examines every style rule and keeps only what affects how pages actually look:
+
+- **Removes unused styles.** Rules that no page or component applies are discarded.
+- **Cleans up overridden custom properties.** When the same property is set more than once and an earlier value is always replaced by a later one, the earlier declaration is dropped. Only the value that takes effect stays in the bundle.
+- **Compresses the remaining output.** Spaces, comments, and human-friendly formatting are stripped away, leaving the smallest files a browser can still read.
+
+Figure: How styles become an optimized CSS bundle during a production build
+
+```mermaid
+graph LR
+    A[Source styles] --> B{Production build}
+    B --> C[Keep styles in use]
+    B --> D[Drop overridden values]
+    B --> E[Compress remaining output]
+    C --> F[Optimized CSS bundle]
+    D --> F
+    E --> F
+```
 
 ## Who it's for
 
-CSS Optimization works automatically for developers who build and deploy the app. You don't need to configure anything to benefit from it. Content authors, site visitors, and other users experience the results, faster page loads and snappier interactions, without needing to understand how it works.
-
-## What it does
-
-When you build the app for production, three things happen:
-
-- **Unused styles are removed.** The build analyzes which styling rules are actually used and drops the rest. If a design element isn't referenced anywhere in the app, its styles never make it into the final output.
-
-- **CSS is compressed.** All styling files are shrunk by removing unnecessary spaces, line breaks, and other formatting that browsers don't need.
-
-- **Custom properties are consolidated.** Design tokens such as colors, spacing, and borders are stored as reusable variables. When a variable is overridden by another rule, the build removes the overridden version and keeps only the final value. Duplicate or unnecessary variables never reach the browser.
-
-Figure: Production build CSS optimization flow
-```mermaid
-graph LR
-    A[Source styles] --> B[Build process]
-    B --> C[Remove unused styles]
-    C --> D[Compress CSS]
-    D --> E[Remove overridden properties]
-    E --> F[Optimized CSS output]
-```
+CSS Optimization is for developers and site maintainers. You benefit every time you build the site for production—there is no extra step to remember. If you want more control, you can tune build settings to adjust how aggressively the optimizer removes unused or overridden styles.
 
 ## Benefits
 
-- **Faster loading pages.** Smaller CSS files take less time to download, especially on mobile connections or slower networks.
-- **Simplified styling output.** The final CSS contains only what the app actually uses, making it easier to inspect and reason about.
-- **Consistent design.** The build keeps cross-referenced design tokens consistent, if one rule overrides another, only the winning value is shipped to users.
-- **No manual effort.** Optimization happens automatically as part of the production build. You don't need to write special rules or maintain a list of what to remove.
+- **Faster page loads.** Smaller style files download faster, especially on mobile networks.
+- **Lower bandwidth use.** Visitors transfer less data on every visit.
+- **No manual cleanup.** You don't need to hunt down dead rules by hand.
+- **Consistent output.** The same source styles always produce the same optimized bundle.
 
-## Key options and limits
+## Key options
 
-| Option or limit | What it means |
-| --- | --- |
-| Automatic optimization | Runs during production builds without any manual steps. |
-| Design token dependency | Custom properties are kept when they're still in use; only overridden or unreferenced ones are removed. |
-| Build-time only | Optimization happens when the app is built, not while you're working in a development environment. Previewing changes during development doesn't trigger the full cleanup. |
-| No visual changes | Removing unused or overridden styles doesn't affect how the app looks. The final appearance matches what was designed. |
+Optimization is on by default for production builds. You can also refine how it behaves:
 
-## Understanding the visual design system
+- **Minify CSS for production.** Build the site in production mode to apply compression automatically.
+- **Optimize CSS bundle size.** Target modern browsers in the build settings so the optimizer keeps only syntax those browsers need.
+- **Remove unnecessary custom properties.** Enable cleanup of overridden custom properties through the build configuration. The optimizer removes only properties it proves are always overridden, so the visual result is unchanged.
 
-The app uses a shared set of design tokens, named values for things like background color, text color, borders, and highlights. Components throughout the app refer to these tokens by name rather than hard-coded color values. This makes the whole interface consistent and allows the optimizer to work efficiently.
+## Limits
 
-The main design tokens include:
+- Optimization applies only to production builds. Development builds keep styles uncompressed so they are easier to read and debug.
+- Overridden-property removal is conservative. The optimizer never changes how a page looks—it only removes declarations that are guaranteed to be overridden.
+- The optimizer modifies the output bundle, not your source style files. Your original styles remain untouched.
 
-- **Primary colors** for buttons, highlights, and active elements
-- **Secondary and muted colors** for supporting text, labels, and hover states
-- **Accent colors** for tags, badges, and decorative elements
-- **Card and border styling** for panels, dialogs, and dividers
-- **Code-specific colors** for the snippet editor and preview, such as syntax highlighting for keywords, strings, comments, and numbers
+## Related pages
 
-Figure: Design tokens mapped to interface elements
-```mermaid
-graph LR
-    A[Design tokens] --> B[Buttons and links]
-    A --> C[Cards and panels]
-    A --> D[Text and labels]
-    A --> E[Tags and badges]
-    A --> F[Code preview colors]
-```
-
-## Related
-
-- [Site Building & Bundling](doc:0fcd8337-ee59-484f-bda3-4db080caa340), Learn how the app is compiled and prepared for release
-- [Syntax Highlighting](doc:0cc5fd84-0d94-4faf-ab51-00f580e726a4), Discover the styling used in the snippet editor and code preview
-- [Performance Optimization](doc:df7d4ea6-c89c-4a8f-b056-db5fba77362b), Explore additional build optimizations that speed up page loads
-- [Dashboard](doc:0cccb845-62f3-4e2b-b0ca-c7d768eaf700), See how the optimized interface presents your snippet library
+- [How to minify CSS assets for production](doc:ecfad4a4-133c-46ec-ac33-4d5b0d637ab3)
+- [How to optimize CSS bundle size](doc:2d848518-523f-4344-b3fb-b15f92a93dff)
+- [How to remove unnecessary custom properties from CSS](doc:f6703bac-6f8f-4846-a7c2-29c97692c058)

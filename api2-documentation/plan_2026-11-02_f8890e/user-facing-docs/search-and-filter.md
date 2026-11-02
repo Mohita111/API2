@@ -1,101 +1,102 @@
 # Search and filter
 
-Search and Filter helps you find any snippet in your library quickly. Instead of scrolling through everything you've saved, you can search for text, narrow results by language or category, add a tag filter, show only favorites, and sort the results.
+Search and Filter helps you find the right snippet quickly, even as your library grows. Instead of scrolling through every saved snippet, you can combine a text search with language, category, tag, and favorites filters. Results update as you type and select, and the number of matching snippets is always visible.
 
-## What you can do
+## Search by text
 
-### Search for text
+Use the search box at the top of the page, or the one in the filter bar above your results, to find a snippet by entering part of its title, description, code, or tags. As you type, the snippet list narrows immediately to show only matching entries.
 
-Use the search box at the top of the page to find snippets by title, description, code content, or tags. Type a word, phrase, or piece of code, and the results update as you type.
+The search box says **Search snippets, tags, or code...** You don't need to remember exact wording; any matching text helps.
 
-### Filter by language
+## Filter by language
 
-Choose a language from the sidebar to show only snippets saved in that language. CodeKnit supports JavaScript, Python, SQL, and Markdown. Selecting the same language again returns the list to all languages.
+The sidebar includes a **Languages** list. Clicking a language such as **JavaScript**, **Python**, **SQL**, or **Markdown** shows only snippets saved in that language. Click the same language again to return to showing all languages.
 
-### Filter by category
+You can also choose a language from the **Language filter** dropdown in the filter bar. The **All languages** option clears the language filter.
 
-The sidebar lists your categories and shows how many snippets each category contains. Choose a category to see only snippets assigned to that category. Choose it again to clear it. Categories are assigned when you create or edit a snippet.
+## Filter by category
 
-### Filter by tag
+The sidebar lists the categories used in your library, with a count of snippets in each category. Clicking a category shows only snippets assigned to that category. Click the selected category again to clear it.
 
-Use the **Tag** selector under the search bar to show only snippets that have a specific tag. Tags are more flexible than categories because a single snippet can have several tags, so the same snippet can appear under multiple tag filters.
+Categories are created when you save snippets, so the list reflects your own library. If no snippets match a category yet, it won't appear in the sidebar.
 
-### Show only favorites
+## Filter by tag
 
-Open **Favorites** in the sidebar to display only snippets you have starred. The favorites filter applies together with any other search, language, category, or tag filter you have active.
+The filter bar includes a **Tag filter** dropdown that lists every tag you've used. Selecting a tag shows only snippets labeled with that tag. Tags appear with a`#` symbol in the list, such as`#react` or`#utility`.
 
-### Sort results
+Select **All tags** to remove the tag filter.
 
-Sort the displayed snippets by **Recently Added**, **Oldest First**, or **A–Z**.
+## Filter by favorites
 
-## Building a multi-filter search
+Click **Favorites** in the sidebar to show only snippets you've starred. Favorites works alongside your other filters, so you can favorite-filter first and then search or apply language, category, and tag filters to narrow the results even further.
 
-Filters combine naturally. For example, if you search for "debounce" with **JavaScript** selected in the sidebar and the **Utilities** category selected, you see only JavaScript snippets in Utilities that match "debounce." Add a tag filter or switch to **Favorites**, and the results narrow further.
+## Combining filters
 
-Figure: Search and filters narrow your results
+Filters work together rather than replacing one another. For example, you can select **JavaScript** as the language, **Utilities** as the category, and type a word from the code. The result set includes only snippets that match all active filters at once.
+
+Figure: How search and filters combine into one result set
 
 ```mermaid
 graph LR
-    A["Your snippet library"] --> B["Type a search term"]
-    A --> C["Choose a language"]
-    A --> D["Choose a category"]
-    A --> E["Choose a tag"]
-    A --> F["Open Favorites"]
-    B --> G["Results narrow in real time"]
-    C --> G
-    D --> G
-    E --> G
-    F --> G
-    G --> H["Shown count updates"]
+    A[Text search] --> F[Combined filter results]
+    B[Language] --> F
+    C[Category] --> F
+    D[Tag] --> F
+    E[Favorites section] --> F
+    F --> G[Updated shown count]
 ```
 
-Figure: Choosing and clearing filters
+## Toggling filters on and off
+
+Language and category filters in the sidebar behave as toggles. Clicking an item applies the filter; clicking the same item again clears it. Clicking a different item switches to that filter instead.
+
+Figure: What happens when you click a language or category filter
 
 ```mermaid
 graph TD
-    A["Start with no filters"] --> B{"Need to narrow results?"}
-    B -->|"Search by text"| C["Search title, description, code, or tags"]
-    B -->|"Search by language"| D["Pick a language in the sidebar"]
-    B -->|"Search by category"| E["Pick a category in the sidebar"]
-    C --> F["Add more filters if needed"]
-    D --> F
-    E --> F
-    F --> G["View narrowed results"]
-    G --> H["Clear Filters or choose the same filter again"]
-    H --> A
+    A[Click a language or category] --> B{"Already selected?"}
+    B -->|No| C[Apply the filter and narrow results]
+    B -->|Yes| D[Clear to All and widen results]
 ```
 
-## Real-time result counts
+## Shown count and clearing filters
 
-The **shown** count near the top of the results updates as soon as your search or filters change, so you always know how many snippets match. Sidebar badges also show live totals for **All Snippets**, **Favorites**, and **Recently Used**, and each category shows its own count.
+Above the snippet list, the label **shown** tells you how many snippets currently match. This number updates automatically as you apply or remove filters.
 
-## Clearing filters
+When any text, language, category, or tag filter is active, the **Clear Filters** button appears in the filter bar. Selecting it removes all active filters and returns you to the full library. Your sort choice is kept.
 
-When a search term or any filter is active, a **Clear Filters** button with an X appears. Selecting it resets the search, language, category, and tag filters while keeping your current sort choice.
+If no snippets match your current filters, you'll see an empty state with a suggestion to try different terms or loosen your filters, along with a quick way to clear them.
 
-You can also clear an individual filter by selecting the same option again. For example, if **Python** is selected in the sidebar, selecting **Python** again returns the list to all languages.
+## Sorting results
 
-## How filters work within each section
+The filter bar also includes a **Sort** control with three options:
 
-Search and filters apply in all main sections, with a few section-specific behaviors:
+- **Recently Added**, newest snippets first
+- **Oldest First**, oldest snippets first
+- **A–Z**, alphabetical by title
 
-- **Dashboard** and **All Snippets** show your full library with all filters available.
-- **Favorites** automatically adds a favorites-only filter on top of your other selections.
-- **Recently Added** sorts by newest and shows the 10 most recent matches.
-- **Recently Used** shows snippets you have copied, ordered by the most recently copied.
+Sorting affects the order of results and works independently from the other filters.
+
+## Benefits
+
+- **Fast full-text search**, searches run locally in your browser against the snippets saved on your device, so results feel immediate.
+- **Combinable filters**, language, category, tag, favorites, and text all work together to narrow large libraries.
+- **Real-time result counts**, the **shown** count updates as you adjust filters, so you always know how many matches you have.
+- **Easy reset**, one **Clear Filters** action returns you to the full library.
 
 > [!NOTE]
-> Search matches the exact text you type. CodeKnit does not support advanced regular expressions or fuzzy matching. Searches run locally in your browser on the snippets saved on that device.
+> Search and filtering happen only in your browser. Nothing is sent to a server, so filtering is fast and your snippets stay private on your device.
 
-## Limits to keep in mind
+## Limits and boundaries
 
-- Categories must be assigned to snippets manually when you create or edit them. CodeKnit does not generate categories from your code.
-- There are no saved searches or smart collections. You can reconstruct the same search each time, but you cannot save it for later reuse.
+- **Client-side only**, search covers only your locally saved snippets. It doesn't search external sources.
+- **No advanced matching**, search is direct text matching. There's no regex or fuzzy matching.
+- **Categories and tags are manual**, snippets are only categorized or tagged when you choose those values. Nothing is assigned automatically.
+- **No saved searches or smart collections**, you can't bookmark a filter combination for later use. Each search starts fresh.
 
 ## Related
 
+- [How Snippets and Filters Work Together](doc:5aa23d07-2c0d-44f6-8a85-df82ca070b77)
 - [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
 - [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
 - [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
-- [How Snippets and Filters Work Together](doc:5aa23d07-2c0d-44f6-8a85-df82ca070b77)
-- [Dashboard](doc:0cccb845-62f3-4e2b-b0ca-c7d768eaf700)
