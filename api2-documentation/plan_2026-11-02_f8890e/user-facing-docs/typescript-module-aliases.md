@@ -1,67 +1,57 @@
 # TypeScript module aliases
 
-TypeScript module aliases give theme and plugin developers a clean, consistent way to reference shared modules inside this project. Instead of writing long relative paths that climb through parent folders, you write a short, stable path that starts with`@/`.
+TypeScript Module Aliases is a developer experience feature that lets you import modules across this project using short, stable paths instead of long chains of relative folder references. It's for anyone writing or maintaining code in this codebase—theme developers, plugin authors, and contributors who touch any part of the interface or underlying logic.
 
-## Who it's for
+With module aliases enabled, every import uses a consistent`@/` prefix that points to the project root. The prefix directs the build tool to the right location, so you always know where a file lives no matter which file you're editing.
 
-This feature is for developers who maintain or extend the project. If you build custom views, tweak shared components, or add new utilities, aliases keep your imports readable and consistent.
+## What module aliases do
 
-## Benefits
+When you open any source file in this project, you'll notice that imports follow the same pattern:`@/` followed by a folder name. This prefix represents the top level of the project and maps to the root directory where the source code lives.
 
-- **Consistent references**: No matter where you edit, the path to a shared resource looks the same.
-- **Fewer mistakes**: You avoid counting`../` levels to reach a shared folder.
-- **Easier refactoring**: Imports stay stable even when files move within the aliased folders.
-- **Clearer intent**: An import such as`@/lib/snippets/types` immediately shows that the module is a shared snippet library type definition.
-
-## How aliases work in day-to-day work
-
-The diagram below shows what happens when you use an aliased import in your source file.
-
-Figure: How the @/ alias maps imports to shared folders
+Figure: How the`@/` alias maps to the project root
 
 ```mermaid
 graph LR
-    A["Your source file"] --> B["@/lib/snippets"]
-    A --> C["@/components/ui/dialog"]
-    B --> D["Shared snippet library"]
-    C --> E["Shared dialog component"]
+    A["Import statement in a file"] --> B["@/ alias"]
+    B --> C["Project root"]
+    C --> D["components"]
+    C --> E["lib"]
+    D --> F["ui controls"]
+    E --> G["snippets utilities"]
 ```
 
-Every`@/` import resolves to a shared location in the project. You don't need to trace back folder by folder to know what's being used, the prefix tells you the module lives under a shared folder, and the build tooling handles the mapping.
+This one prefix replaces multiple relative-folder hops like`../../../` that would otherwise be needed to reach shared files from deeply nested locations.
 
-## Key examples
+## Who this helps
 
-The aliases are used consistently across the project's source files. For example, the main layout imports several shared modules using the`@/` shorthand:
+This feature is built for developers who work on this product's internals. If you're a theme or plugin developer, or you're contributing a feature or fix, you benefit from it every time you write an import. It's the tool that keeps imports predictable across the entire codebase.
 
--`@/components/ui/button`
--`@/components/ui/input`
--`@/components/ui/sidebar`
--`@/lib/utils`
--`@/lib/snippets/filter`
--`@/lib/snippets/store`
--`@/lib/snippets/types`
+## Benefits
 
-You don't need to configure anything to use these aliases. They are already wired into the project's TypeScript and build tooling.
+- **Consistent imports everywhere**: Whether you're working in a top-level layout component or a deeply nested utility, every import uses the same`@/` prefix and follows the same pattern. There's no guessing about how many`../` segments a file needs.
+- **Stable paths during refactoring**: If you move a file to a different folder, its imports don't break as long as it still lives under the alias root. The alias resolves to the same location regardless of where the importing file sits.
+- **Clearer organization**: The alias makes the project structure obvious. Imports grouped under`@/components` refer to interface components, while imports under`@/lib` refer to shared utilities and data logic.
+- **Faster navigation**: Because every import starts from the same root reference, you can scan a file and immediately understand where its dependencies are located.
 
-## Key options and limits
+## Key options
 
-The alias setup is decided by the project and applies project-wide.
+The alias system in this project exposes these configurable areas:
 
-- The`@/` prefix maps to shared folders under the source root.
-- Import lines can point to shared interface components or internal libraries.
-- The resolver supports the same path mapping during development and production builds.
+- **`@/components/ui`**: A collection of reusable interface elements such as buttons, dialogs, inputs, and a sidebar. These components are shared across the product and imported from multiple places.
+- **`@/lib`**: The central area for shared utilities and product logic. This includes snippet filtering, types, data storage, import/export helpers, and utility functions.
+- **`@/lib/snippets`**: The dedicated module group for snippet-related functionality, including language and filter types, the snippet store, search and sort logic, code highlighting, and import/export utilities.
 
-> [!NOTE]
-> The`@/` shorthand is a project convention, not a standard TypeScript feature. It relies on the path resolution plugin included with the project's development dependencies.
+Each of these areas is reachable through the same`@/` root prefix, so no additional configuration is needed when you work within them.
 
-Limits to keep in mind:
+## Limits
 
-- The aliases cover internal shared modules only; they don't replace imports from external packages.
-- If the path resolution plugin is removed from the development dependencies, aliased imports stop working.
-- A module must remain at a location that matches what the alias points to.
+- **Build tooling required**: Module aliases only work when the build tooling is properly set up. Running the project with the standard development command handles this automatically, but imports won't resolve without the configured toolchain.
+- **Root-relative only**: The alias points to the project root and doesn't support mappings to locations outside the project or to third-party packages. External packages still use their standard package names.
+- **Prefix consistency matters**: To reap the full benefit of stable imports, developers need to use the`@/` prefix consistently rather than reverting to relative paths. Both work, but mixing styles reduces the clarity the alias is designed to provide.
 
-## Related pages
+## Next steps
 
-- [Site Building & Bundling](doc:0fcd8337-ee59-484f-bda3-4db080caa340)
-- [Key Concepts and Terminology](doc:08c7b9ec-c366-4fc5-b62c-01999c0ae167)
-- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)
+- Learn about the overall product structure in [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)
+- Set up the project locally in [System Requirements and Installation](doc:1016cd5f-d53c-46d7-a74a-15b623ef5387)
+- Understand the shared terminology in [Key Concepts and Terminology](doc:08c7b9ec-c366-4fc5-b62c-01999c0ae167)
+- See how snippet data and logic are organized in [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)

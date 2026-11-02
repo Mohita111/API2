@@ -1,55 +1,47 @@
 # Translation extraction
 
-Translation Extraction is the capability that helps you collect the text people see in a product so it can be translated into other languages. It is designed for developers and translators who want to localize the product for international audiences.
+Translation extraction identifies and collects all user-facing text in an application so it can be translated into multiple languages. It separates the English text that appears on screen from the code that displays it, enabling translation workflows without changing the underlying functionality.
 
-## What it's for
+## Who it is for
 
-When a product reaches users in many regions, every label, button, message, and instruction needs a reliable home in each target language. Translation Extraction is the step that identifies and gathers those user-facing phrases into one organized place. From there, translators can work from a complete list instead of hunting through the product screen by screen.
+Translation extraction is designed for:
 
-This makes localization faster, more complete, and less error-prone. Teams can hand a translator a single inventory of words, get translations back, and plug them into the product cleanly.
+- **Developers** who need to prepare an application for multiple languages
+- **Translators** who need a consolidated list of text strings to translate
+- **Site administrators** who manage which languages are available to users
 
-> [!NOTE]
-> This product does not yet include a built-in Translation Extraction capability. The rest of this page explains what exists today and what that means for your localization work.
+## Availability in this release
 
-## Who it's for
+Translation extraction is not currently available in this product. The source files provided contain no string extraction tooling, localization infrastructure, or internationalization support. The project's dependency list includes no translation or internationalization libraries.
 
-The idea of Translation Extraction serves two main groups:
+All user-facing text is written directly into the interface. For example:
 
-- **Developers** who want to prepare the product for users in multiple languages
-- **Translators** who need a complete, organized list of text to translate
+- The delete confirmation reads **Delete this snippet?** with **Cancel** and **Delete** buttons
+- The search placeholder reads **Search snippets, tags, or code...**
+- The sidebar displays **Dashboard**, **All Snippets**, **Favorites**, **Recently Added**, and **Recently Used**
+- The settings dialog reads **Export library** and **Import library**
+- Form labels include **Title**, **Description**, **Language**, **Category**, and **Tags**
 
-## What you'll find today
+These labels, buttons, and messages are embedded directly in the interface and cannot be extracted automatically for translation in the current version.
 
-Every part of the product's interface is written in English and stays in English. There is no built-in setting to switch languages, and there is no automatic way to pull out translatable text.
+## What this means for you
 
-You'll see fixed English text throughout these areas:
+In this release, the product runs in English only. If your team needs to support additional languages, you would need to modify the interface text directly rather than working from translation files.
 
-- **Navigation**, including choices like **Dashboard**, **All Snippets**, **Favorites**, **Recently Added**, and **Recently Used**
-- **Search and filter controls**, including labels like **Search snippets**, **All languages**, **All categories**, and **Clear Filters**
-- **The snippet editor and its fields**, such as **Title**, **Description**, **Category**, **Tags**, and **Code**
-- **Action buttons**, such as **New Snippet**, **Save Snippet**, **Cancel**, and **Delete**
-- **Feedback messages**, such as "Snippet saved" and "Snippet deleted"
-- **Confirmation dialogs**, such as "Delete this snippet?"
-- **Settings and backup options**, including **Export library**, **Import library**, and **Reset to sample data**
-- **Empty-state prompts**, such as "No snippets match" and "Save your first snippet to start building your library"
+## Planned capability
 
-## What this means for your workflow
+When translation extraction becomes available, it will:
 
-If your goal is to offer the product in another language, today you would need to find each of these phrases yourself and connect them to your own translation system. The product does not provide:
+- Scan the interface for all user-facing text
+- Collect those strings into a translatable format
+- Allow translators to provide translations for each language you choose to support
+- Display the interface in the user's preferred language without further code changes
+- Track which strings are translated and which remain in the source language
 
-- A searchable list of all user-facing phrases
-- Automatic discovery of new or changed text
-- Import or export of translation files
-- A language selector for people using the product
+## Limitations
 
-## Limits
-
-Because Translation Extraction is not yet implemented, the product currently has these boundaries:
-
-- All interface text is fixed in English
-- No translation file format is supported
-- No catalog of translatable phrases exists
-- There is no way to detect when new text is added or changed
-- End users cannot switch the product to another language
-
-This page describes the product as it currently stands. Translation Extraction is a future capability rather than something you can turn on or use today.
+- No translation files or locale directories are included in this release
+- No automated string extraction occurs at build time or during development
+- User interface text is fixed in English and cannot be changed without code edits
+- No language switching, locale detection, or language preference setting is available
+- No integration with translation management platforms is present

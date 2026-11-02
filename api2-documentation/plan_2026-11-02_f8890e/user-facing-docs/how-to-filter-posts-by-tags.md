@@ -1,66 +1,51 @@
 # How to filter snippets by tags
 
-This guide shows you how to narrow your snippet library to only the snippets that share a specific tag. You can use this any time you've saved snippets with tags and want to focus on one topic, such as`#react` or`#utilities`.
-
-> [!NOTE]
-> The available tag choices come from the tags that are already attached to snippets in your workspace. If no snippets have tags yet, the tag filter list will be empty.
+Filtering by tag helps you quickly narrow your library to saved snippets that share a topic, such as`#react`,`#api`, or`#testing`. The tag filter is part of the filter bar that appears on every page in your workspace.
 
 ## Prerequisites
 
-- You have at least one snippet in your workspace.
-- At least one snippet has a tag. Tags appear as small`#` badges on snippet cards.
-- You're on the **Dashboard**, **All Snippets**, **Favorites**, **Recently Added**, or **Recently Used** view, where the filter bar is visible.
+- Your snippet library is open and has finished loading.
+- At least one snippet already has a tag. Tags are added when you create or edit a snippet using the **Tags** field.
 
-## Steps to filter by tag
+## Step-by-step instructions
 
-1. Locate the filter bar near the top of your snippet list.
-2. Find the **All tags** dropdown, which sits alongside the language and category dropdowns.
-3. Select the tag you want to see. Tags are listed with a`#` in front of the name, such as`#react` or`#api`.
-4. The snippet list updates immediately to show only snippets that have the selected tag.
+1. Open **Dashboard**, **All Snippets**, or another view that shows your snippet list.
+2. Locate the filter bar just below the page heading. It contains a search box and several dropdown filters.
+3. Click the dropdown that shows **All tags** by default.
+4. Choose the tag you want to filter by. Each tag appears with a`#` symbol in front of its name, for example`#react`.
+5. The list updates immediately to show only snippets that carry the selected tag. The count next to the page heading updates to match.
+6. To remove the filter, open the dropdown again and choose **All tags**, or click **Clear Filters** when it appears.
 
-    Figure: Select a tag to narrow the snippet list
+The following diagram shows the flow from opening the filter bar to resetting the tag filter.
 
-```mermaid
-graph TD
-    A[Open a view with the snippet list] --> B[Locate the All tags dropdown]
-    B --> C[Choose a tag with a # prefix]
-    C --> D[The list shows only snippets with that tag]
-    D --> E[To reset choose All tags]
-```
+Figure: Filtering snippets by a tag
 
-5. To see all snippets again, open the same dropdown and choose **All tags**.
-
-## Combine with other filters
-
-You can use the tag filter together with search and other dropdown filters to narrow results further. For example, choose`JavaScript` in the **All languages** dropdown and select`#utilities` in the tag dropdown to see JavaScript snippets tagged`#utilities`.
-
-    Figure: Multiple filters narrow the list together
 ```mermaid
 graph LR
-    A[Search text] --> D[Filtered snippet list]
-    B[Language filter] --> D
-    C[Tag filter] --> D
-    D --> E[Only snippets matching all active filters appear]
+    A[Open the filter bar] --> B[Click the All tags dropdown]
+    B --> C[Choose a tag from the list]
+    C --> D[Only matching snippets remain]
+    D --> E[Choose All tags or click Clear Filters to reset]
 ```
 
 ## Expected result
 
-The snippet list shows a count such as`3 shown` for how many snippets match the selected tag. Every visible snippet card displays a matching`#tag` badge. Snippets that don't match are hidden, not deleted.
+- Only snippets that carry the selected tag appear in the list.
+- Each visible snippet card shows the matching tag as a`#tag` chip.
+- The **shown** count beside the heading reflects the narrowed results.
 
 ## Common issues
 
-### The tag dropdown is empty
-There are no snippets with tags in your workspace. Add tags to snippets through the **Tags** field in the snippet form, then open the tag dropdown again.
+- **The tag you want is not in the dropdown**: the dropdown only lists tags that already exist on snippets in your library. Add the tag to at least one snippet first.
+- **You see “No snippets match”**: the selected tag may not be present on any visible snippet, or another active filter may be narrowing the results too far. Try choosing a different tag or clicking **Clear Filters**.
+- **Results still feel too broad**: tag filtering combines with search, language, category, and other filters. Add more filters to narrow the list further.
 
-### Selecting a tag shows no results
-The selected tag is active but no snippets match the current combination of filters. Broaden your search by clearing the search box or choosing **All languages** and **All categories**. If the list still shows no results, choose **All tags** to reset the tag filter.
+> [!TIP]
+> You can also type a tag name into the search box to find snippets by tag. The tag dropdown is the quickest way to filter to exactly one tag.
 
-### You don't recognize the tag choices
-The tag dropdown lists only tags that are currently attached to snippets in your workspace. If a tag is no longer on any snippet, it won't appear in the dropdown.
+## Related
 
-## Next steps
-
-- Learn how snippets, categories, and tags work together in [Concepts and Terminology](doc:0cccb845-62f3-4e2b-b0ca-c7d768eaf700)
-- Find out how to organize snippets with categories and tags in [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
-- Explore other ways to find snippets in [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)
-- Learn how to favorite snippets and filter by favorites in [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
+- [How Snippets and Filters Work Together](doc:5aa23d07-2c0d-44f6-8a85-df82ca070b77)
+- [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)
+- [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
+- [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94)

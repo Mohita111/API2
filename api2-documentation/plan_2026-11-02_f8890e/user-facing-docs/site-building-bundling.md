@@ -1,64 +1,66 @@
 # Site building and bundling
 
-Site Building & Bundling turns your CodeKnit project into a working website. It covers the main moments of preparing a site: running it while you work, creating an optimized version for production, and testing that production version before you publish.
+This page describes how the site is compiled and bundled for production. It is for developers who want to prepare a release build, test that build locally, or run the project during development.
 
-## Who it's for
+The build toolchain compiles TypeScript and React source into an optimized set of files you can serve to visitors. It runs on Vite 8 and uses Rolldown under the hood to combine, minify, and split your code into efficient bundles. The project pins Rolldown to version 1.2.1 so builds use a consistent, known bundler version.
 
-This feature is for developers and site administrators who need to:
+## What you can do
 
-- Run the site on their own machine during development
-- Prepare an optimized bundle to deploy
-- Verify the production output locally before it goes live
+The build tooling supports four main developer workflows:
 
-## How the build flow works
+| Command | Purpose |
+|---|---|
+|`npm run dev` | Start the live development server with fast refresh while you work |
+|`npm run build` | Create an optimized production build |
+|`npm run build:dev` | Create a development-mode build for debugging |
+|`npm run preview` | Serve the production build locally to test it before it goes live |
 
-The same source code feeds either live development or a production bundle. From the bundle, you can launch a local preview to check the result.
+These commands cover the full cycle from writing code to verifying that the final output works.
 
-Figure: Development and production build flow
-
-```mermaid
-graph LR
-  A[Your source code] --> B[Start dev server]
-  A --> C[Create production build]
-  B --> D[Live site with instant updates]
-  C --> E[Optimized production bundle]
-  E --> F[Start preview server]
-  F --> G[Local production preview]
-```
-
-## Choosing a mode
-
-The command you choose depends on what you need to do with the site.
-
-Figure: Choose a site mode
+Figure: Choosing the right build command
 
 ```mermaid
 graph TD
-  A["What do you need today?"] --> B[Edit and test the site]
-  A --> C[Prepare the site to go live]
-  A --> D[Verify a production build]
-  B --> E[Use dev mode]
-  C --> F[Use build mode]
-  D --> G[Use preview mode]
+    A["What do you need?"] --> B["Work on code with live updates"]
+    A --> C["Create a production bundle"]
+    A --> D["Test the built output"]
+    B --> E["Use npm run dev"]
+    C --> F["Use npm run build"]
+    D --> G["Use npm run preview"]
 ```
 
-## Benefits
+## How the build works
 
-- **One-command builds**, bundling for production is a single command, with no manual tooling setup required.
-- **Fast development**, the development server updates the site as you make changes.
-- **Optimized output**, the production command compiles and bundles the site rather than serving source files directly.
-- **Safe testing**, the preview command lets you check the exact production bundle on your own machine before release.
+The build process turns your source into output that a server can deliver efficiently.
 
-## Key options and boundaries
+Figure: Production build flow
 
-The build is powered by Vite 8.1.5, and the project pins the Rolldown bundler to version 1.2.1. The site is built with TanStack Start, React, TypeScript, and Tailwind CSS, and the build is configured to understand these parts out of the box.
+```mermaid
+graph LR
+    A["Source code"] --> B["Bundle modules"]
+    B --> C["Remove unused code"]
+    C --> D["Minify output"]
+    D --> E["Split into chunks"]
+    E --> F["Emit static files"]
+    F --> G["Preview or deploy"]
+```
 
-- The development command does not produce a deployable bundle. Use the production build command for anything you plan to publish.
-- The preview command serves the most recent production build. Run the production build command again after making changes, then preview again to see the latest result.
-- Local setup requires Node.js and npm; the recommended way to install both is with nvm.
+During a production build, the toolchain performs several optimizations:
 
-## Related
+- **Bundling** combines related modules so the browser makes fewer requests.
+- **Tree shaking** removes code that is never imported or used. The project enables this optimization sitewide.
+- **Minification** shortens variable names and strips whitespace to reduce file size.
+- **Code splitting** emits separate chunks so visitors download only the parts they need.
 
-- [System Requirements and Installation](doc:1016cd5f-d53c-46d7-a74a-15b623ef5387)
-- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)
-- [Logging & Diagnostics](doc:42850ad2-ae64-43c4-930f-731595c051ed)
+## Limits and considerations
+
+- A production preview only reflects the most recent build; change your source and run the build again to see updated output.
+- The Rolldown bundler is pinned to version 1.2.1, so builds are consistent, but you cannot pick an arbitrary different bundler without changing the project configuration.
+- Builds run in a Node.js environment and require the dependencies listed in the project to be installed first.
+
+## Related guides
+
+- [How to build production site](doc:23e09652-4772-4f32-a5b7-0121a8bc4853)
+- [How to minify JavaScript bundles](doc:0ca83aab-42b1-494a-8fef-9f7fbf81dc7f)
+- [How to enable faster build mode](doc:c4b28fd3-840d-4199-8d25-b0db7d1b0e49)
+- [CSS Optimization](doc:9c358234-bd9b-41b5-8c0e-dc1b8be5ce61)

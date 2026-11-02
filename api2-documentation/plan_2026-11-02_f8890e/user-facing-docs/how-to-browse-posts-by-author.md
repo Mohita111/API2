@@ -1,46 +1,58 @@
 # How to browse posts by author
 
-Browse all blog posts from one writer by opening that writer's author page. This is part of the Blog feature, which is designed for blog readers and content authors.
+This guide explains how to browse posts by author in the Blog area. In the current product build, the Blog area and author pages are not included, so this workflow is not yet available.
 
-## What you'll need
+> [!IMPORTANT]
+> If you do not see a Blog area or an author name anywhere in the product, your installed version does not include author browsing yet. The steps below describe the browsing features that are available today.
 
-- Access to the Blog area.
-- A blog post that shows an author name, or a link to an author page from the blog navigation.
+## What you can browse today
 
-## Browse posts by author
+The current product focuses on saving and finding code and text snippets. You can browse snippets by topic using the navigation sidebar and filter controls.
 
-Figure: Browsing posts by author
+### Browse by category
 
+1. Open the navigation sidebar.
+2. Under **Categories**, select the category you want.
+3. The snippet list updates to show only snippets in that category.
+
+### Browse by language
+
+1. Open the navigation sidebar.
+2. Under **Languages**, select a language.
+3. The snippet list updates to show only snippets written in that language.
+
+### Use filters
+
+1. In the main area, type into the **Filter** box to search titles, tags, or content.
+2. Use the **Language filter**, **Category filter**, and **Tag filter** dropdowns to narrow the list.
+3. Use the **Sort** dropdown to order snippets by newest, oldest, or name.
+4. If you applied filters and want to start over, select **Clear Filters**.
+
+Figure: Browsing snippets without author pages
 ```mermaid
 graph LR
-  A[Open the Blog] --> B[Go to an author page]
-  B --> C[Browse that author's posts]
-  C --> D[Open a full post]
+    A[Open sidebar] --> B[Pick a category]
+    A --> C[Pick a language]
+    D[Type in Filter box] --> E[Snippet list updates]
+    B --> E
+    C --> E
+    E --> F[Open a snippet]
 ```
 
-1. Open the **Blog** listing page.
-2. Select a post to open it.
-3. On the post, locate the author name near the title or in the post details.
-4. Select the author name.
-5. On the author page that opens, browse the posts shown for that author.
-6. Select any post title to read the full post.
-
-## Expected result
-
-You land on an author page that lists the posts published by that author. Each listed post links to the full post.
-
 > [!NOTE]
-> The exact wording and placement of author links can differ between blog themes. Use the links shown on the post or in the Blog navigation to reach author pages.
+> The number of snippets currently shown appears near the top of the list, so you always know how many results match your selection.
 
-## Common issues
+## Expected result with author browsing
 
-- **The author name isn't selectable.** The blog may not have author pages enabled, or the post may not have an assigned author. Ask a content author or site administrator to check the post.
-- **The author page is empty or shows few posts.** The author page shows only the posts assigned to that author. If a writer has not published many posts, the list will be short. Try another author to compare.
+When author pages are added to the Blog area, opening an author's name on a post would show a list of posts written by that author. From there, selecting any post would open it for reading. This workflow is planned but not present in the current version.
+
+## Common issue
+
+- **I don't see any author name or author page.** The Blog area is not part of the current build. A product update that adds Blog support is required before you can browse posts by author.
 
 ## Related
 
-- [What Blog is and who it is for](doc:9ee63f83-3e40-49be-87bd-7b6a57c9a4c9)
+- [Blog](doc:9ee63f83-3e40-49be-87bd-7b6a57c9a4c9)
 - [How to read blog posts](doc:8dec29d4-914f-42c1-ad4a-58b3923066cd)
 - [How to filter posts by tags](doc:da9e186e-2e74-4c49-9554-769d57a8aa79)
-- [How to paginate through blog listing](doc:cad40b05-f8e4-461f-8d6d-f8d68130ab6d)
-- [How to subscribe to RSS/Atom feed](doc:33a9a7d1-25c6-4d6c-a982-408eb7ab60c1)
+- [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)

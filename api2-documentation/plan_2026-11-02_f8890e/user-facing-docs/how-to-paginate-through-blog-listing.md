@@ -1,40 +1,44 @@
 # How to paginate through blog listing
 
-You want to move between pages of blog posts instead of scrolling through everything in one continuous list.
+> [!IMPORTANT]
+> The prefetched source files for this task cover CodeKnit's snippet library only. No blog listing or pagination code was provided, so the pagination controls for the Blog page could not be verified against actual code.
 
-> [!NOTE]
-> The pagination control is not available in this version of the product. The blog listing currently shows posts as a single list without **Next page**, **Previous page**, or numbered page buttons.
+## Goal
 
-## Before you begin
+Move between pages of blog posts on the Blog listing page when one page cannot show every published post.
 
-Open the blog listing page from the blog section. You do not need any special permissions, anyone who can view the blog can follow this guide.
+## Prerequisites
 
-## What happens when you try to paginate
+- You are a Blog reader
+- The blog contains more posts than a single listing page displays
+- You have opened the Blog listing page
 
-The current blog listing does not break posts into separate pages. When you scroll through the listing, you keep seeing posts in the same view. You will not find:
+## What could not be verified
 
-- A **Next** or **Previous** button at the bottom of the list
-- Numbered page links such as 1, 2, 3
-- A **Load more** control that adds the next set of posts
+The provided source files do not include the Blog feature. Before this guide can be completed accurately, review the repository's Blog listing code to confirm:
 
-## How to work with the current listing
+- The visible labels on pagination controls (for example, previous/next links or numbered page buttons)
+- How many posts appear per page
+- Whether pagination changes when browsing by author or tag
 
-Although page navigation is not available, you can still narrow the list in other ways:
+## Understanding blog navigation
 
-1. Open the blog listing page.
-2. Use the available filters to show only the posts you care about, such as a specific author or tag.
-3. Scroll through the filtered results as one continuous list.
+```mermaid
+graph LR
+    A[Open Blog listing page] --> B[Read visible posts]
+    B --> C{"Navigate to more posts?"}
+    C -->|Yes| D[Use pagination controls]
+    C -->|No| E[Done]
+    D --> B
+```
 
-This gives you a smaller set of posts to work through until pagination is introduced in a future version.
+This flow reflects the general Blog reader journey. The pagination controls themselves must be confirmed from the Blog source code.
 
-## Common issues
+## Related guides
 
-- **The bottom of the list has no page controls.** This is expected in the current version. There is nothing to click because posts are not divided into pages.
-- **All posts appear at once.** The listing renders every matching post in a single view, so you scroll instead of paging.
-- **Filtering does not add pagination.** Applying an author or tag filter narrows the list, but still shows all matching posts at once.
+These Blog guides are documented and can help you navigate blog content:
 
-## What to check next
-
-- If you want to narrow a long list, [filter posts by tags](doc:da9e186e-2e74-4c49-9554-769d57a8aa79) or [browse posts by author](doc:ca2bf8b1-3fe9-41c7-9f39-c0d952b34922).
-- To understand the blog view overall, see [Blog](doc:9ee63f83-3e40-49be-87bd-7b6a57c9a4c9).
-- To start reading posts, see [How to read blog posts](doc:8dec29d4-914f-42c1-ad4a-58b3923066cd).
+- [Read blog posts](doc:8dec29d4-914f-42c1-ad4a-58b3923066cd)
+- [Browse posts by author](doc:ca2bf8b1-3fe9-41c7-9f39-c0d952b34922)
+- [Filter posts by tags](doc:da9e186e-2e74-4c49-9554-769d57a8aa79)
+- [Blog feature overview](doc:9ee63f83-3e40-49be-87bd-7b6a57c9a4c9)

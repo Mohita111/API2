@@ -1,47 +1,46 @@
 # How to build the production site
 
-This guide walks you through creating an optimized, ready-to-deploy version of your site.
+This guide shows you how to create an optimized production build of your site and preview it locally before you publish it.
 
-## Prerequisites
+## Build the production site
 
-Before you begin, make sure you have:
+1. Open a terminal in your project folder.
+2. Run the production build command:
 
-- Node.js and npm installed on your computer. If you haven't installed them yet, use nvm to set them up.
-- The project files on your computer.
-- Dependencies installed from a previous setup step.
-
-## Build the site
-
-1. Open a terminal.
-2. Navigate to the project folder.
-3. If this is your first build, install dependencies:
-```
-   npm install
-   ```
-4. Run the production build:
-```
+```sh
    npm run build
    ```
-5. Wait for the build to finish. The terminal shows progress messages while the site compiles.
+
+3. Wait for the build to finish. A successful build prints a summary of the generated files.
 
 Figure: Production build flow
 ```mermaid
 graph LR
-    A[Open terminal] --> B[Run npm install if needed]
-    B --> C[Run npm run build]
-    C --> D[Site compiles]
-    D --> E[Preview or deploy]
+    A[Open terminal] --> B[Run npm run build]
+    B --> C{"Build succeeds?"}
+    C -->|Yes| D[Production files generated]
+    C -->|No| E[Read error message and fix]
+    E --> B
 ```
 
-## Expected result
+## Common issues
 
-- The site compiles without errors.
-- The terminal shows a successful completion message.
-- You can preview the built site locally or deploy it to a hosting service.
+Figure: Build failure troubleshooting
+```mermaid
+graph TD
+    A[Build fails] --> B{"Missing packages?"}
+    B -->|Yes| C[Run npm install]
+    B -->|No| D{"Node.js too old?"}
+    D -->|Yes| E["Upgrade Node.js"]
+    D -->|No| F[Read error details and fix]
+```
+
+- **Dependencies not installed**: If the build can't find packages, run`npm install` first, then try again.
+- **Outdated Node.js**: Some build tools require a recent Node version. Upgrade Node.js if the build reports an unsupported version error.
+- **File-specific errors**: When the build fails on a specific file, the error output names that file. Fix the problem there and run`npm run build` again.
 
 ## Related
 
-- [System requirements and installation](doc:1016cd5f-d53c-46d7-a74a-15b623ef5387)
-- [Site building and bundling](doc:0fcd8337-ee59-484f-bda3-4db080caa340)
-- [How to enable faster build mode](doc:c4b28fd3-840d-4199-8d25-b0db7d1b0e49)
-- [How to measure build performance and memory usage](doc:2b46c98f-8208-4348-b81b-fbe839c07966)
+- [Site Building & Bundling](doc:0fcd8337-ee59-484f-bda3-4db080caa340)
+- System Requirements and Installation
+- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)
