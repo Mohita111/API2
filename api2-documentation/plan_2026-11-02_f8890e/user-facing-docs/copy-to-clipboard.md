@@ -1,70 +1,75 @@
 # Copy to clipboard
 
-Copy to Clipboard lets you move a snippet's code onto your device's clipboard with one click. From there, you can paste it directly into a code editor, terminal, or chat message, no manual selecting, no keyboard shortcuts needed.
+Copy to Clipboard lets you grab any snippet's code with a single click and paste it wherever you need it—your editor, terminal, a document, or a chat message. You can copy from either a snippet card in the library or from the full snippet details view. Each copy is recorded in the snippet's usage stats, so you can see how often you've reused a snippet and find your most recently copied snippets in one place.
 
-## Why use it
+## Who it's for
 
-Copying code by hand means carefully selecting the right lines, worrying about missed characters, and switching between windows. Copy to Clipboard removes those steps. It's designed for anyone who stores reusable code in the [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8) and wants to reuse it quickly.
+Anyone who keeps code or Markdown snippets in CodeKnit and routinely transfers them into another tool. Developers, writers, and power users benefit most: copying a snippet by hand means selecting long blocks of text, which is slow and error-prone. The Copy button removes that effort and works entirely without a keyboard.
 
-With Copy to Clipboard you can:
+## What you can do
 
-- Copy a full snippet without opening it, right from its card
-- Copy from the full detail view when you need more context first
-- Get instant visual confirmation that the copy worked
-- See which snippets you have used recently
+- Copy the full code or Markdown body of any snippet with one click
+- See immediate visual confirmation when the copy succeeds
+- Track how many times each snippet has been copied
+- Find recently copied snippets through the **Recently Used** view
+- Receive a clear error message when your browser blocks clipboard access
 
-## Where to copy from
+## Where you can copy
 
-You can copy a snippet from two places in CodeKnit.
+Copy buttons appear in two places:
 
-**From a snippet card.** Every snippet in your library shows a **Copy** button at the bottom of the card. This is the fastest option: you don't need to open the snippet first. The button sits next to **View**.
+- **Snippet cards**, each card in the library has a **Copy** button in its footer
+- **Snippet details**, when you open a snippet, a **Copy code** button appears near the bottom actions
 
-**From the detail view.** When you open a snippet, a **Copy code** button appears near the bottom of the detail view. Use this when you want to read the code or check the description before copying.
+The copy action always targets the snippet's full code body, not a partial selection.
 
-In both places, the button changes as soon as the code is copied: a check mark replaces the copy icon and the label becomes **Copied!**.
+## What happens after you copy
 
-## What happens when you copy
-
-Figure: Copy to Clipboard success flow
+Figure: Copy action flow
 
 ```mermaid
 graph LR
-    A["Click Copy"] --> B["Code is placed on your clipboard"]
-    B --> C["Button shows Copied!"]
-    C --> D["Green confirmation appears"]
-    D --> E["Snippet is marked as recently used"]
+  A[Click a Copy button] --> B[Browser writes the code to your clipboard]
+  B --> C{"Did the copy succeed?"}
+  C -->|Yes| D["Button shows a check mark and 'Copied!'"]
+  D --> E[Copy count increases]
+  E --> F[Snippet appears in Recently Used]
+  C -->|No| G[Error toast explains the block]
 ```
 
-After a successful copy, CodeKnit also updates your usage information:
+When the copy succeeds, the button briefly shows a check mark and the label **Copied!** instead of **Copy** or **Copy code**. This visual change confirms the code is on your system clipboard and ready to paste.
 
-- The snippet's copy count increases. You can see this as **Copied 3 times** on the card or in the detail view.
-- The snippet appears in **Recently Used** in the sidebar, ordered by your most recent copy. This makes it easy to find the snippet you just used.
-- A green confirmation message appears on screen so you know the copy succeeded.
+After a successful copy:
 
-## When copying is blocked
+- The snippet's **copy count** increases by one. You can see this count on the snippet card and in the details view, where it appears as **Copied N times**.
+- The snippet is added to or moved to the top of the **Recently Used** list. This view lives in the sidebar under **Recently Used** and shows snippets ordered by their most recent copy time.
+- The snippet's **last copied date** updates and appears in the details view under the snippet.
 
-Some browsers or websites restrict clipboard access. If your copy cannot complete, CodeKnit shows a red error message that explains the problem.
+## What you see on the screen
 
-Figure: What happens when the browser blocks copying
+- **On a snippet card**: the copy button uses a small copy icon next to the word **Copy**. After a successful copy, it briefly changes to a check mark and the word **Copied!**.
+- **In the details view**: the button says **Copy code**. After a successful copy, it briefly shows a check mark and **Copied!**.
+- The copy count and last copied date appear in both the card footer and the details footer, so you can review usage at a glance.
 
-```mermaid
-graph TD
-    A["Click Copy"] --> B{"Can the browser access the clipboard?"}
-    B -- "Yes" --> C["Code is copied"]
-    B -- "No" --> D["Red error message appears"]
-    D --> E["Try again or copy the code manually"]
-```
+## If the copy fails
 
-Common reasons copying may not work:
+Clipboard access can fail for a few reasons. When that happens, CodeKnit shows a red error toast explaining the issue, and the code is not copied. Common causes include:
 
-- **The site is not using HTTPS.** Clipboard access generally requires a secure connection. If you're running CodeKnit on`localhost`, that counts as secure for most browsers.
-- **The browser asks for permission or blocks the copy.** If you see a permission prompt, allow clipboard access and try again.
-- **The snippet is very large.** Copying still works, but pasting very large code into another app may take longer.
+- **Browser security policy**, most browsers only allow clipboard writes on pages served over a secure connection (HTTPS) or from a special local address such as`localhost`
+- **Browser permission prompts**, some browsers ask for permission before allowing clipboard access; declining it blocks the copy
+- **Browser settings**, certain browsers or extensions restrict clipboard writes to protect your data
 
-If copying is blocked, you can still select the code in the preview and use your system's normal copy command (`Ctrl+C` on Windows,`Cmd+C` on Mac).
+In these cases, you can still copy the code manually by selecting the code text and using your usual keyboard or context-menu copy command.
+
+## Limits to keep in mind
+
+- **Secure connection required**, clipboard access generally works only when CodeKnit is served over HTTPS or from`localhost`. Opening the page from an insecure`http` address may cause copies to fail.
+- **Large snippets may feel slow**, very large snippets can take a moment to appear after pasting, depending on your system and the target app. The copy itself is immediate, but pasting thousands of lines into some editors can introduce a short delay.
+- **Copy counts are local**, usage stats are stored per snippet in your browser and track copies made from CodeKnit's copy buttons, not manual copies or copies made in other tools.
 
 ## Related
 
-- [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8), understand where your snippets live
-- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb), mark snippets for quick access
-- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173), see how CodeKnit fits together
+- [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
+- [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
+- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
+- [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)

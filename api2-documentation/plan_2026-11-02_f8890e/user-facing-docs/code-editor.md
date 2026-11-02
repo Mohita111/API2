@@ -1,91 +1,81 @@
 # Code editor
 
-The Code Editor lets you write and edit snippet content directly in your browser. When you create or edit a snippet, the editor colorizes your code the same way CodeKnit displays it everywhere else, so what you type always matches what you will see later.
+The Code Editor is the built-in space where you write and edit the code or Markdown stored in your snippets. You type directly in the browser, see colors that make the structure easier to scan, and save your work without opening a separate tool. It's for anyone who creates or updates snippets in CodeKnit.
 
-## What you can do
+## Where you'll find it
 
-The editor supports four languages:
+When you select **+ New Snippet** or choose **Edit** from a snippet's **More actions** menu, the Code Editor appears inside the form. The same colorful display also appears in read-only form on snippet cards and in the detail viewer, so what you see while typing matches what you see later when viewing.
 
-- **JavaScript**
-- **Python**
-- **SQL**
-- **Markdown**
+## Supported languages
 
-As you type or paste content, the editor automatically colors comments, strings, keywords, functions, numbers, variables, and other elements based on the selected language. Markdown gets special treatment for headings, bold text, and links.
+The editor recognizes four languages:
 
-## Where the editor appears
+- JavaScript
+- Python
+- SQL
+- Markdown
 
-The Code Editor is the **Code** field in both the **New Snippet** and **Edit Snippet** forms. When you open the form, the editor is ready for input. When you edit an existing snippet, it opens with the current code filled in and the highlighting already active.
+Highlighting updates automatically when you change the **Language** selection in the form. You can switch at any time before saving.
 
-In other places, you see a read-only version of the same highlighting:
+## Writing code in the editor
 
-- **Snippet detail window**, shows the full code with colors but no editing
-- **Snippet cards**, show a short preview with the same colors
+The editor works like a simple text field that understands code. When you open a new snippet, it shows the hint`// Paste or write your code here`. Spell-checking is turned off so your code is not flagged as misspelled.
 
-To change a snippet's code, open it and click **Edit**. The form opens with the editor active.
-
-## The editing area
-
-The editor includes:
-
-- **Line numbers** on the left, starting at 1
-- A **monospace font** with comfortable line spacing
-- A **scrolling area** that grows with your content up to a maximum height, then scrolls
-
-Long lines extend horizontally instead of wrapping. You can scroll sideways to read or edit the rest of a long line.
-
-## Keyboard shortcuts
-
-| Key | Action |
-|-----|--------|
-| **Tab** | Inserts 2 spaces at the cursor position |
-
-Pressing **Shift+Tab** does not remove existing indentation.
-
-> [!NOTE]
-> The **Tags** field elsewhere in the same form has its own keyboard behavior, including pressing **Enter** or **,** (comma) to add a tag and **Backspace** to remove the last tag. Those shortcuts apply to the Tags field, not to the Code Editor.
-
-## Validation
-
-When you save a snippet, CodeKnit checks that the **Code** field is not empty. If it is empty, the editor shows a **red border**, and the message **Code is required.** appears below the field. Type or paste content and save again.
-
-The editor does not check whether your code is syntactically correct for the selected language. It only highlights what you write and checks that the field is not blank.
-
-Figure: Writing and saving a snippet with the Code Editor
+Figure: Writing and saving in the Code Editor
 
 ```mermaid
 graph LR
-    A[Open New Snippet form] --> B[Choose a language]
+    A[Open new or edit form] --> B[Choose a language]
     B --> C[Type or paste code]
-    C --> D[See highlighted code]
-    D --> E[Press Tab to indent]
-    E --> F[Save snippet]
-    F --> G[View highlighted code]
+    C --> D{"Is code empty?"}
+    D -- Yes --> E[Save blocked]
+    E --> F["Red border and required message"]
+    F --> C
+    D -- No --> G[Snippet saves]
 ```
 
-Figure: Code field validation while saving
+## Keyboard shortcuts
 
-```mermaid
-stateDiagram-v2
-    [*] --> Empty
-    Empty --> Invalid: Save with no code
-    Invalid --> Valid: Enter code
-    Valid --> Saved: Save snippet
-    Saved --> [*]
-```
+Inside the code area,`Tab` inserts two spaces at the cursor and the cursor moves ahead by two spaces. This makes indenting code quick without adding spaces one at a time. Pressing`Tab` repeatedly adds two more spaces each time.
 
-## Boundaries
+| Key | What it does |
+| --- | --- |
+|`Tab` | Inserts two spaces for indentation |
 
-The Code Editor is intentionally lightweight. It is not a full development environment and does not include:
+Pressing`Shift+Tab` does not remove indentation in this version.
 
-- Collaborative or real-time editing with other people
-- Debugging tools, breakpoints, or code execution
-- Code completion, refactoring, or other IDE-style assistance
-- Automatic detection of syntax errors beyond the empty-field check
+## Syntax highlighting
+
+As you type, the editor colors different parts of the text so you can read it faster. Comments, strings, keywords, numbers, and function names each get distinct treatment. In Markdown, headings, bold text, and links also stand out. The colors follow the language you selected; switch from JavaScript to SQL and the highlighting rules update immediately.
+
+To learn more about how the colorization works, see [Syntax Highlighting](doc:0cc5fd84-0d94-4faf-ab51-00f580e726a4).
+
+## Line numbers and scrolling
+
+The editor shows a line number for every line you are working in. It always displays at least eight numbered rows, even before you have written anything. Long lines do not wrap; instead, the editor scrolls horizontally so the exact formatting of your code is preserved.
+
+## Validation
+
+Code is required. If you try to save a snippet with empty code, the editor shows a red border and a message below the field: **Code is required.** Add code and save again to continue.
+
+## Tags field shortcuts
+
+While you are in the form, the **Tags** field has its own quick keys:
+
+- Press`Enter` or`,` (comma) to add a tag you have typed
+- Press`Backspace` in an empty tag to delete the previous tag
+
+## What it doesn't do
+
+The Code Editor is intentionally lightweight. It does not offer:
+
+- Collaborative editing, your library is stored in this browser
+- Debugging, no breakpoints, watch windows, or error traces
+- IDE-like features, no autocomplete, refactoring tools, or code quality checks
+- An outdent shortcut —`Shift+Tab` does not remove indentation
 
 ## Related
 
-- Learn how [Syntax Highlighting](doc:0cc5fd84-0d94-4faf-ab51-00f580e726a4) colorizes your code
-- Create your [first snippet](doc:72dab710-31b9-4980-becf-be9fbd6d4d94) with the Code Editor
-- Understand the [core concepts](doc:08c7b9ec-c366-4fc5-b62c-01999c0ae167) behind snippets and languages
-- See how snippets are [organized](doc:8367ddb8-1051-4848-a093-3b4352805aa4) after you save them
+- [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
+- [Syntax Highlighting](doc:0cc5fd84-0d94-4faf-ab51-00f580e726a4)
+- [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94)

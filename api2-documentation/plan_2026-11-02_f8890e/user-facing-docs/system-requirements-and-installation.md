@@ -1,99 +1,78 @@
 # System requirements and installation
 
-This guide walks you through setting up CodeKnit on your own computer. By the end, you'll have CodeKnit running locally so you can start creating, organizing, and copying snippets.
+CodeKnit runs entirely in your browser and stores your snippets locally on your computer. You do not need a server, a backend, or an account to use it. To install and run CodeKnit yourself, you need Node.js and npm.
 
-## Before you begin
+## Before you start
 
-Make sure your computer has the following:
+Make sure you have:
 
-- **Node.js** version 16 or later. We recommend installing Node.js with nvm (Node Version Manager) because it makes switching between versions easier. A current Long-Term Support release works best.
-- **npm**, which comes with Node.js. npm installs the other packages CodeKnit needs.
-- **A modern web browser** with clipboard support, such as a recent version of Chrome, Edge, Firefox, or Safari. Clipboard support lets you copy snippets with one click.
-- **Git**, to download the CodeKnit source code.
+- **Node.js** version 16 or later. The recommended way to install Node.js is with`nvm` (Node Version Manager), which makes it easy to install and switch between Node versions.
+- **npm**, which is included when you install Node.js.
+- **A modern web browser** with clipboard support, such as Chrome, Edge, Firefox, or Safari.
 
-CodeKnit saves your snippets in your browser's local storage, so you don't need to set up a separate database or backend service.
+> [!NOTE]
+> CodeKnit saves your snippets in your browser's local storage. If you clear your browser data, your snippets are removed. To keep a backup, use the export feature before clearing your browser. See [Import and Export](doc:f1b42dc6-1597-47d7-b921-658815f5af20).
 
-## Installation overview
-
-Here is the full journey from a fresh computer to a running CodeKnit.
-
-Figure: Local installation flow
-
+Figure: Local setup flow
 ```mermaid
 graph LR
-    A["Install Node.js and npm"] --> B[Download the source code]
-    B --> C[Move into the project folder]
-    C --> D[Install dependencies]
-    D --> E[Start the development server]
-    E --> F[Open in your browser]
+    A["Install Node.js and npm"] --> B[Download the project]
+    B --> C[Run npm install]
+    C --> D[Start the dev server]
+    D --> E[Open the app in your browser]
 ```
 
-## Install and run CodeKnit
+The diagram shows the four main steps to get CodeKnit running on your computer: install Node.js, download the project, install dependencies, and start the development server.
 
-1. **Download the source code.** Use Git to clone the CodeKnit repository, then move into the folder it creates:
+## Verify your installation
 
+Run these commands in a terminal:
+
+```sh
+node -v
+npm -v
 ```
-   git clone <repository-url>
-   cd <repository-name>
-   ```
 
-   Replace`<repository-url>` with the CodeKnit repository address and`<repository-name>` with the folder name Git creates.
+`node -v` should show version 16 or later.`npm -v` should show a version number. If either command fails with a "command not found" error, Node.js is not installed or is not on your system path.
 
-2. **Install dependencies.** Run:
+## Create a production build
 
-```
-   npm install
-   ```
+To create an optimized build for deployment, run:
 
-   This downloads everything CodeKnit needs and may take a few minutes.
-
-3. **Start the development server.** Run:
-
-```
-   npm run dev
-   ```
-
-4. **Open CodeKnit in your browser.** Once the server starts, go to:
-
-```
-   http://localhost:5173
-   ```
-
-   This is the usual development server address. If your terminal shows a different address, use the one shown there.
-
-You should now see the CodeKnit home screen. There's no account to create and no separate server to configure.
-
-## Build for production
-
-When you're ready to prepare a production copy of CodeKnit, run:
-
-```
+```sh
 npm run build
 ```
 
-This command creates optimized files that you can deploy to a hosting provider.
+To preview the production build locally before deploying, run:
 
-## Troubleshooting
-
-Use this decision flow when something doesn't start as expected.
-
-Figure: Troubleshooting installation issues
-
-```mermaid
-graph TD
-    A["Does npm run dev start?"] -->|Yes| B["Open localhost:5173"]
-    A -->|No| C["Check Node.js version"]
-    C --> D{"Is Node.js 16 or later?"}
-    D -->|No| E[Install a newer version with nvm]
-    D -->|Yes| F[Reinstall dependencies and retry]
+```sh
+npm run preview
 ```
 
-### Clipboard copying doesn't work
+## Troubleshooting common issues
 
-If copying snippets with one click doesn't work, try a recent version of Chrome, Edge, Firefox, or Safari. This feature requires browser clipboard support.
+Figure: Troubleshooting installation issues
+```mermaid
+graph TD
+    A[Command not found for node or npm] --> B["Install Node.js with nvm and restart your terminal"]
+    C[Node version is older than 16] --> D[Run nvm install and nvm use]
+    E[Dev server does not start] --> F[Run npm install and check that port 5173 is free]
+    G[Clipboard features do not work] --> H["Use a modern browser such as Chrome, Edge, Firefox, or Safari"]
+```
 
-## Next steps
+The diagram shows common installation problems and the quickest action for each one. The sections below explain each fix in more detail.
 
-- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173) to learn what CodeKnit can do
-- [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94) to create and save your first snippet
-- [Concepts and Terminology](doc:08c7b9ec-c366-4fc5-b62c-01999c0ae167) to learn key terms like snippet, category, and tag
+### "Command not found" for node or npm
+
+Node.js is not installed, or it is not available in your terminal. Install Node.js with`nvm`, then close and reopen your terminal.
+
+### Node.js version is too old
+
+If`node -v` shows a version older than 16, use`nvm` to install and switch to a newer version:
+
+```sh
+nvm install 20
+nvm use 20
+```
+
+Replace`20` with the Node.js version you want to use.

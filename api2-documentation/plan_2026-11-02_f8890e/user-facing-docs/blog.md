@@ -1,87 +1,62 @@
 # Blog
 
-Blog is the publishing area of your site where readers discover updates and where content authors share new posts. It turns a collection of authored content into a browsable, taggable, paginated experience with subscription feeds.
+Blog gives your site a dedicated place to publish, organize, and read longer posts. If you're a reader, you can discover posts, follow a particular author or topic, and subscribe for updates. If you're a content author, you can write a post and publish it so readers can find it across the site.
 
-## Who it's for
+Posts are grouped by author and tag. The blog listing includes pagination so it stays easy to scan as more posts are published, and the site publishes an RSS or Atom feed so readers can follow you from their preferred reader app.
 
-Blog serves two audiences:
+## What you can do as a reader
 
-- **Blog readers** who want to find, filter, read, and subscribe to posts.
-- **Content authors** who create and publish posts with authors and tags.
+You can start at the blog listing page and choose any of these paths:
 
-## What you can do
-
-### Read posts
-
-Open the Blog listing page to see available posts. Select any post to read it in full. The listing is the starting point for most reader journeys.
-
-### Browse posts by author
-
-Each post is associated with an author. Select an author to open their Author page and see all posts they have written. This is useful when you want to follow a specific voice or contributor.
-
-### Filter posts by tags
-
-Posts carry tags that describe their topics. Select a tag to open its Tag page and see every post sharing that tag. Tags let you move quickly from one post to related material.
-
-### Page through the listing
-
-The Blog listing page is divided into pages. Use pagination controls to move through older and newer posts without scrolling an endless feed.
-
-### Subscribe to updates
-
-Blog exposes an RSS/Atom feed. Point your feed reader at the Feed URL to receive new posts automatically as they are published.
-
-### Publish posts
-
-Content authors create posts with a title, body, author, and tags. Once published, a post appears on the Blog listing page and is reachable through its author and tag pages.
-
-## How blog fits together
-
-The Blog listing page is the central hub. From there, readers can branch into author pages, tag pages, individual posts, pagination, or a subscription feed.
+- Read a post in full
+- Browse posts by a particular author
+- Filter posts by tags to see only the topics that interest you
+- Move through older posts using pagination
+- Subscribe to the blog with the RSS or Atom feed
 
 Figure: Blog reader journey
 
 ```mermaid
 graph LR
-    A[Blog listing page] --> B[Filter posts by tags]
+    A[Open blog listing page] --> B[Read a post]
     A --> C[Browse posts by author]
-    A --> D[Page through older posts]
-    A --> E[Open a full post]
-    A --> F[Subscribe via RSS/Atom feed]
+    A --> D[Filter posts by tags]
+    A --> E[Page through older posts]
+    F[Copy feed URL] --> G[Subscribe in RSS or Atom reader]
 ```
 
-The publishing flow is separate. It begins with a content author creating a post and ends with that post becoming discoverable across the reader-facing areas of Blog.
+## What you can do as a content author
 
-Figure: Publishing a blog post
+As a content author, you write posts in blog content files. Each post can carry an author and tags. Those details control where the post appears after it is published: on the listing page, on the author's pages, on matching tag pages, and in the site feed.
+
+Figure: From a new post to reader discovery
 
 ```mermaid
 graph LR
-    A[Create post content] --> B[Assign author and tags]
-    B --> C[Publish the post]
-    C --> D[Appears on Blog listing]
-    D --> E[Reachable by author and tag]
+    B --> C[Site publishes post]
+    C --> D[Blog listing page]
+    C --> E[Author pages]
+    C --> F[Tag pages]
+    C --> G[RSS or Atom feed]
 ```
 
-## Benefits
+## Key options
 
-- **Organized discovery:** readers can browse by author or topic instead of scrolling one long list.
-- **Focused reading:** pagination keeps the listing manageable and quick to move through.
-- **Staying current:** the RSS/Atom feed delivers new posts to readers who prefer subscriptions.
-- **Clear authorship:** author pages group content around contributors, making it easy to follow people.
+- **Authors** group posts by who wrote them
+- **Tags** group posts by topic and let readers filter the listing
+- **Pagination** breaks a long listing into smaller pages
+- **RSS and Atom feeds** let readers subscribe to new posts
 
-## Key options and limits
+Some details, such as how many posts appear on each listing page, depend on your site's blog settings. For step-by-step instructions and available choices, use the dedicated How-to guides below.
 
-- Authors group posts on dedicated Author pages.
-- Tags group related posts on dedicated Tag pages.
-- The Blog listing is paginated; readers move through it page by page.
-- RSS/Atom subscription is available through a Feed URL.
-- Publishing is available to content authors, while browsing, filtering, pagination, and feeds serve readers.
+> [!NOTE]
+> This page explains the Blog feature overall. For exact steps and on-screen labels, open the relevant guide from the list.
 
-## Related pages
+## Related guides
 
-- [How to read blog posts](doc:8dec29d4-914f-42c1-ad4a-58b3923066cd)
-- [How to browse posts by author](doc:ca2bf8b1-3fe9-41c7-9f39-c0d952b34922)
-- [How to filter posts by tags](doc:da9e186e-2e74-4c49-9554-769d57a8aa79)
-- [How to paginate through blog listing](doc:cad40b05-f8e4-461f-8d6d-f8d68130ab6d)
-- [How to publish a new blog post](doc:b53f4980-aa74-45a1-b075-f0b746ed9923)
-- [How to subscribe to RSS/Atom feed](doc:33a9a7d1-25c6-4d6c-a982-408eb7ab60c1)
+- [Read blog posts](doc:8dec29d4-914f-42c1-ad4a-58b3923066cd)
+- [Browse posts by author](doc:ca2bf8b1-3fe9-41c7-9f39-c0d952b34922)
+- [Filter posts by tags](doc:da9e186e-2e74-4c49-9554-769d57a8aa79)
+- [Paginate through the blog listing](doc:cad40b05-f8e4-461f-8d6d-f8d68130ab6d)
+- [Publish a new blog post](doc:b53f4980-aa74-45a1-b075-f0b746ed9923)
+- [Subscribe to the RSS or Atom feed](doc:33a9a7d1-25c6-4d6c-a982-408eb7ab60c1)

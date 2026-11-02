@@ -1,108 +1,118 @@
 # Key concepts and terminology
 
-CodeKnit is built around a few simple ideas. Understanding these terms will help you organize your snippets, find them quickly, and follow along with other guides.
+CodeKnit is a snippet manager for saving, organizing, and reusing pieces of code and Markdown. This page defines the terms you'll see throughout the app so you can build and navigate your library consistently. For a broad introduction, see the [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173).
 
-## The anatomy of a snippet
+## How the concepts fit together
 
-A snippet is more than just the code you save. It carries a title, a language, a category, optional tags, and a favorite status. The diagram below shows what makes up a snippet.
+Every saved item is a snippet. Each snippet has exactly one language and one category, and can carry any number of tags. You can also mark a snippet as a favorite for fast access.
 
-Figure: What makes up a snippet
+Figure: Snippet organization model
 
 ```mermaid
 graph TD
-    Snippet --> Title
-    Snippet --> Description
-    Snippet --> Language
-    Snippet --> Code
-    Snippet --> Category
-    Snippet --> Tags
-    Snippet --> Favorite
+  S[Snippet] --> L[Language]
+  S --> C[Category]
+  S --> T[Tags]
+  S --> F[Favorite]
+  L --> L1[JavaScript]
+  L --> L2[Python]
+  L --> L3[SQL]
+  L --> L4[Markdown]
+  T --> T1[#utils]
+  T --> T2[#regex]
+  T --> T3[Your own tags]
+  F --> F1[Starred]
+  F --> F2[Unstarred]
 ```
 
 ## Core concepts
 
 ### Snippet
-A snippet is a saved piece of code or Markdown text that you want to keep and reuse. Each snippet includes a **title**, an optional **description**, the content itself, a **language**, a **category**, and any **tags** you choose. You can also mark a snippet as a **favorite**.
 
-From your library, you can view, edit, copy, or delete any snippet. Snippets are the building blocks of your CodeKnit workspace. To learn more about working with the snippet library, see [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8).
+A saved unit of code or Markdown text. Each snippet includes:
+
+- A **title**
+- An optional **description**
+- A **language**
+- A **category**
+- Optional **tags**
+- The **code** or Markdown text itself
+
+Snippets also track when they were created and last updated, how many times they've been copied, and when they were last copied. You can create your first snippet by following the [Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94) guide, or learn more about the [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8).
 
 ### Language
-The language is the programming or markup language of a snippet. CodeKnit supports four languages:
+
+The programming or markup language a snippet contains. CodeKnit supports four languages:
 
 - JavaScript
 - Python
 - SQL
 - Markdown
 
-The language you choose affects how your code is colorized in the editor and preview. You can also filter your library by language using the sidebar or the filter bar. For details on how highlighting works, see [Syntax Highlighting](doc:0cc5fd84-0d94-4faf-ab51-00f580e726a4).
+Each language has a colored dot in the sidebar. The language controls how lines of code are colorized in the editor and preview, as described in [Syntax Highlighting](doc:0cc5fd84-0d94-4faf-ab51-00f580e726a4).
 
 ### Tag
-A tag is a short label you create to organize snippets. Tags appear with a`#` prefix, for example,`#utils` or`#regex`. You can add multiple tags to a single snippet when creating or editing it.
 
-Tags make it easy to group related snippets across different categories. You can filter snippets by tag using the **Tag** filter in the filter bar. Learn more about organizing with tags and categories in [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4).
+A short, user-defined label that starts with`#`. Tags are optional and help you group related snippets across categories. Examples include`#utils`,`#regex`, or any label that makes sense to you. You add tags when you create or edit a snippet, and you can then filter the library by a single tag. The same tag can appear on many snippets.
 
 ### Category
-A category is a top-level folder that groups related snippets. Every snippet belongs to exactly one category. CodeKnit includes default categories such as **Utilities**, and you can create your own custom categories when needed.
 
-Categories appear in the sidebar with a folder icon and a count of how many snippets are in each. You can filter your library by category from the sidebar or the filter bar.
+A top-level folder that groups snippets by purpose or type. Every snippet belongs to one category. CodeKnit includes built-in categories such as **Utilities**, and you can add your own custom category when creating or editing a snippet. Categories appear in the sidebar with the number of snippets in each one. See [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4) for more.
 
 ### Favorite
-A favorite is a snippet you have starred for quick access. Favorites appear in a dedicated **Favorites** section in the sidebar, so you can reach your most-used snippets without searching.
 
-You can toggle the favorite star from a snippet card or when viewing a snippet in detail. The number of favorites in your library is shown on the **Dashboard**. To explore this feature, see [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb).
-
-### Draft
-A draft is the unsaved state of a snippet while you are creating or editing it. Your changes are not saved until you click **Save Snippet**. If you close the form without saving, your changes are lost.
-
-CodeKnit does not keep drafts automatically, so remember to save before you navigate away. While editing, the editor shows your current content, but it is only stored after you save.
+A snippet marked with a star for quick access. You can favorite or unfavorite a snippet from its card or from the detailed view. The **Favorites** section in the sidebar shows all starred snippets. See [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb).
 
 ### Layout
-Layout describes how your snippet library is displayed on screen. You can choose between two view modes:
 
-- **Grid view**, snippets appear as cards in a multi-column layout
-- **List view**, snippets appear in a single column with a wider preview
+The view mode for your snippet collection: **grid** or **list**.
 
-Use the layout toggle in the filter bar to switch between **Grid view** and **List view**. CodeKnit remembers your choice for the next time you open the app.
+- Grid shows cards side by side, one, two, or three columns depending on your screen width.
+- List shows a single column, with the code preview beside the snippet details on wider screens.
+
+CodeKnit remembers your layout choice between visits.
 
 ### Dashboard
-The Dashboard is the home screen you see when you first open CodeKnit. It greets you with “Your code, organized.” and shows summary statistics about your library:
 
-- **Total snippets**, how many snippets you have saved
-- **Favorites**, how many snippets you have starred
-- **Languages**, how many different languages are used in your snippets
+The home screen of CodeKnit. It shows the heading **Your code, organized.** along with three summary cards:
 
-The Dashboard also displays a list of your snippets below the statistics. To learn more about what the Dashboard offers, see [Dashboard](doc:0cccb845-62f3-4e2b-b0ca-c7d768eaf700).
+- Total snippets in your library
+- Number of favorites
+- Number of distinct languages used
 
-## How the concepts fit together
+For more details, see the [Dashboard](doc:0cccb845-62f3-4e2b-b0ca-c7d768eaf700) page.
 
-When you create a snippet, you choose a **language**, assign a **category**, and optionally add **tags** and mark it as a **favorite**. These choices determine where the snippet appears in the sidebar and how easily you can find it later.
+### Draft: unsaved changes
 
-- **Categories** and **languages** appear as filter options in the sidebar.
-- **Tags** appear in the filter bar and on each snippet card.
-- **Favorites** get their own sidebar section.
-- The **layout** you choose changes how snippets are displayed, but not their content.
-- The **Dashboard** summarizes everything at a glance.
+When you create or edit a snippet, your changes are not saved until you select **Save Snippet**. If you close the form without saving, those changes are discarded. The form deliberately stays open if you click outside it, so an accidental click won't lose your work.
 
-The diagram below shows this relationship in a simple flow.
-
-Figure: How snippet properties help you find things
+Figure: Snippet saving flow
 
 ```mermaid
-graph LR
-    Create[Create snippet] --> Assign["Pick language, category, tags"]
-    Assign --> Save[Save snippet]
-    Save --> Library[Appears in library]
-    Library --> Filter["Filter by language, category, tag"]
-    Library --> Favorite[Star as favorite]
-    Favorite --> FavoritesSection[Shows in Favorites section]
-    Filter --> Find[Find and reuse]
+stateDiagram-v2
+  [*] --> Draft: Select New Snippet or Edit
+  Draft --> Saved: Select Save Snippet
+  Draft --> [*]: Select Cancel
+  Saved --> [*]: Select Delete
+  Saved --> Draft: Select Edit and change details
 ```
+
+### Recently added and recently used
+
+The sidebar includes two time-based sections in addition to **Dashboard**, **All Snippets**, and **Favorites**:
+
+- **Recently Added** shows up to 10 of your newest snippets.
+- **Recently Used** shows snippets ordered by when you last copied them; snippets you have never copied don't appear here.
+
+## Using these concepts together
+
+You can narrow what's shown by using the search box and the filter controls: a **language filter**, a **category filter**, a **tag filter**, and a **sort** option (**Recently Added**, **Oldest First**, or **A–Z**). When one or more filters are active, a **Clear Filters** button appears so you can reset them. The sidebar's **Categories** and **Languages** groups also let you jump directly to a single category or language. For step-by-step guidance, see [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756).
 
 ## Related
 
 - [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)
 - [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
 - [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
-- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
 - [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)
+- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
 - [Dashboard](doc:0cccb845-62f3-4e2b-b0ca-c7d768eaf700)
