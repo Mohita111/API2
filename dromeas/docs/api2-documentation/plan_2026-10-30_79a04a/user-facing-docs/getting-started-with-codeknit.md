@@ -68,9 +68,9 @@ graph LR
 
 ## Find and reuse a snippet
 
-Use the search bar at the top to search by title, description, tags, or code. To narrow results further, use the filter bar to choose a **language**, **category**, or **tag**, and to set the sort order to **Recently Added**, **Oldest First**, or **A–Z**.
+Use the search bar at the top to search snippets, tags, or code. To narrow results further, use the filter bar to choose a **language**, **category**, or **tag**, and to set the sort order to **Recently Added**, **Oldest First**, or **A–Z**.
 
-On any snippet card, click **Copy** to copy that snippet’s code to your clipboard. CodeKnit records the action, so the snippet shows up under **Recently Used**. Click **View**, or the snippet card itself, to open the full snippet in a larger reader.
+On any snippet card, click **Copy** to copy that snippet's code to your clipboard. CodeKnit records the action, so the snippet shows up under **Recently Used**. Click **View**, or the snippet card itself, to open the full snippet in a larger reader.
 
 Figure: Narrowing down snippets with search and filters
 
@@ -90,7 +90,6 @@ graph LR
 ## Back up your work
 
 CodeKnit keeps your snippets on your device in your browser. To protect them, open **Settings** from the bottom of the sidebar. Choose **Export** to download all your snippets as a file, or choose **Import JSON** to restore or merge a previously exported library. If you ever want to start over, choose **Reset to sample data**.
-
 
 Now that you have your first snippet, continue with these guides:
 
