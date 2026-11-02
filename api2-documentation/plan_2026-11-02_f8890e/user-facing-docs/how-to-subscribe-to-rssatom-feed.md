@@ -1,46 +1,48 @@
 # How to subscribe to RSS/Atom feed
 
-Keep up with new blog posts without revisiting the site. Subscribe to the blog's RSS or Atom feed, and your feed reader will collect new posts for you automatically.
+Follow this guide to subscribe to the blog's RSS or Atom feed so new posts appear automatically in your preferred feed reader.
 
 ## Prerequisites
 
-- A feed reader or news aggregator on your device. Popular options include Feedly, NetNewsWire, NewsBlur, and Inoreader.
-- Access to the **Blog** page in your browser.
+- You can open the Blog page in your browser.
+- You have a feed reader app or service, such as Feedly, Inoreader, or your browser's built-in feed feature.
+- You know where to find the blog's feed URL, which is usually an **RSS**, **Atom**, or **Subscribe** link on the Blog page.
 
 ## Steps
 
-1. Open the **Blog** page from the site navigation.
-2. Find the feed link on that page. Look for an **RSS** or **Atom** label, usually accompanied by a broadcast-style icon.
-3. Right-click the feed link and choose **Copy link address** or **Copy shortcut**. If the link opens a new page, copy the feed address from that page's address bar instead.
+1. Open the **Blog** page in your browser.
+2. Locate the feed link. Look for an orange RSS icon, a feed icon, or a link labeled **RSS**, **Atom**, or **Subscribe**.
+3. Copy the feed URL:
+   - Right-click the link and choose **Copy link address**, or
+   - Open the link and copy the URL from the browser's address bar.
 4. Open your feed reader.
-5. Create a new subscription. This is often labeled **Add feed**, **Subscribe**, or a **+** button.
-6. Paste the copied feed address into the subscription field.
-7. Confirm the subscription.
-
-Figure: Blog feed subscription flow
-```mermaid
-graph LR
-    A[Open Blog page] --> B[Find RSS or Atom link]
-    B --> C[Copy feed address]
-    C --> D[Open feed reader]
-    E --> F[Paste feed address]
-    F --> G[Confirm subscription]
-```
+5. Add a new feed in the reader and paste the copied URL.
+6. Confirm the subscription.
 
 ## Expected result
 
-Your feed reader adds the blog as a subscription and loads the most recent posts right away. From then on, new posts appear in your reader's update stream as soon as they are published.
+Your feed reader displays the blog's recent posts and updates automatically when new posts are published.
+
+Figure: Feed subscription flow
+```mermaid
+graph LR
+    A[Open Blog page] --> B[Find RSS or Subscribe link]
+    B --> C[Copy feed URL]
+    C --> D[Open feed reader]
+    E --> F[Confirm subscription]
+    F --> G[Read latest posts]
+```
+
+> [!NOTE]
+> The exact location of the feed link depends on how the Blog page is configured. If you don't see an **RSS** or **Subscribe** link, check the Blog page footer or sidebar, or contact the site administrator.
 
 ## Common issues
 
-- **The feed link opens code instead of a readable page.** Some browsers do not display feeds natively. Copy the address and add it to a dedicated feed reader instead.
-- **Your feed reader says the address is invalid.** Re-copy the address and try again. Make sure the entire address was copied, with no extra spaces or missing characters.
-- **No posts appear after you subscribe.** The blog may not have published any posts yet, or the subscription may need a moment to update. Refresh the feed in your reader after a few minutes.
+- **Feed URL not found**: Confirm you copied the complete URL, including`https://`.
+- **No items in feed**: The feed may be empty if no posts have been published yet.
+- **Feed not updating**: Feed readers refresh on their own schedule. Manually refresh the feed or check your reader's update interval.
 
 ## Related
 
-- [What Blog is and who it is for](doc:9ee63f83-3e40-49be-87bd-7b6a57c9a4c9)
+- [Blog](doc:9ee63f83-3e40-49be-87bd-7b6a57c9a4c9)
 - [How to read blog posts](doc:8dec29d4-914f-42c1-ad4a-58b3923066cd)
-- [How to browse posts by author](doc:ca2bf8b1-3fe9-41c7-9f39-c0d952b34922)
-- [How to filter posts by tags](doc:da9e186e-2e74-4c49-9554-769d57a8aa79)
-- [How to paginate through blog listing](doc:cad40b05-f8e4-461f-8d6d-f8d68130ab6d)

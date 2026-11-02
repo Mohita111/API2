@@ -1,64 +1,52 @@
 # How to read blog posts
 
-This guide walks you through opening and reading a full blog post. If you're a site visitor, you can get to any published post from the **Blog** page in just a few clicks.
+This guide shows you how to open and read a blog post in the Blog area. You can browse the latest posts, open any article, and continue to related content through tags, author pages, or the RSS feed.
 
-## Prerequisites
+## Before you start
 
-- You have a web browser and a working internet connection
-- The site is live or running locally
-- At least one blog post has been published
+You need:
+
+- A web browser that can reach the published site
+- The web address of the site
+
+You do not need to sign in or create an account to read posts.
 
 ## Read a blog post
 
-1. Open the website in your browser.
-2. In the top navigation, click **Blog**.
-3. On the **Blog** listing page, scan the posts. Posts are shown newest first, each with its title, date, author, and a short excerpt.
-4. Click the post title or the **Read More** link for the post you want.
-5. Read the full post on the post page.
+1. Open the **Blog** listing page on the site.
+2. Scan the listing to find a post that interests you. Each entry shows the post title along with the author, date, and tags.
+3. Select a post by clicking its title.
+4. Read the full post content that opens.
+5. When you finish, return to the **Blog** listing or choose another post to continue reading.
 
-Figure: Blog reading journey
+Figure: Blog reading flow
 
 ```mermaid
 graph LR
-  A["Open the website"] --> B["Click Blog in navigation"]
-  B --> C["Blog listing page shows posts"]
-  C --> D["Click a post title or Read More"]
-  D --> E["Read the full post"]
-  C --> F["Narrow posts by tag or author"]
-  F --> D
+    A[Open the Blog listing] --> B["Scan post titles, dates, and tags"]
+    B --> C{"Found a post?"}
+    C -->|Yes| D[Click the post title]
+    C -->|No| E["Browse by tag, author, or page"]
+    E --> B
+    D --> F[Read the full post]
+    F --> G[Return to the Blog listing]
 ```
 
-When the post page opens, you can read the complete content, including text, images, and any embedded components. At the bottom of the page, you can usually move to the **Newer Post** or **Older Post** to continue reading more posts in order.
+## What you should see
 
-## Narrow down posts before you read
-
-If you're looking for a specific topic, you can reduce the number of posts you need to scan:
-
-- Click a tag on a post to see only posts with that tag. See [How to filter posts by tags](doc:da9e186e-2e74-4c49-9554-769d57a8aa79).
-- Click an author's name to see only that author's posts. See [How to browse posts by author](doc:ca2bf8b1-3fe9-41c7-9f39-c0d952b34922).
-- If the listing page has more entries than fit on one page, use the pagination controls at the bottom. See [How to paginate through blog listing](doc:cad40b05-f8e4-461f-8d6d-f8d68130ab6d).
-
-## Expected result
-
-After you click a post title, the full post page appears and shows the complete article with its title, author, date, tags, and body content. You can scroll through the entire post without leaving the page.
+After you select a post, the full article opens so you can read it from beginning to end. The Blog listing remains available whenever you want to return and pick another post.
 
 ## Common issues
 
-**The post I want doesn't appear on the first page.**
-The **Blog** listing may be paginated. Use the pagination controls at the bottom of the listing page to see more posts.
+- If selecting a post does not open it, make sure you are clicking the post title link rather than the surrounding summary area.
+- If you do not see older posts in the listing, use the pagination controls to move through additional pages.
+- If you cannot find a post by title alone, filter posts by tag or browse posts by author.
+- If you want to be notified of new posts, subscribe to the RSS or Atom feed.
 
-**Clicking a post title shows a "Page not found" message.**
-The post may have been unpublished, removed, or renamed. If you think the post should exist, contact the site administrator.
+## Related
 
-**The post appears, but images or styling look broken.**
-The site may not have been built or published correctly. Try reloading the page, then contact the site administrator if the problem persists.
-
-**I only want to read newly published posts.**
-You can subscribe to the blog's RSS or Atom feed to stay updated without visiting the site. See [How to subscribe to RSS/Atom feed](doc:33a9a7d1-25c6-4d6c-a982-408eb7ab60c1).
-
-## Related pages
-
-- [Blog feature overview](doc:9ee63f83-3e40-49be-87bd-7b6a57c9a4c9)
+- [Blog](doc:9ee63f83-3e40-49be-87bd-7b6a57c9a4c9)
 - [How to filter posts by tags](doc:da9e186e-2e74-4c49-9554-769d57a8aa79)
 - [How to browse posts by author](doc:ca2bf8b1-3fe9-41c7-9f39-c0d952b34922)
 - [How to paginate through blog listing](doc:cad40b05-f8e4-461f-8d6d-f8d68130ab6d)
+- [How to subscribe to RSS/Atom feed](doc:33a9a7d1-25c6-4d6c-a982-408eb7ab60c1)

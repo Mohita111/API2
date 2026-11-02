@@ -1,124 +1,140 @@
 # Logging and diagnostics
 
-Logging & Diagnostics explains how CodeKnit reports status, errors, and confirmation messages while you work with your snippet library. Instead of leaving you guessing, CodeKnit shows what happened, what went wrong, and what you can do next.
+CodeKnit gives you consistent, easy-to-read feedback wherever you work. Instead of leaving you guessing whether an action succeeded, the app uses brief notifications, progress indicators, inline hints, and confirmation prompts so you always know what happened and what to do next.
 
 ## Who it's for
 
-Logging & Diagnostics is for anyone who uses CodeKnit to manage snippets. It is especially useful when you are importing a backup, resetting your library, or troubleshooting a problem, because CodeKnit explains exactly what occurred and how many items were affected. Developers who manage code snippets benefit most from the detailed import and export messages.
+This feature is for developers who save, organize, and reuse code snippets in CodeKnit. If you manage a personal snippet library, you'll see progress and error messages during everyday actions such as loading the library, saving a snippet, deleting it, importing a backup, or exporting a JSON file.
 
-## What it does
+## What to expect
 
-CodeKnit provides feedback in three main ways:
+CodeKnit reports status in four main ways:
 
-- **Status indicators** show whether your library is still loading, ready to use, or failed to load.
-- **Toast messages** appear briefly with success, error, or informational text after actions such as saving, deleting, exporting, and importing.
-- **Validation messages** appear directly under form fields that need your attention.
+- **Progress indicators** show that an operation is still running.
+- **Success messages** confirm that an action completed.
+- **Error messages** explain what went wrong and often suggest a fix.
+- **Confirmation prompts** protect you from accidental, unrecoverable actions.
 
-These messages help you confirm actions, understand failures, and recover quickly.
-
-## Library loading status
-
-When you open CodeKnit, your snippet library goes through one of three states:
-
-- **Loading**, placeholder skeleton cards appear while your snippets are being retrieved.
-- **Ready**, your snippet cards display normally.
-- **Error**, if the library cannot be loaded, an alert panel appears with the specific error message and a **Try again** button.
-
-The **Try again** button reloads your library without requiring a page refresh. If the problem was temporary, your snippets appear normally after you select it.
-
-Figure: Library loading status flow
+Figure: How CodeKnit responds to a snippet library load
 
 ```mermaid
 stateDiagram-v2
     [*] --> Loading
-    Loading --> Ready: snippets loaded
-    Loading --> Error: load fails
-    Error --> Ready: Try again succeeds
+    Loading --> Ready: library loaded
+    Loading --> Error: load failed
+    Error --> Loading: select Try again
     Ready --> [*]
 ```
 
-## Toast messages
+## Status updates and progress
 
-After you complete most actions, CodeKnit shows a brief toast message at the edge of the screen. Toasts confirm success, explain errors, and provide context such as how many items were affected.
+### Loading the library
 
-Common success messages include:
+When you open CodeKnit and your snippets are still loading, the main area shows three grey placeholder cards instead of a blank page. Once loading finishes, the placeholders are replaced by your real snippet cards.
 
-- **Snippet saved**
-- **Snippet updated**
-- **Snippet deleted**
-- **Exported snippets**
-- **Import complete**
-- **Library reset**
+### Saving a snippet
 
-Common error messages include:
+When you save a new snippet or update an existing one:
 
-- **Import failed**
-- **Could not reset library**
-- **Couldn't save the snippet**
+1. The **Save Snippet** button becomes disabled.
+2. The button text changes to **Saving…**.
+3. When the operation completes, a brief confirmation appears.
 
-When you import snippets, CodeKnit also shows an informational message if nothing new was added:
+If saving takes longer than expected, stay on the form. The disabled button is your signal that CodeKnit is still working.
 
-- **No new snippets imported**
+### Importing a JSON backup
 
-## Import and export diagnostics
+While CodeKnit processes an import file, the **Import JSON** button changes to **Importing…** and becomes disabled. This prevents you from triggering the same import twice before the first one finishes.
 
-The import and export actions provide the most detailed diagnostics in CodeKnit.
+## Success messages
 
-When you export your library, CodeKnit confirms the action and tells you how many snippets were downloaded to the JSON file.
+After these actions complete, CodeKnit shows a short confirmation:
 
-When you import a JSON file, CodeKnit validates the file first, then reports one of three outcomes:
+- **Snippet saved** when you create a new snippet
+- **Snippet updated** when you edit an existing snippet
+- **Snippet deleted** when you remove a snippet
+- **Exported snippets** along with the number of snippets downloaded
+- **Import complete** with the number of snippets imported and how many duplicates were skipped
+- **Library reset** when you restore the sample data
 
-- If the file cannot be read or parsed, CodeKnit shows **Import failed** with the reason.
-- If all snippets in the file already exist in your library, CodeKnit shows **No new snippets imported** and tells you how many duplicates were skipped.
-- If some snippets are new, CodeKnit shows **Import complete** and reports how many were imported and how many duplicates were skipped.
+## Error messages
 
-Figure: Import result feedback
+When something fails, CodeKnit explains what happened instead of failing silently.
+
+### Library load errors
+
+If your snippet library cannot be loaded, an error panel appears in the main content area. It shows a warning icon and the message **Couldn't load your snippets**, followed by the specific problem. A **Try again** button lets you retry the load without refreshing the page.
+
+### Save errors
+
+If a snippet cannot be saved, an error message appears with either a specific reason or the fallback text **Couldn't save the snippet**. Correct the highlighted form field or try again.
+
+### Import and export errors
+
+- If an import file is invalid, you see **Import failed** with a description explaining what went wrong.
+- If a file cannot be read, you see **Could not read this file.**
+- If an export fails, check whether your browser allows downloads from the current page and try again.
+
+### Delete errors
+
+If a snippet cannot be removed, an error message appears with the reason. Your snippet remains in the library.
+
+### Favorite and copy tracking errors
+
+Marking a snippet as a favorite or recording a copy normally happens instantly. If either action fails, a brief error message appears with the specific problem. Your other actions are not affected.
+
+## Validation feedback
+
+The snippet form checks required fields before saving. If a required field is empty, CodeKnit shows inline help directly beneath that field and prevents the save:
+
+- **Title**, shows **Title is required.**
+- **Code**, shows **Code is required.**
+- **Category**, shows **Enter a category name.**
+
+You can correct the field immediately and submit again. These inline hints appear only after you attempt to save with missing information.
+
+## Confirmation prompts
+
+Some actions are permanent. CodeKnit asks you to confirm before proceeding.
+
+### Deleting a snippet
+
+Before a snippet is removed, a dialog appears with the title **Delete this snippet?** and a description stating that the snippet will be permanently removed and that the action cannot be undone. You can select **Cancel** to keep it or **Delete** to confirm.
+
+> [!WARNING]
+> Deleting a snippet cannot be undone. Confirm only when you are sure you no longer need it.
+
+### Resetting to sample data
+
+In **Settings**, the **Reset** option follows a two-step safeguard:
+
+1. Select **Reset** once. The button changes to **Confirm reset**.
+2. Select **Confirm reset** to proceed.
+
+> [!WARNING]
+> Resetting the library replaces all your snippets with sample data. Your existing snippets are removed.
+
+Figure: Feedback path for an action you take in CodeKnit
 
 ```mermaid
 graph LR
-    A[Choose JSON file] --> B{"File readable?"}
-    B -->|No| C["Error toast: Import failed"]
-    B -->|Yes| D{"Any new snippets?"}
-    D -->|No| E["Info toast: No new snippets imported"]
-    D -->|Yes| F["Success toast: Import complete"]
-```
-
-## Form validation
-
-When you create or edit a snippet, CodeKnit checks three required fields before saving:
-
-- **Title**, required
-- **Code**, required
-- **Category**, must have a name
-
-If a required field is empty, CodeKnit shows a red validation message directly under that field. The form does not submit until you correct the problem. Each message states exactly which field needs attention, such as **Title is required** or **Code is required**.
-
-> [!NOTE]
-> Validation messages clear automatically once you enter valid content in the field.
-
-## Delete confirmation for destructive actions
-
-Because deleting a snippet is permanent, CodeKnit requires a confirmation step before removing anything.
-
-When you select **Delete** on a snippet card or in the snippet viewer, a dialog appears with the title **Delete this snippet?** and a warning that the action cannot be undone. You can choose **Cancel** to keep the snippet or **Delete** to confirm removal. After a successful deletion, CodeKnit shows a **Snippet deleted** toast.
-
-Figure: Delete confirmation flow
-
-```mermaid
-graph LR
-    A[Choose Delete] --> B[Delete this snippet dialog]
-    B -->|Cancel| C[Snippet kept]
-    B -->|Confirm| D[Snippet removed]
-    D --> E["Success toast: Snippet deleted"]
+    A[Your action] --> B{"Did it succeed?"}
+    B -- Yes --> C[Success message]
+    B -- No --> D[Error message]
+    D --> E[Read explanation]
+    E --> F[Update input or retry]
+    F --> A
 ```
 
 ## Limits
 
-CodeKnit does not keep a persistent log of past messages. Toasts disappear on their own after a few moments, and there is no history panel that records every action you have taken. Diagnostics are shown only for the action you are currently performing.
+- Success and error notifications are brief and disappear on their own. CodeKnit does not keep a persistent message history.
+- The library load error panel is the only full-page status screen. Most other feedback appears as a small inline message.
+- You cannot undo a delete or a reset after confirming. Use the confirmation dialogs as your final check.
 
 ## Related
 
-- [Import and Export](doc:f1b42dc6-1597-47d7-b921-658815f5af20), includes detailed import and export diagnostics
-- [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8), explains how the library loads and the error state
-- [Code Editor](doc:a1109ff6-5fe7-437a-99ec-4d0b442bb0fd), describes where code entry and validation occur
-- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb), favorite toggles show error messages if they fail
+- [Import and Export](doc:f1b42dc6-1597-47d7-b921-658815f5af20)
+- [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
+- [Code Editor](doc:a1109ff6-5fe7-437a-99ec-4d0b442bb0fd)
+- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)

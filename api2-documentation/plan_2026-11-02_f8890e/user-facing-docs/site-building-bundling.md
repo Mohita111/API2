@@ -1,55 +1,64 @@
 # Site building and bundling
 
-Site Building & Bundling turns the CodeKnit source into a fast, optimized website you can run locally or deploy to production. It is for developers who set up the app on their own machine and for site administrators who prepare it for release.
+Site Building & Bundling turns your CodeKnit project into a working website. It covers the main moments of preparing a site: running it while you work, creating an optimized version for production, and testing that production version before you publish.
 
-## What you can do
+## Who it's for
 
-- Start a local development server that refreshes automatically while you work
-- Create an optimized production build that loads quickly for visitors
-- Create a development-mode build that is easier to debug
-- Preview the production build locally before deploying it
-- Check code quality, formatting, and tests
+This feature is for developers and site administrators who need to:
 
-## Development and production paths
+- Run the site on their own machine during development
+- Prepare an optimized bundle to deploy
+- Verify the production output locally before it goes live
 
-The same source can take three paths depending on the command you choose. Each serves a different purpose.
+## How the build flow works
 
-Figure: Development and production build paths
+The same source code feeds either live development or a production bundle. From the bundle, you can launch a local preview to check the result.
 
-```mermaid
-graph LR
-    A[CodeKnit source] --> B{Choose a command}
-    B -->|npm run dev| C[Development server]
-    B -->|npm run build| D[Production build]
-    B -->|npm run build:dev| E[Development build]
-    D --> F[Preview with npm run preview]
-    D --> G[Deploy to hosting]
-```
-
-- The **development server** gives you fast feedback with automatic refresh. It is not meant for public visitors.
-- The **production build** applies optimizations and produces the output you deploy.
-- The **development build** skips some optimizations so the result behaves more like the development server.
-
-## What happens during a production build
-
-Figure: Production build steps
+Figure: Development and production build flow
 
 ```mermaid
 graph LR
-    A[TypeScript and React source] --> B[Compile TypeScript]
-    B --> C[Bundle JavaScript and CSS]
-    C --> D[Remove unused code]
-    D --> E[Optimize output]
-    E --> F[Deployable files]
+  A[Your source code] --> B[Start dev server]
+  A --> C[Create production build]
+  B --> D[Live site with instant updates]
+  C --> E[Optimized production bundle]
+  E --> F[Start preview server]
+  F --> G[Local production preview]
 ```
 
-During a production build, the site compiles TypeScript, bundles all JavaScript and CSS together, removes unused code, and optimizes the output. The result is a set of deployable files.
+## Choosing a mode
 
-> [!NOTE]
-> The project declares its modules as side-effect-free, which lets the bundler safely drop code that is never used and keeps the final files smaller.
+The command you choose depends on what you need to do with the site.
+
+Figure: Choose a site mode
+
+```mermaid
+graph TD
+  A["What do you need today?"] --> B[Edit and test the site]
+  A --> C[Prepare the site to go live]
+  A --> D[Verify a production build]
+  B --> E[Use dev mode]
+  C --> F[Use build mode]
+  D --> G[Use preview mode]
+```
+
+## Benefits
+
+- **One-command builds**, bundling for production is a single command, with no manual tooling setup required.
+- **Fast development**, the development server updates the site as you make changes.
+- **Optimized output**, the production command compiles and bundles the site rather than serving source files directly.
+- **Safe testing**, the preview command lets you check the exact production bundle on your own machine before release.
+
+## Key options and boundaries
+
+The build is powered by Vite 8.1.5, and the project pins the Rolldown bundler to version 1.2.1. The site is built with TanStack Start, React, TypeScript, and Tailwind CSS, and the build is configured to understand these parts out of the box.
+
+- The development command does not produce a deployable bundle. Use the production build command for anything you plan to publish.
+- The preview command serves the most recent production build. Run the production build command again after making changes, then preview again to see the latest result.
+- Local setup requires Node.js and npm; the recommended way to install both is with nvm.
 
 ## Related
 
-- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)
 - [System Requirements and Installation](doc:1016cd5f-d53c-46d7-a74a-15b623ef5387)
-- [How to build production site](doc:23e09652-4772-4f32-a5b7-0121a8bc4853)
+- [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)
+- [Logging & Diagnostics](doc:42850ad2-ae64-43c4-930f-731595c051ed)
