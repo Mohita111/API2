@@ -1,59 +1,56 @@
-# CodeKnit product overview
+# CodeKnit: Overview
 
-CodeKnit is a lightweight code and Markdown snippet manager that helps you store, organize, and quickly reuse the text you use most. Instead of hunting through old projects or chat threads, you keep your reusable code blocks, queries, and text templates in one searchable place.
+CodeKnit is a small, fast home for the code snippets and text templates you reuse every day. Instead of digging through old files or rewriting the same function from memory, you save it once in CodeKnit and bring it back with a quick search or a single click.
 
 ## What you can do with CodeKnit
 
-CodeKnit focuses on a simple, fast workflow: save a snippet once, then find and copy it whenever you need it.
-
-Figure: The core CodeKnit workflow
-
-```mermaid
-graph LR
-    A[Create a snippet] --> B[Write code or Markdown]
-    B --> C["Choose language, category, and tags"]
-    C --> D[Save your snippet]
-    D --> E[Search and filter]
-    E --> F[Copy in one click]
-    E --> G[Mark as favorite]
-```
-
-1. Create a snippet with a title, and add code or Markdown text.
-2. Assign a language, category, and tags so it's easy to find later.
-3. Search across your library by keyword, language, category, or favorites.
-4. Copy any snippet to your clipboard with one click.
+- **Store** code in many languages and Markdown text in one place.
+- **Organize** snippets by category and tags so related items stay together.
+- **Find** anything quickly with search, language filters, category filters, and favorites.
+- **Copy** any snippet to your clipboard instantly when you need it.
+- **Back up and restore** your whole library with import and export.
 
 ## Who CodeKnit is for
 
-CodeKnit is for developers and anyone who regularly reuses small pieces of text. It's especially useful when you:
+CodeKnit is for anyone who works with reusable text. Developers use it to keep JavaScript functions, Python scripts, and SQL queries within reach. Writers and content creators use it for Markdown templates and repeated blocks of text. If you find yourself copying the same text or code more than once, CodeKnit can help.
 
-- Write the same SQL queries, JavaScript functions, or Python snippets repeatedly.
-- Keep reusable Markdown templates for documentation, pull requests, or notes.
-- Want a personal library that doesn't depend on a specific editor or project.
+## Why use CodeKnit
 
-## Main benefits
+- **Fast, local-first storage**, your snippets live on your own device, so they're always ready without waiting for a remote server.
+- **Syntax-aware editing**, the editor understands the language of each snippet and helps you write clearly with highlighting and structure.
+- **Easy organization**, categories, tags, and favorites let you arrange snippets your way.
+- **Full import and export**, move your library between devices or share it as a single file.
 
-- **Fast, local-first storage**, your snippets stay close at hand, without complex setup.
-- **Syntax-aware editing**, the editor understands the language you're working in.
-- **Search across languages**, find snippets in JavaScript, Python, SQL, Markdown, and other formats.
-- **Organize by category**, group related snippets so your library stays manageable.
-- **Favorites for quick access**, star the snippets you use most and filter to them instantly.
-- **Full import and export**, back up your library or move it between devices as a portable file.
+## How CodeKnit fits together
 
-> [!NOTE]
-> CodeKnit keeps your workflow lightweight. You don't need to maintain a database or configure a server to start saving snippets.
+Here's the typical flow from starting point to a finished snippet you can reuse.
+
+Figure: Typical snippet workflow
+
+```mermaid
+graph LR
+    A[Open the Dashboard] --> B[Create a snippet]
+    C --> D[Save with category and tags]
+    D --> E[Search or filter]
+    E --> F[Copy to clipboard]
+    E --> G[Edit or mark as favorite]
+    G --> H[Export for backup]
+```
+
+That diagram shows the path most people follow. You don't need every step, it's fine to create a snippet and copy it right away, or to export a library you've been building for months.
 
 ## What this documentation teaches
 
-This guide walks you through the entire CodeKnit experience, from first launch to everyday use:
+This collection of guides walks you through everything from first launch to daily use:
 
-- **Getting started**, set up CodeKnit and create your first snippet.
-- **Managing snippets**, edit, organize, and mark snippets as favorites.
-- **Finding snippets**, use search, language filters, categories, tags, and favorites.
-- **Importing and exporting**, back up and restore your snippet library.
-- **Customizing your setup**, adjust settings to match the way you work.
+- **Getting started**, install CodeKnit and create your first snippet. See [System Requirements and Installation](doc:1016cd5f-d53c-46d7-a74a-15b623ef5387) and [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94).
+- **Managing snippets**, organize with categories and tags, mark favorites, and understand the library. See [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4).
+- **Finding snippets**, use search and filters to locate exactly what you need. See [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756).
+- **Backing up and sharing**, export and import your library. See [Import and Export](doc:f1b42dc6-1597-47d7-b921-658815f5af20).
 
 
-If you're ready to begin, start with [your first snippet](doc:72dab710-31b9-4980-becf-be9fbd6d4d94) or review the [system requirements and installation](doc:1016cd5f-d53c-46d7-a74a-15b623ef5387) steps.
+If you're ready to begin, start with setting up and creating your first snippet.
 
-To understand how snippets are organized, see [snippet organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4) and [how snippets and filters work together](doc:5aa23d07-2c0d-44f6-8a85-df82ca070b77). For a deeper look at the main feature area, read about the [snippet library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8).
+- [System Requirements and Installation](doc:1016cd5f-d53c-46d7-a74a-15b623ef5387)
+- [Your First Snippet – Quick Start](doc:72dab710-31b9-4980-becf-be9fbd6d4d94)
+- [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)

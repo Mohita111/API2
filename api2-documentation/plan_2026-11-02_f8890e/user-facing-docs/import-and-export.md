@@ -1,85 +1,115 @@
 # Import and export
 
-Import and Export lets you back up, share, and restore your entire snippet library through a single JSON file. When you export, CodeKnit downloads all of your snippets into a portable file named`codeknit-snippets.json`. When you import, CodeKnit reads that same kind of file and adds any new snippets to your current library.
+Import and Export lets you back up your entire CodeKnit snippet library, move it between devices, or share it with teammates. You can download all of your snippets as a single portable file, then restore or merge that file into another CodeKnit workspace.
 
-This feature is for anyone who wants to protect their saved snippets, move them between devices or browsers, share a collection with teammates, or track their library in a version control system such as Git.
+This feature is useful when you want to:
 
-## Accessing export and import
+- Keep a personal backup that is not tied to one browser or device.
+- Share a set of snippets with a teammate.
+- Track changes to your snippet collection over time in a version-control tool.
+- Restore your library after clearing browser data or moving to a new computer.
 
-Open Settings by selecting the gear icon at the bottom of the sidebar. The Settings dialog shows **Export library** and **Import library**, along with a separate **Reset to sample data** action.
+You access Import and Export from the gear icon at the bottom of the sidebar. The **Settings** dialog includes both **Export** and **Import JSON** actions.
 
-Figure: Import and export overview
+## Where to find import and export
 
-```mermaid
-graph LR
-A[Open Settings] --> B[Export library]
-A --> C[Import library]
-B --> D["Downloads codeknit-snippets.json"]
-C --> E[Choose a JSON file]
-E --> F[Validate file]
-```
+Your snippets are stored locally in the browser you are using. The **Settings** dialog is the home for moving that data in and out.
 
-## Export your library
+1. Open the sidebar.
+2. At the bottom, find your workspace area and select the **Settings** gear icon.
+3. In the **Settings** dialog, you see **Export library** and **Import library** sections.
 
-Export creates an immediate download named`codeknit-snippets.json`. The file contains every snippet currently in your library, formatted in readable, indented JSON. You can open it in any text editor to view titles, code, languages, categories, tags, favorite status, and dates.
+The dialog explains that your snippets are stored in this browser, and that you can export a backup or import a previously exported CodeKnit library.
 
-Export is useful when you want to:
+## Back up your library
 
-- Keep a backup copy of your snippets outside the browser
-- Share a full snippet collection with a teammate
-- Save a snapshot of your library to Git or another version control system
-- Move your snippets to a new device or browser
+Exporting creates one downloadable file named`codeknit-snippets.json`. The file contains your complete snippet library in a readable format, so you can store it wherever you keep important files.
 
-To export, open Settings and select **Export library**. CodeKnit downloads the file and shows a confirmation message with the number of snippets downloaded.
+To export:
+
+1. Open **Settings** from the sidebar gear icon.
+2. Find **Export library**. The label shows how many snippets are currently in your library.
+3. Select **Export**.
+
+Your browser downloads the file automatically. A notification confirms the export and shows how many snippets were downloaded.
 
 Figure: Export flow
 
 ```mermaid
 graph LR
-A[Open Settings] --> B[Select Export library]
-B --> C["Download codeknit-snippets.json"]
-C --> D[See confirmation with snippet count]
+    A[Open Settings] --> B[Export library section]
+    B --> C[Select Export]
+    C --> D["Download codeknit-snippets.json"]
+    D --> E[Confirmation notification]
 ```
 
-## Import a library
+The exported file includes every snippet with its title, description, language, code, category, tags, favorite status, and related dates. You can keep the file as a backup or commit it to a version-control system to track changes over time.
 
-Import merges snippets from a previously exported CodeKnit JSON file into your current library. When you choose a file, CodeKnit validates the entire file before making any changes. If the file is valid, CodeKnit adds new snippets and skips duplicates. Your existing snippets are kept exactly as they are.
+## Restore or merge snippets
 
-To import, open Settings and select **Import JSON**, then choose a`.json` file from your device. After the import, a confirmation message shows how many snippets were imported and how many duplicates were skipped.
+Importing adds snippets from a previously exported CodeKnit file into your current library. You do not need to start from an empty library, importing is additive.
 
-Figure: Import flow
+To import:
+
+1. Open **Settings** from the sidebar gear icon.
+2. Find **Import library**.
+3. Select **Import JSON**.
+4. Choose a valid CodeKnit JSON export file from your device.
+
+The import validates the entire file before changing any saved snippets. Existing snippets are kept, and duplicates are skipped rather than overwritten.
+
+After a successful import, a notification tells you how many snippets were imported and how many duplicates were skipped. If the file contains no new snippets, you receive a message that no new snippets were imported.
+
+Figure: Import and validation flow
 
 ```mermaid
-graph TD
-A[Open Settings] --> B[Select Import JSON]
-B --> C["Choose a .json file"]
-C --> D{"File structure valid?"}
-D -- No --> E[See Import failed message]
-F --> G[See confirmation with imported and skipped counts]
+graph LR
+    A[Open Settings] --> B[Select Import JSON]
+    B --> C[Choose JSON file]
+    C --> D{"Is the file valid?"}
+    D -->|No| E[Import failed message]
+    D -->|Yes| F[Merge snippets]
+    F --> G[Confirmation with imported count]
 ```
 
-If the imported file contains no new snippets because every entry is already in your library, CodeKnit shows a message that no new snippets were imported and notes how many duplicates were skipped.
+## Duplicate handling
 
-> [!NOTE]
-> Importing never deletes or changes your existing snippets. It only adds new snippets and skips duplicates.
+When you import a file that contains snippets already in your library, CodeKnit keeps your existing snippets and skips the incoming duplicates. This behavior preserves the version already saved on the current device.
 
-## Duplicate handling and boundaries
+Figure: How duplicates are handled
 
-Import and Export is designed for full-library backup and transfer, not for editing individual snippets in a file.
+```mermaid
+stateDiagram-v2
+    [*] --> ValidImport
+    ValidImport --> NewSnippet: snippet is new
+    ValidImport --> Duplicate: snippet already exists
+    NewSnippet --> Imported
+    Duplicate --> Skipped
+    Imported --> [*]
+    Skipped --> [*]
+```
 
-- Duplicates are skipped during import, not overwritten. CodeKnit keeps your existing snippet and skips the imported version.
-- Import does not offer conflict resolution between versions. There is no side-by-side comparison or choice to keep one version over another.
-- Every import processes the whole file. There is no partial selection of specific snippets.
-- Import modifies your library only after the entire file passes validation. If validation fails, nothing is imported.
+Because duplicates are skipped, importing cannot be used as a way to overwrite changes already saved in the current library. There is no prompt to choose between an existing snippet and an imported one.
 
-The import flow accepts the same JSON format that export produces. For best results, always import files that were created by CodeKnit's export feature.
+## What import and export support
 
-> [!WARNING]
-> The **Reset to sample data** action in Settings replaces all of your snippets. This is separate from import and export. If you want to keep your current library, export a backup before using reset.
+- Export the entire library in one action.
+- Import a full library export from another device or teammate.
+- Merge on import by keeping current snippets and adding only new ones.
+- Skip duplicate snippets automatically.
+- See a confirmation after import that reports the number of imported and skipped snippets.
+- See an error message if the selected file cannot be read or does not have the expected structure.
 
-## Related
+## What import and export do not do
+
+- Importing does not partially update existing snippets. Duplicates are skipped, not merged field by field.
+- Importing does not offer conflict resolution when the same snippet exists in both places.
+- Exporting does not create a file that users typically edit by hand; the file is designed as a portable backup.
+
+## Related pages
 
 - [Snippet Library](doc:9f431e10-b005-4cc0-80b1-0af4acdcb3d8)
-- [Concepts and Terminology](doc:08c7b9ec-c366-4fc5-b62c-01999c0ae167)
 - [Snippet Organization](doc:8367ddb8-1051-4848-a093-3b4352805aa4)
+- [Favorites](doc:b66c5560-9b68-42eb-922d-a8aecab0dfcb)
+- [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756)
 - [Product Overview](doc:ca8f433d-53d1-475b-a3a5-29b24f1ba173)

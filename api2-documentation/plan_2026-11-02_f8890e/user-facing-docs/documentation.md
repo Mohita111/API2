@@ -1,102 +1,78 @@
 # Documentation
 
-Documentation is the knowledge hub of the site. It holds the guides, references, and how-to material that help people learn. It is designed for two main groups: **site visitors** who read the material, and **content authors** who keep it accurate.
+Documentation is the central home for your product's written content. It brings articles, guides, and reference material together into a structured site that visitors can browse, search, and navigate by version. Content authors maintain the material, and site administrators control how it is organized and presented.
 
-With documentation you can browse organized pages from a sidebar, search across published content, switch between versions, and open a page's source for editing.
+## Who it's for
 
-## Who it is for
+Documentation serves three groups of people:
 
-- **Site visitors** read documentation to learn how things work. They move around with the sidebar, search bar, and version selector.
-- **Content authors** keep documentation accurate by editing pages through the **Edit this page** link.
-- **Site administrators** shape the documentation structure: what appears in the sidebar, how pages are organized, and which languages are supported.
+- **Site visitors** read the published documentation to learn how to use the product and find answers to their questions.
+- **Content authors** write, update, and organize the articles and guides that visitors read.
+- **Site administrators** configure the documentation structure, search settings, localized paths, and version sets.
 
-## What you can do
+## Core capabilities
 
-### Browse documentation from the sidebar
+### Browsing by sidebar
 
-The sidebar is the main way to move through documentation. It lists available pages in a structured, predictable order. Select any title in the sidebar to open that page.
+Visitors navigate documentation through a sidebar that groups related pages into sections. The sidebar shows where you are in the documentation and lets you jump between topics without losing your place. The sidebar structure is defined by the site administrator, so it always reflects the organization of the current documentation set.
 
-### Search documentation content
+### Full-text search
 
-The documentation search bar accepts keywords and returns matching pages. Use it when you know what you are looking for but are not sure where it lives.
+The search bar scans documentation content and returns matching pages. Visitors can find a specific topic by typing keywords, rather than browsing the sidebar manually. Search covers the published documentation content for the current site.
 
-### Navigate versioned documentation sets
+### Versioned documentation sets
 
-When documentation is published in more than one version, a **Version selector** appears. Use it to switch between versions, such as an older release and the current release.
+Documentation can be organized into multiple versions. Visitors select a version from the version selector to read documentation that matches a particular release of the product. Each version has its own set of pages, sidebar, and content, so older documentation remains available alongside newer material.
 
-### Edit a page from its source link
+Figure: Version selection flow
 
-Each documentation page can include an **Edit this page** link. Selecting it opens the page's editable source so a content author can make updates.
+```mermaid
+graph LR
+    A[Visitor opens a docs page] --> B[Version selector is visible]
+    B --> C[Visitor chooses a version]
+    C --> D[Sidebar and pages update]
+    D --> E[Visitor reads that version's content]
+```
 
-### Configure the sidebar and paths
+### Edit this page links
 
-Site administrators decide what appears in the sidebar and how documentation is organized. They can define the page order, the sidebar structure, and the URL path layout.
+Each documentation page can include a link that takes the content author directly to the editor for that page. The author makes a change, saves it, and the published page reflects the update. This keeps the distance between reading and editing small.
 
-### Localize documentation paths
+Figure: Edit page flow
 
-Site administrators can provide localized versions of documentation paths for additional languages.
+```mermaid
+graph LR
+    A[Content author reads a page] --> B[Selects Edit this page]
+    B --> C[Editor opens at the page source]
+    C --> D[Author makes changes]
+    D --> E[Author saves]
+    E --> F[Published page updates]
+```
+
+### Sidebar and path configuration
+
+Site administrators define the sidebar structure and documentation paths. This includes which sections appear, how pages are grouped, and what URLs visitors use to reach each page. Changes to this configuration affect how all visitors experience the documentation.
+
+### Localized paths
+
+Documentation paths can be configured for different languages. Site administrators can set up localized documentation paths so that visitors in different locales see content at language-appropriate URLs.
 
 ## Benefits
 
-- **Faster learning**, visitors find what they need through structured navigation and search.
-- **Up-to-date content**, content authors can jump straight from a published page to its source.
-- **Version safety**, visitors can consult documentation that matches the release they are using.
-- **Consistent organization**, administrators keep the sidebar ordered and predictable.
+Documentation brings together reading, searching, versioning, and editing in one place. Visitors spend less time hunting for information because the sidebar and search work together. Content authors have a direct path from a published page to its source. Site administrators retain control over organization, localization, and version availability.
 
-## Key options and limits
+## Limits
 
-Options include:
-
-- Sidebar organization and page order
-- Documentation path structure
-- Localized paths for additional languages
-- Multiple documentation versions with a version selector
-- Built-in search across documentation content
-
-Limits to keep in mind:
-
-- Search results depend on the documentation content that has been published.
-- Available versions depend on how the site administrator configures versioning.
-- The **Edit this page** link behaves differently depending on whether the page source is editable and connected.
+Documentation content must be written and maintained by content authors; the documentation site itself does not generate articles. Search covers published documentation content and depends on the current site's search configuration. Versioned documentation requires the site administrator to set up and maintain each version. Localized paths require the site administrator to configure locale-specific paths.
 
 > [!NOTE]
-> The **Version selector** only appears when the site publishes more than one version of documentation.
+> The documentation site and its configuration are managed by site administrators and content authors. Visitors interact with the published result.
 
-## How the main flows fit together
+## Related guides
 
-The diagram below shows the main ways a site visitor moves through documentation.
-
-Figure: Documentation browsing flow
-
-```mermaid
-graph LR
-    A[Open documentation] --> B[Sidebar]
-    A --> C[Search bar]
-    A --> D[Version selector]
-    B --> E[Read page]
-    C --> E
-    D --> E
-    E --> F[Edit this page]
-    F --> G[Edit page source]
-```
-
-The next diagram shows the path a content author follows to update documentation.
-
-Figure: Content author update flow
-
-```mermaid
-graph LR
-    A[Content author opens page] --> B[Select Edit this page]
-    B --> C[Edit page source]
-    C --> D[Save changes]
-    D --> E[Updated page is published]
-```
-
-## Related pages
-
-- [Browse documentation by sidebar](doc:526a2eef-f1ec-498a-ba05-8f9a60a0241a)
-- [Search documentation content](doc:618bed8b-55ea-4ed4-9526-f90adade00c3)
-- [Navigate versioned documentation sets](doc:86645afe-97a4-4658-b7b5-fd86cd1aba8d)
-- [Edit current page via source link](doc:c89514ca-39c3-485a-a4a8-8f44f0ac3293)
-- [Configure documentation sidebar and paths](doc:85ed333a-1d37-4f3a-bf1e-57ed829c2fb1)
-- [Localize documentation paths](doc:49b3b32b-6eb1-42f5-96f7-5482cd7208e6)
+- [How to browse documentation by sidebar](doc:526a2eef-f1ec-498a-ba05-8f9a60a0241a)
+- [How to search documentation content](doc:618bed8b-55ea-4ed4-9526-f90adade00c3)
+- [How to navigate versioned documentation sets](doc:86645afe-97a4-4658-b7b5-fd86cd1aba8d)
+- [How to edit current page via source link](doc:c89514ca-39c3-485a-a4a8-8f44f0ac3293)
+- [How to configure documentation sidebar and paths](doc:85ed333a-1d37-4f3a-bf1e-57ed829c2fb1)
+- [How to localize documentation paths](doc:49b3b32b-6eb1-42f5-96f7-5482cd7208e6)
