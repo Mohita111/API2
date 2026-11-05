@@ -1,4 +1,4 @@
-import { Check, Copy, Folder, Pencil, Star, Trash2 } from "lucide-react";
+import { Check, Copy, CopyPlus, Folder, Pencil, Star, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
@@ -12,11 +12,12 @@ interface Props {
   onClose: () => void;
   onEdit: () => void;
   onDelete: () => void;
+  onDuplicate: () => void;
   onToggleFavorite: () => void;
   onRecordCopy: () => Promise<void>;
 }
 
-export function SnippetDetailViewer({ snippet: s, onClose, onEdit, onDelete, onToggleFavorite, onRecordCopy }: Props) {
+export function SnippetDetailViewer({ snippet: s, onClose, onEdit, onDelete, onDuplicate, onToggleFavorite, onRecordCopy }: Props) {
   const { copied, copy } = useCopy();
   return (
     <Dialog open={!!s} onOpenChange={(o) => !o && onClose()}>
@@ -46,6 +47,7 @@ export function SnippetDetailViewer({ snippet: s, onClose, onEdit, onDelete, onT
                   <Star className={cn("h-4 w-4", s.isFavorite && "fill-syn-number text-syn-number")} />
                   {s.isFavorite ? "Favorited" : "Favorite"}
                 </Button>
+                <Button variant="ghost" size="sm" onClick={onDuplicate}><CopyPlus className="h-4 w-4" />Duplicate</Button>
                 <Button variant="ghost" size="sm" onClick={onDelete} className="text-destructive hover:text-destructive">
                   <Trash2 className="h-4 w-4" />Delete
                 </Button>
