@@ -1,4 +1,4 @@
-import { Check, Copy, Eye, MoreHorizontal, Pencil, Star, Trash2, Folder } from "lucide-react";
+import { Check, Copy, CopyPlus, Eye, MoreHorizontal, Pencil, Star, Trash2, Folder } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
@@ -16,6 +16,7 @@ interface Props {
   onView: () => void;
   onEdit: () => void;
   onDelete: () => void;
+  onDuplicate: () => void;
   onToggleFavorite: () => void;
   onRecordCopy: () => Promise<void>;
 }
@@ -34,7 +35,7 @@ function IconAction({ label, onClick, children, active }: { label: string; onCli
   );
 }
 
-export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onToggleFavorite, onRecordCopy }: Props) {
+export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onDuplicate, onToggleFavorite, onRecordCopy }: Props) {
   const { copied, copy } = useCopy();
   const list = layout === "list";
   return (
@@ -76,6 +77,7 @@ export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onTo
               </Tooltip>
               <DropdownMenuContent align="end" onClick={(e) => e.stopPropagation()}>
                 <DropdownMenuItem onSelect={onEdit}><Pencil className="h-4 w-4" />Edit</DropdownMenuItem>
+                <DropdownMenuItem onSelect={onDuplicate}><CopyPlus className="h-4 w-4" />Duplicate</DropdownMenuItem>
                 <DropdownMenuItem onSelect={onDelete} className="text-destructive focus:text-destructive">
                   <Trash2 className="h-4 w-4" />Delete
                 </DropdownMenuItem>
