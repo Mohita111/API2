@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { filterSnippets } from "@/lib/snippets/filter";
+import { buildDuplicateInput } from "@/lib/snippets/duplicate";
 import { useSnippets } from "@/lib/snippets/store";
 import type { Snippet, SnippetFilters } from "@/lib/snippets/types";
 import { AppSidebar, type Section } from "./AppSidebar";
@@ -26,7 +27,7 @@ const TITLES: Record<Section, string> = {
 };
 
 export function AppLayout() {
-  const { snippets, status, error, reload, remove, toggleFavorite, recordCopied } = useSnippets();
+  const { snippets, status, error, reload, create, remove, toggleFavorite, recordCopied } = useSnippets();
   const [section, setSection] = useState<Section>("dashboard");
   const [filters, setFilters] = useState<SnippetFilters>(DEFAULTS);
   const [layout, setLayout] = useState<"grid" | "list">("grid");
@@ -69,6 +70,14 @@ export function AppLayout() {
   const openNew = () => { setEditing(null); setFormOpen(true); };
   const openEdit = (s: Snippet) => { setViewingId(null); setEditing(s); setFormOpen(true); };
   const fav = (s: Snippet) => toggleFavorite(s.id).catch((e: Error) => toast.error(e.message));
+  const duplicate = async (s: Snippet) => {
+    try {
+      const created = await create(buildDuplicateInput(s, snippets.map((item) => item.title)));
+      toast.success(`Created "${created.title}"`);
+    } catch (e) {
+      toast.error((e as Error).message);
+    }
+  };
   const confirmDelete = async () => {
     if (!deleting) return;
     try {
@@ -156,7 +165,7 @@ export function AppLayout() {
                     <SnippetCard
                       key={s.id} snippet={s} layout={layout}
                       onView={() => setViewingId(s.id)} onEdit={() => openEdit(s)}
-                      onDelete={() => setDeleting(s)} onToggleFavorite={() => fav(s)}
+                      onDelete={() => setDeleting(s)} onDuplicate={() => { void duplicate(s); }} onToggleFavorite={() => fav(s)}
                       onRecordCopy={() => recordCopied(s.id)}
                     />
                   ))}
@@ -170,6 +179,7 @@ export function AppLayout() {
           snippet={viewing} onClose={() => setViewingId(null)}
           onEdit={() => viewing && openEdit(viewing)}
           onDelete={() => viewing && setDeleting(viewing)}
+          onDuplicate={() => viewing && void duplicate(viewing)}
           onToggleFavorite={() => viewing && fav(viewing)}
           onRecordCopy={() => viewing ? recordCopied(viewing.id).catch((e: Error) => { toast.error(e.message); }) : Promise.resolve()}
         />
