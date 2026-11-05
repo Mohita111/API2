@@ -42,9 +42,9 @@ The sidebar reflects this structure in real time. As you add, edit, or delete sn
 
 Categories provide a broad grouping for snippets. They're ideal for separating different kinds of work—for example, reusable utility functions versus documentation templates. Each snippet belongs to exactly one category, so categories function like folders for your library.
 
-### Predefined categories
+### Built-in categories
 
-When you create a snippet, you can pick from the built-in list of categories, including **Utilities**. These categories appear in the sidebar under **Categories** as soon as they contain at least one snippet.
+When you create a snippet, you can pick from the built-in list of categories, including **Utilities**. The category field starts with **Utilities** selected by default. As you save snippets into a category, that category appears in the sidebar under **Categories**.
 
 ### Custom categories
 
@@ -56,7 +56,7 @@ If the built-in list doesn't fit your needs, you can create a custom category wh
 4. Type the name you want.
 5. Save the snippet.
 
-After a custom category exists, it appears in the sidebar alongside the predefined ones and is available for future snippets. Categories are not nested—every category sits at the same level.
+After a custom category exists, it appears in the sidebar alongside the built-in ones and is available for future snippets. Categories are not nested—every category sits at the same level.
 
 ### Category counts
 
@@ -72,7 +72,7 @@ Tags are flexible, user-defined labels attached to individual snippets. Unlike c
 
 ### How tagging works
 
-Add tags while creating or editing a snippet using the **Tags** field. Type a tag and press **Enter** or a comma to commit it. Tags are automatically converted to lowercase and can contain any text you choose. You can attach any number of tags to a single snippet, and the same tag can appear on many snippets across different categories and languages.
+Add tags while creating or editing a snippet using the **Tags** field. Type a tag and press **Enter** or type a comma to commit it. Tags are automatically converted to lowercase, and you can type any labels you want. You can attach any number of tags to a single snippet, and the same tag can appear on many snippets across different categories and languages.
 
 When a snippet is displayed, its tags show as rounded chips with a`#` prefix. The tag filter dropdown is built from all tags across your library, so picking a tag narrows the view to snippets labeled with it.
 
@@ -83,17 +83,17 @@ Figure: How categories and tags differ
 ```mermaid
 graph TD
     Q["How to group a snippet?"] --> C["Is it a broad topic?"]
-    C -->|Yes| CAT[Use a category]
-    C -->|It's a detail or cross-cutting trait| TAG[Use a tag]
-    CAT --> X[One category per snippet]
-    TAG --> Y[Many tags per snippet]
+    C -->|Yes| CAT["Use a category"]
+    C -->|No| TAG["Use a tag"]
+    CAT --> X["One category per snippet"]
+    TAG --> Y["Many tags per snippet"]
 ```
 
 ---
 
 ## Languages
 
-Every snippet is associated with exactly one programming language: **JavaScript**, **Python**, **SQL**, or **Markdown**. This grouping is automatic for the language you choose when saving.
+Every snippet is associated with exactly one programming language: **JavaScript**, **Python**, **SQL**, or **Markdown**. You choose the language when creating or editing a snippet.
 
 ### Language badges
 
@@ -117,7 +117,7 @@ You can add or remove a snippet from favorites in three places:
 - The **Favorite** button inside the snippet detail window
 - The **Mark as favorite** switch on the new/edit snippet form
 
-A filled star in the golden accent color indicates a snippet is already a favorite.
+A filled star indicates a snippet is already a favorite.
 
 ### The favorites section
 
@@ -133,7 +133,7 @@ The **Recently Added** section shows the most recent snippets you've added, sort
 
 This view is automatically built from your snippet creation timestamps. Whenever you save a new snippet, it appears at the top of this list. The same timestamps also drive the sort dropdown in the filter bar, where you can choose **Recently Added**, **Oldest First**, or **A–Z** for the main list.
 
-Like favorites, the recently added view is action-based—it reflects what you've actually saved, not an algorithmic suggestion.
+Like favorites, the recently added view reflects what you've actually saved, not an algorithmic suggestion.
 
 ---
 

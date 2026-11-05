@@ -23,6 +23,8 @@ When your library is ready, the dashboard greets you with the heading **"Your co
 | **Favorites** | Number of snippets marked as favorite | "starred for quick access" |
 | **Languages** | Number of distinct programming languages | The actual language names, or "none yet" |
 
+Each card includes an icon for quick visual recognition. The **Languages** card shows a tooltip-style hint listing the specific languages in your library, for example, "JavaScript, Python, SQL". If your library is empty, this hint shows "none yet".
+
 These cards update automatically as you add, remove, or favorite snippets. They are summaries, not historical records. There is no trend line or change-over-time view.
 
 Below the statistics cards, the dashboard shows the **Your Snippets** section. This area includes the filter bar, the layout toggle, and the snippets themselves in either a grid or a list. For more on how snippets can be filtered, see [Search and Filter](doc:3704cb56-cf68-421d-9db0-d3816a8af756).
@@ -116,9 +118,9 @@ graph LR
 
 ## Understanding the loading, error, and empty states
 
-When the library is still loading, the dashboard shows three placeholder cards instead of snippet content. These are visual skeletons that let you know the app is working.
+When the library is still loading, the dashboard shows three placeholder skeleton cards instead of snippet content. These are visual placeholders that let you know the app is working.
 
-If loading fails, the dashboard shows an alert label with the message "Couldn't load your snippets" followed by the specific error. A **Try again** button lets you retry loading without refreshing the whole page.
+If loading fails, the dashboard shows an alert message with the text "Couldn't load your snippets" followed by the specific error. A **Try again** button lets you retry loading without refreshing the whole page.
 
 When no snippets exist in your library, the dashboard displays a friendly empty state instead of a blank page. You see a document icon, the heading **"No snippets yet"**, and a message: "Save your first snippet to start building your library." A prominent **+ New Snippet** button takes you directly into the creation form.
 
@@ -155,5 +157,8 @@ The dashboard is intentionally focused. It provides a summary and a launchpad, n
 - There is **no historical or trend data**. Statistics reflect only your current library.
 - The **Recently Added** section shows at most 10 snippets.
 - The dashboard **does not allow inline editing or data entry**. All changes happen through the snippet form or settings, not on the dashboard itself.
+
+> [!NOTE]
+> Everything on the dashboard updates in real time. Create, edit, delete, favorite, or copy a snippet, and the statistics cards and counts reflect the change immediately, no manual refresh needed.
 
 New to CodeKnit? Get a tour of the dashboard and sidebar in the [Quick Start Guide](doc:72dab710-31b9-4980-becf-be9fbd6d4d94).
