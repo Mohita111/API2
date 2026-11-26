@@ -1,4 +1,4 @@
-# CodeKnit: High-Level architecture and key components
+# CodeKnit: High-level architecture and key components
 
 CodeKnit is a browser-based snippet manager built on TanStack Start with React 19 and TypeScript. This document gives new contributors a high-level map of the application's architecture, the main layers, and how data flows through the system.
 
@@ -38,7 +38,7 @@ The stack is defined in `package.json`. Production dependencies include:
 | Charts | `recharts` | `^2.15.4` |
 | Toasts | `sonner` | `^2.0.7` |
 
-The project is an ES module (`"type": "module"`) and uses Vite 8 with the Lovable TanStack Start configuration package. Nitro generates the server bundle.
+The project is an ES module (`"type": "module"`), declares `"sideEffects": false`, and uses Vite 8 with the Lovable TanStack Start configuration package. TypeScript `^5.8.3` and the `rolldown` override pinned to `1.2.1` are declared in `devDependencies` and `overrides`, respectively. Nitro generates the server bundle.
 
 ## Build system and tooling
 
@@ -91,7 +91,7 @@ The `package.json` scripts define the developer workflow:
 }
 ```
 
-Developers run `npm run dev` to start the Vite development server, `npm run build` to produce a production bundle, and `npm run preview` to preview the built output. `npm run test` runs the Vitest suite once; `npm run test:watch` runs it in watch mode.
+Developers run `npm run dev` to start the Vite development server, `npm run build` to produce a production bundle, and `npm run build:dev` to produce a development-mode bundle. `npm run preview` previews the built output. `npm run test` runs the Vitest suite once; `npm run test:watch` runs it in watch mode.
 
 Figure: Development workflow commands
 

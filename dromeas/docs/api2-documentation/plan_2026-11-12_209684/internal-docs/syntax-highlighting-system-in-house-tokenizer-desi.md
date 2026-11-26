@@ -1,15 +1,15 @@
-# Syntax highlighting system: In-House tokenizer design and language support
+# Syntax highlighting system: In-house tokenizer design and language support
 
 ## Purpose
 
-CodeKnit highlights snippet code by using a small in-house regex tokenizer. The tokenizer lives in `src/lib/snippets/highlight.ts` and replaces heavier syntax highlighting libraries such as Prism or Shiki.
+CodeKnit highlights snippet code with a small in-house regex tokenizer. The tokenizer lives in `src/lib/snippets/highlight.ts` and replaces heavier syntax highlighting libraries such as Prism or Shiki.
 
 > [!NOTE]
-> This document is generated from the repository snapshot that includes `AGENTS.md` only. The captured source confirms the tokenizer's location, its regex-based nature, and its supported languages at a high level. For exact rule definitions, token type names, and function signatures, review `src/lib/snippets/highlight.ts` directly.
+> The captured repository snapshot includes `AGENTS.md` only. The source confirms the tokenizer's location, its regex-based nature, and its high-level language support. For exact rule definitions, token type names, and function signatures, review `src/lib/snippets/highlight.ts` directly.
 
 ## How the tokenizer fits into the application
 
-CodeKnit separates snippet persistence from snippet presentation. The `SnippetRepository` abstraction returns raw snippet data, and the syntax highlighting layer transforms raw code into tokens for rendering.
+CodeKnit separates snippet persistence from snippet presentation. The `SnippetRepository` abstraction returns raw snippet data, and the syntax highlighting layer transforms raw code into categorized tokens for rendering. `SnippetRepository` currently uses `localStorage` as its backing store, while `highlight.ts` operates independently on the raw code strings that the repository supplies.
 
 Figure: Component flow for syntax highlighting
 ```mermaid
@@ -35,6 +35,8 @@ The main goals are:
 - Keep SQL and Markdown highlighting simple
 - Maintain a lightweight, readable tokenizer that is easy to extend
 
+Keeping the tokenizer dependency-free means the highlighting layer stays small, avoids version drift from third-party grammars, and remains straightforward to modify when the supported languages need targeted rule updates.
+
 ## Supported languages
 
 The repository documentation explicitly names two supported languages:
@@ -58,7 +60,17 @@ Because the implementation is deliberately small and in-house, the token model i
 
 ## Adding a new language
 
-`src/lib/snippets/highlight.ts` is the extension point for new language support. Adding a language should keep the existing design goals:
+`src/lib/snippets/highlight.ts` is the extension point for new language support. Adding a language should maintain the existing design goals: dependency-free operation, regex-based rules, and stable behavior for SQL and Markdown.
+
+Figure: Workflow for adding a new language
+```mermaid
+graph TD
+    B --> C[Map matches to token types]
+    C --> D[Verify SQL and Markdown unchanged]
+    D --> E[Confirm no external dependency added]
+```
+
+To add a language:
 
 1. Add a regex-based rule set for the new language in `src/lib/snippets/highlight.ts`
 2. Map each regex match to the tokenizer's existing token type model
@@ -79,7 +91,8 @@ The available source snapshot includes only `AGENTS.md`. The following details a
 
 ## Related documentation
 
-- [Data Persistence Layer: SnippetRepository Pattern and localStorage Implementation](doc:34778b37-21c0-4087-91f0-c28fecb57477)
-- [React Hooks and Custom Hooks API](doc:2366f545-fe28-4695-a91e-94a58c97ec73)
-- [CodeKnit Project Architecture and Technology Stack](doc:95102f25-859a-4a05-98f5-7919e6f0235f)
-- [In-House Syntax Highlighting Tokenizer Architecture](doc:24ac1801-d2e0-4ad2-b23b-5680ff203b41)
+- [Data persistence layer: SnippetRepository pattern and localStorage implementation](doc:34778b37-21c0-4087-91f0-c28fecb57477)
+- [React hooks and custom hooks API](doc:2366f545-fe28-4695-a91e-94a58c97ec73)
+- [CodeKnit project architecture and technology stack](doc:95102f25-859a-4a05-98f5-7919e6f0235f)
+- [In-house syntax highlighting tokenizer architecture](doc:24ac1801-d2e0-4ad2-b23b-5680ff203b41)
+- [Syntax highlighting system design](doc:f61a6d46-c460-4460-b318-2258ec30ceca)

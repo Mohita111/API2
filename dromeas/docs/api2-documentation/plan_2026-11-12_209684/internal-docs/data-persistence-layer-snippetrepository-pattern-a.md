@@ -22,10 +22,10 @@ graph TD
 
 ### What this buys you
 
-- **Swap-friendly persistence**, a future API or database implementation can replace the localStorage body without changing UI code.
-- **One place to manage storage**, serialization, key names, and storage reads stay inside the repository.
-- **Easier testing**, the repository surface can be tested independently from React components.
-- **Less coupling**, UI state and persistence concerns remain separate.
+- **Swap-friendly persistence**: a future API or database implementation can replace the localStorage body without changing UI code.
+- **One place to manage storage**: serialization, key names, and storage reads stay inside the repository.
+- **Easier testing**: the repository surface can be tested independently from React components.
+- **Less coupling**: UI state and persistence concerns remain separate.
 
 ## Runtime data flow
 
@@ -44,7 +44,7 @@ sequenceDiagram
     Repo-->>UI: normalized snippet data
 ```
 
-Write, update, and delete operations follow the same direction: the UI invokes the repository, and the repository handles the storage side.
+Write, update, and delete operations follow the same pattern: the UI invokes the repository, and the repository handles the storage side.
 
 ## Implementation rules
 

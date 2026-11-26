@@ -22,7 +22,7 @@ The tokenizer exports two pieces used by `CodePreview.tsx`:
 import { tokenize, type TokenType } from "@/lib/snippets/highlight";
 ```
 
-`tokenize` has the shape:
+`tokenize` has the inferred shape:
 
 ```ts
 tokenize(code: string, language: Language): Array<{ type: TokenType; value: string }>
@@ -36,7 +36,7 @@ tokens.map((t, i) =>
 )
 ```
 
-`Language` comes from `@/lib/snippets/types` and is the same type used by the form, filter bar, and sidebar language lists.
+`Language` comes from `@/lib/snippets/types` and is the same type used by the form, filter bar, and sidebar language lists. Every component that passes a `language` prop imports `type Language` from this shared module: `CodePreview.tsx`, `CodeEditor.tsx`, `LanguageBadge.tsx`, `AppSidebar.tsx`, and `SnippetFormModal.tsx`.
 
 ## Token type catalog
 
@@ -98,10 +98,10 @@ Figure: Language routing into the tokenizer
 
 ```mermaid
 graph TD
-    tokenize["tokenize("code, language")"] --> JS["JavaScript"]
-    tokenize --> PY["Python"]
-    tokenize --> SQ["SQL"]
-    tokenize --> MD["Markdown"]
+    tokenize["tokenize("code, language")"] --> JS[JavaScript]
+    tokenize --> PY[Python]
+    tokenize --> SQ[SQL]
+    tokenize --> MD[Markdown]
 ```
 
 The editor's placeholder confirms JavaScript syntax conventions: `"// Paste or write your code here"`.
@@ -119,7 +119,7 @@ Figure: Tokenizer pipeline from source to DOM
 ```mermaid
 graph LR
     Source["Source code string"] --> Tokenize["tokenize("code, language")"]
-    Tokenize --> Tokens["Token array ("type, value")"]
+    Tokenize --> Tokens["Token array"]
     Tokens --> Render["Highlighted component"]
     Render --> Spans["span elements per token"]
     Spans --> CSS["text-syn-* palette"]
@@ -257,7 +257,7 @@ sequenceDiagram
     Editor->>Highlight: tokenize(value + "\n", language)
     Highlight->>Tokenizer: tokenize("code, language")
     Tokenizer-->>Highlight: tokens
-    Highlight-->>Editor: highlighted <pre> overlay
+    Highlight-->>Editor: highlighted pre overlay
     Editor-->>Form: user text via textarea onChange
 ```
 
@@ -272,7 +272,7 @@ No other component touches the tokenizer directly. `SnippetCard`, `SnippetDetail
 
 ## Extending to a new language or token type
 
-The extension surface is localized to two files:
+The extension surface is localized to the shared types and two render-related files:
 
 1. Add or adjust the `Language` union in `src/lib/snippets/types.ts` and update `LANGUAGES`. This change flows automatically to `AppSidebar`, `SearchFilterBar`, and `SnippetFormModal`, all of which iterate `LANGUAGES`.
 2. Update `LANG_DOT` in `src/components/LanguageBadge.tsx` with a color class for the new language.

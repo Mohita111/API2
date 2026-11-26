@@ -2,8 +2,8 @@
 
 This guide covers two supported ways to work with the CodeKnit repository:
 
-- **Local npm workflow**, clone the repository, install dependencies, and run the Vite dev server on your machine.
-- **Lovable editor workflow**, use the Lovable IDE with GitHub sync, then optionally switch to local development.
+- **Local npm workflow**: clone the repository, install dependencies, and run the Vite dev server on your machine.
+- **Lovable editor workflow**: use the Lovable IDE with GitHub sync, then optionally switch to local development.
 
 The project is built with TanStack Start, TypeScript, React, and Tailwind CSS. The Vite configuration is provided by `@lovable.dev/vite-tanstack-config`, so most plugin setup is already handled for you.
 
@@ -54,6 +54,7 @@ graph TD
 
    ```sh
    ```
+
 
 4. Install dependencies:
 

@@ -60,6 +60,14 @@ The initial filter object is defined as:
 const DEFAULTS: SnippetFilters = { query: "", language: "all", category: "all", tag: "all", sort: "recent" };
 ```
 
+Section display titles are kept in a module-level `TITLES` map and selected by `section` during render:
+
+```tsx
+const TITLES: Record<Section, string> = {
+  dashboard: "Your Snippets", all: "All Snippets", favorites: "Favorites", recent: "Recently Added", used: "Recently Used",
+};
+```
+
 ## Derived state
 
 `AppLayout` uses `useMemo` to derive the values it passes to the sidebar and filter bar, avoiding recalculation on every render.
@@ -159,7 +167,7 @@ const openNew = () => {
 };
 ```
 
-`openNew` is used by the header **New Snippet** button, the sidebar footer button, and `EmptyState` when there are no snippets.
+`openNew` is used by the header **New Snippet** button (desktop and mobile variants), the sidebar footer button, and `EmptyState` when there are no snippets.
 
 ### Open edit snippet
 
@@ -229,7 +237,7 @@ const confirmDelete = async () => {
 };
 ```
 
-`confirmDelete` is triggered by `ConfirmDeleteDialog`. After a successful delete, it closes the detail viewer only if the deleted snippet was the one being viewed. The dialog is closed by resetting `deleting` to `null`.
+`confirmDelete` is triggered by `ConfirmDeleteDialog`. After a successful delete, it closes the detail viewer only if the deleted snippet was the one being viewed. The dialog is closed by resetting `deleting` to `null` in the `finally` path, meaning the dialog closes even if deletion fails.
 
 ### Toggle favorite
 
@@ -278,13 +286,15 @@ Figure: AppLayout UI state transitions
 stateDiagram-v2
     [*] --> Browsing
     Browsing --> Viewing: onView(s)
-    Browsing --> Editing: openNew() or openEdit(s)
-    Viewing --> Editing: onEdit
-    Browsing --> Deleting: onDelete(s)
-    Viewing --> Deleting: onDelete
-    Deleting --> Viewing: cancel
-    Deleting --> Browsing: confirmDelete()
+    Viewing --> Browsing: onClose
+    Browsing --> Editing: openNew()
+    Viewing --> Editing: onEdit(s)
     Editing --> Browsing: form closes
+    Browsing --> Deleting: onDelete from card
+    Viewing --> Deleting: onDelete from viewer
+    Deleting --> Browsing: confirmDelete()
+    Deleting --> Browsing: cancel from card
+    Deleting --> Viewing: cancel from viewer
 ```
 
 ## Layout persistence
@@ -363,6 +373,7 @@ Each visible `SnippetCard` receives these callback props from `AppLayout`:
 - The `recent` section intentionally overrides the user's sort filter to enforce newest-first order.
 - `clear` resets query, language, category, and tag but keeps the selected sort value.
 - `recordCopied` is called only after a successful clipboard copy in both `SnippetCard` and `SnippetDetailViewer`. The card path suppresses record errors; the viewer path surfaces them with a toast.
+- The delete confirmation dialog does not close the underlying detail viewer. `viewingId` is only cleared in `confirmDelete` after the repository `remove` succeeds and only if the deleted snippet matches the current viewer.
 
 ## Related pages
 

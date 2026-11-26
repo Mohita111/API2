@@ -19,6 +19,8 @@ The project uses Vitest as the test runner and jsdom as the browser-like DOM env
 | `@types/react` | `^19.2.0` | React TypeScript types |
 | `@types/react-dom` | `^19.2.0` | React DOM TypeScript types |
 
+Before writing tests, make sure you have the local development environment installed. See [Setting Up CodeKnit for Local Development](doc:c0ebfbd6-9278-4326-a87a-bde159a8a795).
+
 ## Running tests
 
 The `package.json` file defines two test scripts:
@@ -76,7 +78,7 @@ export default defineConfig({
 - **`test.include`** limits discovery to `src/**/*.{test,spec}.{ts,tsx}`.
 - **`resolve.alias`** maps the `@` prefix to `./src`, so test files can import through the same alias as application code.
 
-### Setup file
+## Setup file
 
 The setup file is expected to register Testing Library DOM matchers. If `src/test/setup.ts` does not yet exist in a new checkout, create it with:
 
@@ -88,7 +90,7 @@ This gives you matchers such as `toBeInTheDocument()` and `toHaveValue()` inside
 
 ## Test discovery and execution flow
 
-The following diagram shows how `npm test` reads the Vitest configuration, applies the jsdom environment, and runs the discovered test files.
+The following diagram shows how `npm test` reads the Vitest configuration, applies the jsdom environment, registers DOM matchers, and runs the discovered test files.
 
 Figure: Vitest test discovery and execution flow
 
@@ -96,15 +98,15 @@ Figure: Vitest test discovery and execution flow
 graph TD
   A["npm test"] --> B["vitest run"]
   B --> C["Load vitest.config.ts"]
-  C --> D["environment: jsdom"]
-  C --> E["setupFiles: src/test/setup.ts"]
-  C --> F["include: src/**/*.test.tsx"]
-  F --> G["Discover test files"]
-  D --> H["Run tests in DOM environment"]
-  E --> H
-  G --> H
-  H --> I["Component, hook, or utility assertions"]
-  I --> J["Register jest-dom matchers"]
+  C --> D["test.environment: jsdom"]
+  C --> E["test.setupFiles: src/test/setup.ts"]
+  C --> F["test.include: src/**/*.{"test,spec"}.{"ts,tsx"}"]
+  E --> G["Register jest-dom matchers"]
+  F --> H["Discover test files"]
+  D --> I["Run tests in DOM environment"]
+  G --> I
+  H --> I
+  I --> J["Component, hook, or utility assertions"]
 ```
 
 ## Choosing a test pattern
@@ -255,7 +257,7 @@ import { describe, it, expect } from "vitest";
 import { useCopy } from "@/hooks/useCopy";
 
 describe("useCopy", () => {
-  it("updates copied state after copying", async () => {
+  it("updates copied state after copy is called", () => {
     const { result } = renderHook(() => useCopy("CodeKnit"));
 
     act(() => {
@@ -266,6 +268,8 @@ describe("useCopy", () => {
   });
 });
 ```
+
+If the hook updates state asynchronously, wrap the action with `await act(async () => { ... })` and assert after the promise resolves.
 
 ## Mocking dependencies
 
@@ -299,7 +303,11 @@ The `vi.mock` factory returns the exact shape the component expects. For hooks w
 - Use `act` when a hook updates state outside of React’s normal render cycle.
 - Mock only what is necessary to isolate the unit; let utilities and pure functions run without mocks.
 
+For debugging failing test runs, build issues, or configuration problems, see [Troubleshooting and Debugging](doc:1b203822-fd22-4fd1-ba44-1c369f176899).
+
 ## Related
 
-- [Testing Strategy with Vitest and jsdom](doc:d79b8063-2704-4f35-8dd8-6c2ac12688a5)
 - [Test Strategy and Coverage Guide](doc:96a2d5ff-0db2-4d85-b234-174bbf729513)
+- [Setting Up CodeKnit for Local Development](doc:c0ebfbd6-9278-4326-a87a-bde159a8a795)
+- [Contributing to CodeKnit: Code Standards and GitHub Workflow](doc:8ec33934-0dfd-429e-88a1-89fbed259d51)
+- [Troubleshooting and Debugging](doc:1b203822-fd22-4fd1-ba44-1c369f176899)

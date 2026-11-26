@@ -6,10 +6,10 @@ This guide walks you through cloning the CodeKnit repository, installing depende
 
 Before you start, make sure you have the following installed:
 
-- **Node.js and npm**, the project uses npm as its package manager. The README recommends installing Node.js with nvm.
+- **Node.js and npm**. The project uses npm as its package manager. The README recommends installing Node.js with nvm.
 - **Git**, to clone the repository from GitHub.
 
-The `package.json` file does not declare an `engines` field, but Vite 8 and TanStack Start 1.168 generally require a recent Node.js LTS release (Node 20 or 22).
+The `package.json` file does not declare an `engines` field, so no specific Node.js version is enforced by the project. If your Vite or TanStack Start tooling reports an unsupported Node version, upgrade to a recent Node.js LTS release.
 
 ## Clone the repository
 
@@ -50,6 +50,16 @@ Key development dependencies include:
 - `vitest` `4.1.10`
 - `@lovable.dev/vite-tanstack-config` `2.26.5`
 
+The `package.json` also includes an `overrides` entry that pins `rolldown` to `1.2.1`:
+
+```json
+"overrides": {
+  "rolldown": "1.2.1"
+}
+```
+
+This override applies to transitive dependencies and should not be removed unless you fully understand the downstream effect on Vite builds.
+
 ## Run the development server
 
 Start the local dev server with:
@@ -65,9 +75,10 @@ This executes the `dev` script from `package.json`, which is `vite dev`. The Vit
 - Tailwind CSS integration
 - TypeScript path aliases
 - Vite environment variable injection for `VITE_*` variables
+- Sandbox detection for port, host, and `strictPort` settings
 - Nitro build integration for production builds
 
-The dev server usually opens at `http://localhost:5173` by default, but the exact port may vary depending on your environment.
+The dev server usually opens at `http://localhost:5173` by default, but the exact port may vary because the Lovable Vite config includes sandbox detection that can adjust the port, host, and `strictPort` settings.
 
 ## Build for production
 
@@ -90,7 +101,7 @@ export default defineConfig({
 });
 ```
 
-The comment in `vite.config.ts` notes that the Lovable config already includes Nitro, which uses Cloudflare as the default target for the production build. Do not manually add duplicate plugins such as TanStack devtools, React, Tailwind, or path alias plugins, because that can break the app.
+The comment in `vite.config.ts` notes that the Lovable config already includes Nitro, which uses Cloudflare as the default target for the production build. Do not manually add duplicate plugins such as TanStack devtools, React, Tailwind, or path alias plugins, because that can break the app with duplicate plugin registrations.
 
 To build with development settings, use:
 
@@ -157,6 +168,11 @@ sequenceDiagram
     Git->>Dev: git pull
 ```
 
+The same `AGENTS.md` file also includes two architecture notes for contributors:
+
+- Snippet data goes through `SnippetRepository` (`src/lib/snippets/repository.ts`), currently backed by localStorage; swap the implementation for an API or database without touching UI components.
+- Syntax highlighting uses a small in-house regex tokenizer (`src/lib/snippets/highlight.ts`) with no Prism dependency, keeping SQL and Markdown support simple.
+
 ## Development environment architecture
 
 The npm scripts and Vite configuration work together as shown in the next diagram.
@@ -178,6 +194,7 @@ graph TD
     I --> L[Tailwind CSS]
     I --> M[Nitro build]
     I --> N[Path aliases]
+    I --> O[Sandbox detection]
 ```
 
 ## Next steps

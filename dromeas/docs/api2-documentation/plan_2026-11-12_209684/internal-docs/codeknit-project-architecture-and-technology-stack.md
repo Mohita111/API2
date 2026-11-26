@@ -175,7 +175,7 @@ TanStack Start bundles applications through **Nitro**, which provides a portable
 }
 ```
 
-This override exists to lock the rolldown bundler (used by the Vite/TanStack toolchain) to a compatible version, likely to avoid a known incompatibility in the dependency tree. Any upgrade or dependency change that removes this override should be tested against the full build.
+This override exists to lock the rolldown bundler (used by the Vite/TanStack toolchain) to a compatible version. Any upgrade or dependency change that removes this override should be tested against the full build.
 
 ## Lovable integration
 
@@ -248,7 +248,7 @@ To run the project locally:
 3. Run `npm i` to install dependencies.
 4. Run `npm run dev` to start the Vite dev server.
 
-The full local environment setup is described in [Setting Up CodeKnit for Local Development](doc:c0ebfbd6-9278-4326-a87a-bde159a8a795) and [Setting Up CodeKnit Development Environment](doc:4250b87f-66ca-457d-9f4c-995cbfb65108). For a product-level introduction, see [CodeKnit at a Glance](doc:b3df12da-fa68-4b4a-b3a7-3e00676bcf75).
+For a product-level introduction and first-run guidance, see [CodeKnit at a Glance](doc:b3df12da-fa68-4b4a-b3a7-3e00676bcf75) and [CodeKnit Quick Start Guide](doc:41505f41-83d3-4d30-a339-3621e671d025). The full local environment setup is described in [Setting Up CodeKnit for Local Development](doc:c0ebfbd6-9278-4326-a87a-bde159a8a795) and [Setting Up CodeKnit Development Environment](doc:4250b87f-66ca-457d-9f4c-995cbfb65108).
 
 ## Testing and quality tooling
 

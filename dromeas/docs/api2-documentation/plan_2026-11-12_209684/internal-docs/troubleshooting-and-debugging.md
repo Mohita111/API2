@@ -21,16 +21,18 @@ The project has no dedicated `typecheck` script. Because `tsconfig.json` sets `"
 
 ## Diagnosis flow
 
+The following diagram shows the first branching point for a failing script and the most common checks for each command family.
+
 Figure: Common script failure diagnosis flow
 
 ```mermaid
-flowchart TD
-    A[Failing script] --> B{"Which command?"}
+graph TD
+    A[Failing script] --> B{"Which command failed?"}
     B -->|npm run dev| C[Development server failure]
     B -->|npm run build| D[Build failure]
     B -->|npm run test| E[Test failure]
     C --> C1["Check port, host, and strictPort"]
-    C --> C2[Check for duplicate plugin registration]
+    C --> C2[Check duplicate plugin registration]
     C --> C3[Check node_modules installation]
     D --> D1[Check TypeScript strict errors]
     D --> D2[Check server entry resolution]
@@ -42,13 +44,13 @@ flowchart TD
 
 ## Build and plugin pipeline
 
-The entire Vite pipeline is wrapped by `@lovable.dev/vite-tanstack-config`. The configuration comment in `vite.config.ts` states that the wrapper already registers TanStack devtools, `tanstackStart`, `viteReact`, Tailwind CSS, `tsConfigPaths`, Nitro, `VITE_*` environment injection, the `@` path alias, React/TanStack deduplication, error logger plugins, and sandbox detection.
+The entire Vite pipeline is wrapped by `@lovable.dev/vite-tanstack-config`, installed as a devDependency at version `2.26.5`. The configuration comment in `vite.config.ts` states that the wrapper already registers TanStack devtools, `tanstackStart`, `viteReact`, Tailwind CSS, `tsConfigPaths`, Nitro, `VITE_*` environment injection, the `@` path alias, React/TanStack deduplication, error logger plugins, and sandbox detection.
 
 Figure: Vite plugin and build pipeline
 
 ```mermaid
-flowchart LR
-    Source[src and config files] --> Wrapper["@lovable.dev/vite-tanstack-config"]
+graph LR
+    Source[Source and config files] --> Wrapper["@lovable.dev/vite-tanstack-config"]
     Wrapper --> Start[TanStack Start]
     Wrapper --> ReactPlugin[React plugin]
     Wrapper --> Tailwind[Tailwind CSS]
@@ -62,13 +64,15 @@ flowchart LR
 
 ### Port, host, and strictPort issues
 
-The Lovable Vite wrapper applies sandbox detection that controls `port`, `host`, and `strictPort`. If the development server cannot bind to its expected port, the likely causes are another process using that port or `strictPort` rejecting an alternate port.
+The Lovable Vite wrapper applies sandbox detection that controls `port`, `host`, and `strictPort`. These values are injected by the wrapper rather than defined in `package.json` or `vite.config.ts`.
+
+If the development server cannot bind to its expected port, the likely causes are another process using that port or `strictPort` rejecting an alternate port.
 
 Diagnosis steps:
 
-1. Run `npm run dev` and read the Vite terminal output.
-2. If the port is occupied, stop the conflicting process or clear the assigned port.
-3. If `strictPort` blocks fallback, check the environment configuration supplied by the sandbox or Lovable runtime.
+1. Run `npm run dev` and read the Vite terminal output for the resolved host and port.
+2. If the port is occupied, stop the conflicting process or allow the runtime to assign a different port.
+3. If `strictPort` blocks fallback, inspect the sandbox or Lovable runtime environment that supplies these settings.
 4. Re-run `npm run dev`.
 
 ### Duplicate plugin failures
@@ -117,17 +121,22 @@ tanstackStart: {
 },
 ```
 
-The comment in `vite.config.ts` describes this file as the SSR error wrapper. If the build cannot resolve the server entry, ensure `src/server.ts` exists and exports the expected server handler.
+The comment in `vite.config.ts` describes this file as the SSR error wrapper, and says Nitro/Vite builds from this entry. If the build cannot resolve the server entry, ensure `src/server.ts` exists and exports the expected server handler.
 
 ### TypeScript strict compile errors
 
-`tsconfig.json` enables strict checking. Many build failures trace back to one of these compiler options:
+`tsconfig.json` enables strict checking. Because `package.json` has no dedicated `typecheck` script and the `build` script is `vite build`, TypeScript strict errors may not block every Vite build by default. They surface through editor tooling, CI steps that run `npx tsc --noEmit`, or build tooling that performs type checks.
+
+Run `npx tsc --noEmit` before `npm run build` to catch strict TypeScript failures directly.
+
+These compiler options can produce the relevant failures:
 
 | Compiler option | Value | Failure mode |
 | --- | --- | --- |
 | `strict` | `true` | Enables all strict type-checking rules |
 | `noImplicitReturns` | `true` | A function path fails to return a value |
 | `noFallthroughCasesInSwitch` | `true` | A `switch` case falls through without `break` or `return` |
+| `noImplicitOverride` | `true` | A subclass member overrides a base member without `override` |
 | `noPropertyAccessFromIndexSignature` | `true` | Accessing an index signature with dot notation instead of brackets |
 | `noUncheckedIndexedAccess` | `true` | Indexed access may produce `undefined` |
 | `exactOptionalPropertyTypes` | `true` | An optional property receives an explicit `undefined` value |
@@ -147,8 +156,8 @@ Diagnosis steps:
 1. Run `npx tsc --noEmit` from the project root.
 2. Read each reported TypeScript error.
 3. Match the error to the compiler option in the table.
-4. Fix the source code path or add the missing return, bracket access, or optional property handling.
-5. Re-run `npm run build`.
+4. Fix the source code path or add the missing return, bracket access, override modifier, or optional property handling.
+5. Re-run `npx tsc --noEmit` and then `npm run build`.
 
 ## Dependency and installation failures
 
@@ -276,10 +285,12 @@ Vitest global types are declared in `tsconfig.json`:
 }
 ```
 
+The provided source context includes `vitest.config.ts` in the `tsconfig.json` include array, but does not include the contents of `vitest.config.ts`. Inspect that file in the repository to confirm the exact test include globs and environment assignment.
+
 Diagnosis steps for test failures:
 
 1. Run `npm run test` for a single pass.
-2. If tests cannot access DOM APIs, confirm `jsdom` is installed and the Vitest configuration selects `jsdom` as the test environment.
+2. If tests cannot access DOM APIs, confirm `jsdom` is installed and confirm that `vitest.config.ts` selects `jsdom` as the test environment. Its presence in `devDependencies` alone does not enable the environment.
 3. If `describe`, `it`, `expect`, or other Vitest globals show as missing types, confirm `vitest/globals` is present in the `types` array in `tsconfig.json`.
 4. If tests are not discovered, verify the test files match the include patterns in `vitest.config.ts`.
 5. Use `npm run test:watch` to isolate a failing test file during debugging.
@@ -295,7 +306,8 @@ The project includes these testing libraries in `devDependencies`:
 
 ## Runtime failure routes
 
-Runtime failures during SSR are routed through `src/server.ts` because the configured TanStack Start server entry is `server`. The comment calls this file the SSR error wrapper. If a runtime SSR error occurs, begin diagnosis at `src/server.ts`, then trace the failing route or server handler back into the application.
+Runtime failures during SSR are routed through `src/server.ts` because the configured TanStack Start server entry is `server`. The comment in `vite.config.ts` calls this file the SSR error wrapper.
+
 
 ## Related pages
 
@@ -303,3 +315,4 @@ Runtime failures during SSR are routed through `src/server.ts` because the confi
 - [Unit Testing Strategy: Vitest, jsdom, and Test Examples](doc:79ef8d7b-27d7-41ff-b361-9721a150f157)
 - [Build, Deployment, and CI/CD Pipeline](doc:8f1afe44-379f-4bc0-95dd-ea0856776048)
 - [Code Style, Pull Request, and Review Guidelines](doc:670dbb7b-1d60-41aa-a474-dc3e1aeb2045)
+- [Troubleshooting Snippet Import Failures](doc:d77b5573-f9ec-4856-9376-643a1ef65ada)
