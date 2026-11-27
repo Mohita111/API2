@@ -161,6 +161,8 @@ export function AppLayout() {
           onEdit={() => viewing && openEdit(viewing)}
           onDelete={() => viewing && setDeleting(viewing)}
           onToggleFavorite={() => viewing && fav(viewing)}
+          onTogglePinned={() => viewing && pin(viewing)}
+          onToggleArchived={() => viewing && archive(viewing)}
         />
         <SnippetFormModal open={formOpen} onOpenChange={setFormOpen} editing={editing} categories={categories.map((c) => c.name)} />
         <ConfirmDeleteDialog open={!!deleting} title={deleting?.title} onOpenChange={(o) => !o && setDeleting(null)} onConfirm={confirmDelete} />
