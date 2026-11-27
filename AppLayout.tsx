@@ -8,7 +8,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { filterSnippets } from "@/lib/snippets/filter";
-import { buildDuplicateInput } from "@/lib/snippets/duplicate";
 import { useSnippets } from "@/lib/snippets/store";
 import type { Snippet, SnippetFilters } from "@/lib/snippets/types";
 import { AppSidebar, type Section } from "./AppSidebar";
@@ -23,11 +22,11 @@ import { StatsCards } from "./StatsCards";
 
 const DEFAULTS: SnippetFilters = { query: "", language: "all", category: "all", tag: "all", sort: "recent" };
 const TITLES: Record<Section, string> = {
-  dashboard: "Your Snippets", all: "All Snippets", favorites: "Favorites", recent: "Recently Added", used: "Recently Used",
+  dashboard: "Your Snippets", all: "All Snippets", favorites: "Favorites", recent: "Recently Added", archived: "Archived Snippets",
 };
 
 export function AppLayout() {
-  const { snippets, status, error, reload, create, remove, toggleFavorite, recordCopied } = useSnippets();
+  const { snippets, status, error, reload, remove, toggleFavorite, togglePinned, toggleArchived } = useSnippets();
   const [section, setSection] = useState<Section>("dashboard");
   const [filters, setFilters] = useState<SnippetFilters>(DEFAULTS);
   const [layout, setLayout] = useState<"grid" | "list">("grid");
@@ -52,15 +51,9 @@ export function AppLayout() {
   const tags = useMemo(() => [...new Set(snippets.flatMap((s) => s.tags))].sort(), [snippets]);
 
   const visible = useMemo(() => {
-    const f = { ...filters, favoritesOnly: section === "favorites", sort: section === "recent" ? "recent" as const : filters.sort };
+    const f = { ...filters, favoritesOnly: section === "favorites", archivedOnly: section === "archived", sort: section === "recent" ? "recent" as const : filters.sort };
     const r = filterSnippets(snippets, f);
-    if (section === "recent") return r.slice(0, 10);
-    if (section === "used") {
-      return r
-        .filter((s) => Boolean(s.lastCopiedAt))
-        .sort((a, b) => (b.lastCopiedAt ?? "").localeCompare(a.lastCopiedAt ?? ""));
-    }
-    return r;
+    return section === "recent" ? r.slice(0, 10) : r;
   }, [snippets, filters, section]);
 
   const hasActive = filters.query !== "" || filters.language !== "all" || filters.category !== "all" || filters.tag !== "all";
@@ -70,14 +63,8 @@ export function AppLayout() {
   const openNew = () => { setEditing(null); setFormOpen(true); };
   const openEdit = (s: Snippet) => { setViewingId(null); setEditing(s); setFormOpen(true); };
   const fav = (s: Snippet) => toggleFavorite(s.id).catch((e: Error) => toast.error(e.message));
-  const duplicate = async (s: Snippet) => {
-    try {
-      const created = await create(buildDuplicateInput(s, snippets.map((item) => item.title)));
-      toast.success(`Created "${created.title}"`);
-    } catch (e) {
-      toast.error((e as Error).message);
-    }
-  };
+  const pin = (s: Snippet) => togglePinned(s.id).then(() => toast.success(s.isPinned ? "Snippet unpinned" : "Snippet pinned to top")).catch((e: Error) => toast.error(e.message));
+  const archive = (s: Snippet) => toggleArchived(s.id).then(() => toast.success(s.isArchived ? "Snippet restored" : "Snippet archived")).catch((e: Error) => toast.error(e.message));
   const confirmDelete = async () => {
     if (!deleting) return;
     try {
@@ -96,7 +83,7 @@ export function AppLayout() {
           language={filters.language} onLanguage={(l) => update({ language: l })}
           category={filters.category} onCategory={(c) => update({ category: c })}
           categories={categories}
-          counts={{ all: snippets.length, favorites: snippets.filter((s) => s.isFavorite).length, used: snippets.filter((s) => Boolean(s.lastCopiedAt)).length }}
+          counts={{ all: snippets.filter((s) => !s.isArchived).length, favorites: snippets.filter((s) => s.isFavorite && !s.isArchived).length, archived: snippets.filter((s) => s.isArchived).length }}
           onNew={openNew} onSettings={() => setSettingsOpen(true)}
         />
         <SidebarInset className="min-w-0">
@@ -152,21 +139,15 @@ export function AppLayout() {
                 </div>
               )}
               {status === "ready" && (visible.length === 0 ? (
-                <EmptyState
-                  filtered={hasActive || section === "favorites" || section === "used"}
-                  title={section === "used" && !hasActive ? "No recently used snippets" : undefined}
-                  description={section === "used" && !hasActive ? "Copy a snippet to see it here, ordered by most recently copied." : undefined}
-                  actionLabel={section === "used" && !hasActive ? "Browse all snippets" : undefined}
-                  onClear={() => { clear(); setSection("all"); }} onCreate={openNew}
-                />
+                <EmptyState filtered={hasActive || section === "favorites"} onClear={() => { clear(); setSection("all"); }} onCreate={openNew} />
               ) : (
                 <div className={cn("grid gap-4", layout === "grid" ? "md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1")}>
                   {visible.map((s) => (
                     <SnippetCard
                       key={s.id} snippet={s} layout={layout}
                       onView={() => setViewingId(s.id)} onEdit={() => openEdit(s)}
-                      onDelete={() => setDeleting(s)} onDuplicate={() => { void duplicate(s); }} onToggleFavorite={() => fav(s)}
-                      onRecordCopy={() => recordCopied(s.id)}
+                      onDelete={() => setDeleting(s)} onToggleFavorite={() => fav(s)}
+                      onTogglePinned={() => pin(s)} onToggleArchived={() => archive(s)}
                     />
                   ))}
                 </div>
@@ -179,9 +160,7 @@ export function AppLayout() {
           snippet={viewing} onClose={() => setViewingId(null)}
           onEdit={() => viewing && openEdit(viewing)}
           onDelete={() => viewing && setDeleting(viewing)}
-          onDuplicate={() => viewing && void duplicate(viewing)}
           onToggleFavorite={() => viewing && fav(viewing)}
-          onRecordCopy={() => viewing ? recordCopied(viewing.id).catch((e: Error) => { toast.error(e.message); }) : Promise.resolve()}
         />
         <SnippetFormModal open={formOpen} onOpenChange={setFormOpen} editing={editing} categories={categories.map((c) => c.name)} />
         <ConfirmDeleteDialog open={!!deleting} title={deleting?.title} onOpenChange={(o) => !o && setDeleting(null)} onConfirm={confirmDelete} />
