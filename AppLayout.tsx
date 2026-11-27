@@ -25,55 +25,155 @@ const TITLES: Record<Section, string> = {
   dashboard: "Your Snippets", all: "All Snippets", favorites: "Favorites", recent: "Recently Added", archived: "Archived Snippets",
 };
 
-export function AppLayout() {
-  const { snippets, status, error, reload, remove, toggleFavorite, togglePinned, toggleArchived } = useSnippets();
-  const [section, setSection] = useState<Section>("dashboard");
+function deriveCategories(snippets: Snippet[]) {
+  const m = new Map<string, number>();
+  snippets.forEach((s) => m.set(s.category, (m.get(s.category) ?? 0) + 1));
+  return [...m].map(([name, count]) => ({ name, count })).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function deriveTags(snippets: Snippet[]) {
+  return [...new Set(snippets.flatMap((s) => s.tags))].sort();
+}
+
+function deriveCounts(snippets: Snippet[]) {
+  return {
+    all: snippets.filter((s) => !s.isArchived).length,
+    favorites: snippets.filter((s) => s.isFavorite && !s.isArchived).length,
+    archived: snippets.filter((s) => s.isArchived).length,
+  };
+}
+
+function getVisibleSnippets(snippets: Snippet[], filters: SnippetFilters, section: Section) {
+  const f = {
+    ...filters,
+    favoritesOnly: section === "favorites",
+    archivedOnly: section === "archived",
+    sort: section === "recent" ? "recent" as const : filters.sort,
+  };
+  const r = filterSnippets(snippets, f);
+  return section === "recent" ? r.slice(0, 10) : r;
+}
+
+function useSnippetFilters() {
   const [filters, setFilters] = useState<SnippetFilters>(DEFAULTS);
+  const update = (p: Partial<SnippetFilters>) => setFilters((f) => ({ ...f, ...p }));
+  const clear = () => setFilters((f) => ({ ...DEFAULTS, sort: f.sort }));
+  const hasActive = filters.query !== "" || filters.language !== "all" || filters.category !== "all" || filters.tag !== "all";
+  return { filters, update, clear, hasActive };
+}
+
+function useLayoutPreference() {
   const [layout, setLayout] = useState<"grid" | "list">("grid");
-  const [formOpen, setFormOpen] = useState(false);
-  const [editing, setEditing] = useState<Snippet | null>(null);
-  const [viewingId, setViewingId] = useState<string | null>(null);
-  const [deleting, setDeleting] = useState<Snippet | null>(null);
-  const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("codeknit.layout");
     if (saved === "list" || saved === "grid") setLayout(saved);
   }, []);
-  const changeLayout = (l: "grid" | "list") => { setLayout(l); localStorage.setItem("codeknit.layout", l); };
+
+  const changeLayout = (l: "grid" | "list") => {
+    setLayout(l);
+    localStorage.setItem("codeknit.layout", l);
+  };
+
+  return { layout, changeLayout };
+}
+
+type SnippetActionsDeps = Pick<
+  ReturnType<typeof useSnippets>,
+  "snippets" | "remove" | "toggleFavorite" | "togglePinned" | "toggleArchived"
+>;
+
+function useSnippetActions({ snippets, remove, toggleFavorite, togglePinned, toggleArchived }: SnippetActionsDeps) {
+  const [formOpen, setFormOpen] = useState(false);
+  const [editing, setEditing] = useState<Snippet | null>(null);
+  const [viewingId, setViewingId] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<Snippet | null>(null);
 
   const viewing = snippets.find((s) => s.id === viewingId) ?? null;
-  const categories = useMemo(() => {
-    const m = new Map<string, number>();
-    snippets.forEach((s) => m.set(s.category, (m.get(s.category) ?? 0) + 1));
-    return [...m].map(([name, count]) => ({ name, count })).sort((a, b) => a.name.localeCompare(b.name));
-  }, [snippets]);
-  const tags = useMemo(() => [...new Set(snippets.flatMap((s) => s.tags))].sort(), [snippets]);
 
-  const visible = useMemo(() => {
-    const f = { ...filters, favoritesOnly: section === "favorites", archivedOnly: section === "archived", sort: section === "recent" ? "recent" as const : filters.sort };
-    const r = filterSnippets(snippets, f);
-    return section === "recent" ? r.slice(0, 10) : r;
-  }, [snippets, filters, section]);
+  const openNew = () => {
+    setEditing(null);
+    setFormOpen(true);
+  };
 
-  const hasActive = filters.query !== "" || filters.language !== "all" || filters.category !== "all" || filters.tag !== "all";
-  const update = (p: Partial<SnippetFilters>) => setFilters((f) => ({ ...f, ...p }));
-  const clear = () => setFilters((f) => ({ ...DEFAULTS, sort: f.sort }));
+  const openEdit = (s: Snippet) => {
+    setViewingId(null);
+    setEditing(s);
+    setFormOpen(true);
+  };
 
-  const openNew = () => { setEditing(null); setFormOpen(true); };
-  const openEdit = (s: Snippet) => { setViewingId(null); setEditing(s); setFormOpen(true); };
   const fav = (s: Snippet) => toggleFavorite(s.id).catch((e: Error) => toast.error(e.message));
-  const pin = (s: Snippet) => togglePinned(s.id).then(() => toast.success(s.isPinned ? "Snippet unpinned" : "Snippet pinned to top")).catch((e: Error) => toast.error(e.message));
-  const archive = (s: Snippet) => toggleArchived(s.id).then(() => toast.success(s.isArchived ? "Snippet restored" : "Snippet archived")).catch((e: Error) => toast.error(e.message));
+
+  const pin = (s: Snippet) =>
+    togglePinned(s.id)
+      .then(() => toast.success(s.isPinned ? "Snippet unpinned" : "Snippet pinned to top"))
+      .catch((e: Error) => toast.error(e.message));
+
+  const archive = (s: Snippet) =>
+    toggleArchived(s.id)
+      .then(() => toast.success(s.isArchived ? "Snippet restored" : "Snippet archived"))
+      .catch((e: Error) => toast.error(e.message));
+
   const confirmDelete = async () => {
     if (!deleting) return;
     try {
       await remove(deleting.id);
       if (viewingId === deleting.id) setViewingId(null);
       toast.success("Snippet deleted");
-    } catch (e) { toast.error((e as Error).message); }
+    } catch (e) {
+      toast.error((e as Error).message);
+    }
     setDeleting(null);
   };
+
+  return {
+    formOpen,
+    setFormOpen,
+    editing,
+    setEditing,
+    viewingId,
+    setViewingId,
+    deleting,
+    setDeleting,
+    viewing,
+    openNew,
+    openEdit,
+    fav,
+    pin,
+    archive,
+    confirmDelete,
+  };
+}
+
+export function AppLayout() {
+  const { snippets, status, error, reload, remove, toggleFavorite, togglePinned, toggleArchived } = useSnippets();
+  const [section, setSection] = useState<Section>("dashboard");
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
+  const { filters, update, clear, hasActive } = useSnippetFilters();
+  const { layout, changeLayout } = useLayoutPreference();
+
+  const {
+    formOpen,
+    setFormOpen,
+    editing,
+    viewingId,
+    setViewingId,
+    deleting,
+    setDeleting,
+    viewing,
+    openNew,
+    openEdit,
+    fav,
+    pin,
+    archive,
+    confirmDelete,
+  } = useSnippetActions({ snippets, remove, toggleFavorite, togglePinned, toggleArchived });
+
+  const categories = useMemo(() => deriveCategories(snippets), [snippets]);
+  const tags = useMemo(() => deriveTags(snippets), [snippets]);
+  const counts = useMemo(() => deriveCounts(snippets), [snippets]);
+  const visible = useMemo(() => getVisibleSnippets(snippets, filters, section), [snippets, filters, section]);
 
   return (
     <TooltipProvider delayDuration={300}>
@@ -83,7 +183,7 @@ export function AppLayout() {
           language={filters.language} onLanguage={(l) => update({ language: l })}
           category={filters.category} onCategory={(c) => update({ category: c })}
           categories={categories}
-          counts={{ all: snippets.filter((s) => !s.isArchived).length, favorites: snippets.filter((s) => s.isFavorite && !s.isArchived).length, archived: snippets.filter((s) => s.isArchived).length }}
+          counts={counts}
           onNew={openNew} onSettings={() => setSettingsOpen(true)}
         />
         <SidebarInset className="min-w-0">
