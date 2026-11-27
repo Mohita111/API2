@@ -1,4 +1,4 @@
-import { Check, Copy, CopyPlus, Eye, MoreHorizontal, Pencil, Star, Trash2, Folder } from "lucide-react";
+import { Archive, ArchiveRestore, Check, Copy, Eye, MoreHorizontal, Pencil, Star, Trash2, Folder, Pin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
@@ -16,9 +16,9 @@ interface Props {
   onView: () => void;
   onEdit: () => void;
   onDelete: () => void;
-  onDuplicate: () => void;
   onToggleFavorite: () => void;
-  onRecordCopy: () => Promise<void>;
+  onTogglePinned: () => void;
+  onToggleArchived: () => void;
 }
 
 function IconAction({ label, onClick, children, active }: { label: string; onClick: () => void; children: React.ReactNode; active?: boolean }) {
@@ -35,7 +35,7 @@ function IconAction({ label, onClick, children, active }: { label: string; onCli
   );
 }
 
-export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onDuplicate, onToggleFavorite, onRecordCopy }: Props) {
+export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onToggleFavorite, onTogglePinned, onToggleArchived }: Props) {
   const { copied, copy } = useCopy();
   const list = layout === "list";
   return (
@@ -58,6 +58,7 @@ export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onDu
             <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
               <LanguageBadge language={s.language} />
               <span className="inline-flex items-center gap-1"><Folder className="h-3 w-3" />{s.category}</span>
+              {s.isPinned && <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 font-medium text-primary"><Pin className="h-3 w-3" />Pinned</span>}
             </div>
           </div>
           <div className="flex shrink-0 items-center">
@@ -76,8 +77,9 @@ export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onDu
                 <TooltipContent>More actions</TooltipContent>
               </Tooltip>
               <DropdownMenuContent align="end" onClick={(e) => e.stopPropagation()}>
+                <DropdownMenuItem onSelect={onTogglePinned}><Pin className="h-4 w-4" />{s.isPinned ? "Unpin snippet" : "Pin to top"}</DropdownMenuItem>
+                <DropdownMenuItem onSelect={onToggleArchived}>{s.isArchived ? <ArchiveRestore className="h-4 w-4" /> : <Archive className="h-4 w-4" />}{s.isArchived ? "Restore snippet" : "Archive snippet"}</DropdownMenuItem>
                 <DropdownMenuItem onSelect={onEdit}><Pencil className="h-4 w-4" />Edit</DropdownMenuItem>
-                <DropdownMenuItem onSelect={onDuplicate}><CopyPlus className="h-4 w-4" />Duplicate</DropdownMenuItem>
                 <DropdownMenuItem onSelect={onDelete} className="text-destructive focus:text-destructive">
                   <Trash2 className="h-4 w-4" />Delete
                 </DropdownMenuItem>
@@ -103,14 +105,11 @@ export function SnippetCard({ snippet: s, layout, onView, onEdit, onDelete, onDu
   function CardFooter() {
     return (
       <div className="mt-auto flex items-center justify-between gap-2 pt-1">
-        <div className="flex flex-col gap-0.5">
-          <time dateTime={s.updatedAt} className="text-xs text-muted-foreground">
-            {s.updatedAt !== s.createdAt ? "Updated " : ""}{formatDate(s.updatedAt)}
-          </time>
-          {(s.copyCount ?? 0) > 0 && <span className="text-[11px] text-muted-foreground">Copied {s.copyCount} {(s.copyCount ?? 0) === 1 ? "time" : "times"}</span>}
-        </div>
+        <time dateTime={s.updatedAt} className="text-xs text-muted-foreground">
+          {s.updatedAt !== s.createdAt ? "Updated " : ""}{formatDate(s.updatedAt)}
+        </time>
         <div className="flex gap-1.5">
-          <Button size="sm" variant="secondary" className="h-8" onClick={async (e) => { e.stopPropagation(); if (await copy(s.code)) { onRecordCopy().catch(() => undefined); } }}>
+          <Button size="sm" variant="secondary" className="h-8" onClick={(e) => { e.stopPropagation(); copy(s.code); }}>
             {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
             {copied ? "Copied!" : "Copy"}
           </Button>
